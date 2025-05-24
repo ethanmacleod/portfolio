@@ -9,7 +9,7 @@
 </script>
 
 <!-- Content -->
-<div class="flex space-x-4">
+<div class="flex bg-[#ffffcb] p-4">
 	<!-- News -->
 	<div class="flex-1">
 		<h2 class="marquee text-3xl">Latest News</h2>
