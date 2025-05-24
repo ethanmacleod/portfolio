@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Ethan Macleod</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-retroBg text-retroText font-mono mx-8">
+  <center><h1 class="text-4xl blink">Get in Touch</h1><hr width="80%"></center>
+
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="180" valign="top" class="p-2 border-r-2 border-solid border-gray-400">
+        <nav>
+          <ul class="space-y-1">
+            <li><a href="index.html" class="underline">Home</a></li>
+            <li><a href="about.html" class="underline">About</a></li>
+            <li><a href="projects.html" class="underline">Projects</a></li>
+            <li><a href="contact.html" class="underline">Contact</a></li>
+          </ul>
+        </nav>
+      </td>
+      <td valign="top" class="p-4">
+        <h2 class="text-2xl">Leave a Message</h2>
+        <form action="/comments" method="POST">
+          <p>
+            <label>Name:<br>
+              <input type="text" name="name" size="30">
+            </label>
+          </p>
+          <p>
+            <label>Comment:<br>
+              <textarea name="text" rows="5" cols="40"></textarea>
+            </label>
+          </p>
+          <p><input type="submit" value="Post Comment"></p>
+        </form>
+      </td>
+    </tr>
+  </table>
+
+  <hr>
+  <footer class="text-center text-sm p-2">
+    <p><em>Last updated: May 24 2025</em></p>
+  </footer>
+</body>
+</html>
