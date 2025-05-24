@@ -1,55 +1,39 @@
 <script lang="ts">
-	import { type PageData } from './$types';
+	import { page } from '$app/state';
 
-	interface Props {
-		data: PageData;
-	}
-	let { data }: Props = $props();
+	export let data: {
+		news: { id: number; title: string; author: string; created_at: string; content: string }[];
+	};
 
-	console.log(data.news);
+	page.data.title = 'Home';
 </script>
 
-<div class="bg-retroBg text-retroText mx-8 font-mono">
-	<!-- Banner -->
-	<center>
-		<h1 class="blink text-5xl">Welcome to My Site!</h1>
-		<hr class="w-[80%]" />
-	</center>
+<!-- Content -->
+<div class="flex space-x-4">
+	<!-- News -->
+	<div class="flex-1">
+		<h2 class="marquee text-3xl">Latest News</h2>
+		<table width="80%" border="1" cellpadding="5" cellspacing="0" align="center">
+			<tbody>
+				{#each data.news as item (item.id)}
+					<tr>
+						<td>
+							<b>{item.title}</b><br />
+							<small>by {item.author} on {new Date(item.created_at).toLocaleString()}</small>
+							<p>{item.content}</p>
+						</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
 
-	<!-- Main layout table -->
-	<table class="w-full border-collapse">
-		<tbody>
-			<tr>
-				<!-- Sidebar nav -->
-				<td width="180" valign="top" class="border-r-2 border-solid border-gray-400 p-2">
-					<nav>
-						<ul class="space-y-1">
-							<li><a href="/" class="underline">Home</a></li>
-							<li><a href="/about" class="underline">About</a></li>
-							<li><a href="/projects" class="underline">Projects</a></li>
-							<li><a href="/contact" class="underline">Contact</a></li>
-						</ul>
-					</nav>
-				</td>
-
-				<!-- Content -->
-				<td valign="top" class="p-4">
-					<h2 class="marquee text-3xl">Latest News</h2>
-					<div id="news" class="mt-4">
-						{#each data.news as news}
-							<p>{news.title}</p>
-						{/each}
-					</div>
-
-					<div id="pagination" class="mt-4"></div>
-
-					<h2 class="mt-4 text-2xl">Quick Links</h2>
-					<ul>
-						<li><a href="#comments" class="underline">Leave a comment</a></li>
-						<li><a href="/projects#project1" class="underline">Project #1</a></li>
-					</ul>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<!-- Widgets -->
+	<div class="w-60 border-l-2 border-solid border-gray-400 p-2">
+		<h3 class="mb-2 text-xl">Widgets</h3>
+		<ul class="space-y-1">
+			<li><a href="#" class="underline">Widget Link 1</a></li>
+			<li><a href="#" class="underline">Widget Link 2</a></li>
+		</ul>
+	</div>
 </div>
