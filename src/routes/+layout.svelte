@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
-	import LeftNav from '$lib/components/left-nav.svelte';
+	import LeftNav from '$lib/components/nav/left-nav.svelte';
 	import '../app.css';
 </script>
 
@@ -8,7 +8,7 @@
   We switched m-8 → p-8 so that the element
   with min-h-screen doesn’t overflow the viewport.
 -->
-<div class="flex min-h-screen flex-col border-2 border-solid border-gray-400 p-8 font-mono">
+<div class="flex min-h-screen flex-col border-2 border-solid border-gray-400 p-8 font-serif">
 	<!-- Header -->
 	<header class="mb-8">
 		<center>

@@ -1,4 +1,4 @@
-<div class="bg-retroBg text-retroText mx-8 font-mono">
+<div class="bg-retroBg text-retroText mx-8 font-serif">
 	<!-- Main content table -->
 	<table class="w-full border-collapse" border="0" cellspacing="0" cellpadding="0">
 		<tbody>

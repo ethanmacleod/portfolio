@@ -40,6 +40,7 @@
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
+		"prisma": "^6.8.2",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"tailwindcss": "^4.1.7",
@@ -48,5 +49,10 @@
 		"vite": "^6.2.6",
 		"vitest": "^3.0.0",
 		"wrangler": "^4.16.1"
+	},
+	"dependencies": {
+		"@prisma/client": "^6.8.2",
+		"@prisma/extension-accelerate": "^2.0.0",
+		"pg": "^8.16.0"
 	}
 }
