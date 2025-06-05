@@ -10,30 +10,33 @@
 	page.data.title = 'Home';
 </script>
 
-<!-- Content: drop everything one size by adding `text-sm` -->
-<div class="flex bg-[#ffffcb] p-4 text-sm">
-	<!-- News -->
-	<div class="flex-1">
-		<h2 class="marquee text-2xl underline">Latest News</h2>
-		<table width="80%" border="1" cellpadding="5" cellspacing="0" align="center">
-			<tbody>
-				{#each data.news as item (item.id)}
-					<tr>
-						<td class="pl-6">
-							<NewsItem {item} />
-						</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
-	</div>
+<table class="w-full border-collapse bg-[#ffffcb]">
+	<tbody>
+		<tr>
+			<td class="w-[70%] p-4 align-top">
+				<div class="text-left text-2xl font-bold">Latest News</div>
+				<hr class="my-2 border-t-2 border-black" />
+				<table class="w-full">
+					<tbody>
+						{#each data.news as item (item.id)}
+							<tr>
+								<td class="p-2">
+									<NewsItem {item} />
+								</td>
+							</tr>
+						{/each}
+					</tbody>
+				</table>
+			</td>
 
-	<!-- Widgets -->
-	<div class="w-60 border-l-2 border-solid border-gray-400 p-2">
-		<h3 class="mb-2 text-xl">Widgets</h3>
-		<ul class="space-y-1">
-			<li><a href="#" class="text-xs underline">Widget Link 1</a></li>
-			<li><a href="#" class="text-xs underline">Widget Link 2</a></li>
-		</ul>
-	</div>
-</div>
+			<td class="w-[30%] border-l-2 border-gray-500 p-4 align-top">
+				<div class="text-center font-serif text-2xl font-bold">Widgets</div>
+				<hr class="my-2 border-t border-black" />
+				<ul class="list-square ml-5 space-y-1 font-serif text-base">
+					<li><a href="/" class="underline">Widget Link 1</a></li>
+					<li><a href="/" class="underline">Widget Link 2</a></li>
+				</ul>
+			</td>
+		</tr>
+	</tbody>
+</table>

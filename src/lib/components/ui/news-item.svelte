@@ -2,7 +2,7 @@
 	export let item;
 </script>
 
-<article class="mb-6 border border-gray-300 bg-[#d4e9fb] p-2">
+<article class="mb-6 w-full border bg-[#d4e9fb] p-2">
 	<h1 class="text-lg font-bold">
 		{item.title}
 	</h1>
