@@ -28,13 +28,13 @@
 			</section>
 
 			<!-- Widgets -->
-			<!-- <aside class="w-60 border-l-2 border-solid border-gray-400 p-2">
+			<aside class="w-60 border-l-2 border-solid border-gray-400 p-2">
 				<h3 class="mb-2 text-xl">Widgets</h3>
 				<ul class="space-y-1">
-					<li><a href="#" class="underline">Widget Link 1</a></li>
+					<li><a href="boids" class="underline">Boids</a></li>
 					<li><a href="#" class="underline">Widget Link 2</a></li>
 				</ul>
-			</aside> -->
+			</aside>
 		</div>
 	</main>
 
