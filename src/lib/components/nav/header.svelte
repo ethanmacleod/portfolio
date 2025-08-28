@@ -1,5 +1,6 @@
 <script lang="ts">
-	import HeaderWidget from '../HeaderWidget.svelte';
+	import { numberWithOrdinal } from '$lib/functions';
+	import RetroDiv from '../RetroDiv.svelte';
 
 	interface Analytics {
 		totalViews: number;
@@ -9,19 +10,22 @@
 	export let analytics: Analytics;
 </script>
 
-<header class="flex gap-4 bg-black p-2">
-	<HeaderWidget
-		title="Welcome!"
-		text="You are visitor #{analytics.totalViews}!"
-		icon="/gifs/globe.gif"
-		iconAlt="Globe Icon"
-		textColor="text-blue-600"
-	/>
-	<HeaderWidget
-		title="Bad Actors Blocked!"
-		text="{analytics.badActors} bots/scrapers blocked"
-		icon="/gifs/globe.gif"
-		iconAlt="Warning Icon"
-		textColor="text-red-600"
-	/>
+<header class="flex gap-1 bg-black">
+	<RetroDiv>
+		<span class="mb-2 text-left text-sm font-bold">Welcome!</span>
+		<div class="flex items-center gap-2">
+			<img src="/gifs/globe.gif" alt="Globe Icon" class="h-8 w-8" />
+			<span class="text-sm text-blue-600">
+				You are the <span class="text-orange-500">{numberWithOrdinal(analytics.totalViews)}</span> visitor!
+			</span>
+		</div>
+	</RetroDiv>
+
+	<RetroDiv>
+		<span class="mb-2 text-left text-sm font-bold">Bad Actors Blocked</span>
+		<div class="flex items-center gap-2">
+			<img src="/gifs/globe.gif" alt="Warning Icon" class="h-8 w-8" />
+			<span class="text-sm text-red-600">{analytics.badActors} bots/scrapers blocked</span>
+		</div>
+	</RetroDiv>
 </header>
