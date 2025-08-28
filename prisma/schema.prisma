@@ -14,50 +14,6 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model News {
-  id          Int      @id @default(autoincrement())
-  created_at  DateTime @default(now())
-  title       String
-  subtitle    String?
-  content     String?
-  author      String?
-  
-  tags        Tag[]
-
-  @@map("news")
-}
-
-model Tag {
-  id    Int     @id @default(autoincrement())
-  name  String  @unique
-
-  news  News[]
-
-  @@map("tags")
-}
-
-model Visitor {
-  id          Int      @id @default(autoincrement())
-  ipAddress   String
-  userAgent   String
-  timestamp   DateTime @default(now())
-  isBadActor  Boolean  @default(false)
-  page        String
-  sessionId   String?
-
-  @@map("visitors")
-}
-
-model AnalyticsSummary {
-  id            Int      @id @default(autoincrement())
-  uniqueVisitors Int     @default(0)
-  totalViews     Int     @default(0)
-  badActors      Int     @default(0)
-  lastUpdated    DateTime @default(now())
-
-  @@map("analytics_summary")
-}
-
 model Guestbook {
   id          Int      @id @default(autoincrement())
   name        String
