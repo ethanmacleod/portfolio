@@ -2,20 +2,12 @@ import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { RetryAfterRateLimiter } from 'sveltekit-rate-limiter/server';
-import { RATE_LIMIT_SECRET } from '$env/static/private';
 import prisma from '$lib/prisma.server.js';
 import { guestbookSchema } from './schema.js';
 import type { PageServerLoad, Actions } from './$types';
 
 const limiter = new RetryAfterRateLimiter({
-	IP: [50, 'h'],
-	IPUA: [25, 'h'],
-	cookie: {
-		name: 'guestbook_limiter',
-		secret: RATE_LIMIT_SECRET,
-		rate: [3, 'h'],
-		preflight: true
-	}
+	IP: [3, 'h']
 });
 
 function sanitizeHtml(input: string): string {
