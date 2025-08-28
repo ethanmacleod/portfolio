@@ -5,6 +5,7 @@ import { RetryAfterRateLimiter } from 'sveltekit-rate-limiter/server';
 import prisma from '$lib/prisma.server.js';
 import { guestbookSchema } from './schema.js';
 import type { PageServerLoad, Actions } from './$types';
+import { discordGuestBook } from '$lib/server/discord.js';
 
 const limiter = new RetryAfterRateLimiter({
 	IP: [3, 'h']
@@ -118,7 +119,7 @@ export const actions: Actions = {
 		const userAgent = event.request.headers.get('user-agent') || undefined;
 
 		try {
-			await prisma.guestbook.create({
+			const guestEntry = await prisma.guestbook.create({
 				data: {
 					name: sanitizedName,
 					message: sanitizedMessage,
@@ -127,6 +128,7 @@ export const actions: Actions = {
 					userAgent
 				}
 			});
+			discordGuestBook(guestEntry);
 			return { form };
 		} catch (error) {
 			console.error('Error creating guestbook entry:', error);
