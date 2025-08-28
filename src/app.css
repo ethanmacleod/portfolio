@@ -68,6 +68,11 @@
 		-webkit-text-fill-color: transparent;
 		animation: rainbow 3s ease infinite;
 	}
+	
+	.shine-text {
+		color: #228b22;
+		animation: shine 2s ease-in-out infinite;
+	}
 }
 
 @layer utilities {
@@ -100,6 +105,18 @@
 		}
 		100% {
 			background-position: 0% 50%;
+		}
+	}
+	
+	@keyframes shine {
+		0%, 85% {
+			color: #228b22;
+		}
+		92% {
+			color: #32cd32;
+		}
+		100% {
+			color: #228b22;
 		}
 	}
 }

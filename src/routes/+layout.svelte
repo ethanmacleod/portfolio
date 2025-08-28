@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Header from '$lib/components/nav/header.svelte';
 	import LeftNav from '$lib/components/nav/left-nav.svelte';
+	import DynamicHeader from '$lib/components/DynamicHeader.svelte';
 	import '../app.css';
 	import type { LayoutData } from './$types';
 
@@ -14,8 +15,13 @@
 		<LeftNav />
 	</aside>
 
-	<header class="bevel-button bg-gradient-to-r from-black to-gray-900 p-2 text-white">
-		<Header analytics={data.analytics} />
+	<header class="bevel-button bg-gradient-to-r from-black to-gray-900 text-white">
+		<div class="flex h-full w-full items-center justify-between">
+			<div class="my-2 ml-2">
+				<Header analytics={data.analytics} />
+			</div>
+			<DynamicHeader />
+		</div>
 	</header>
 
 	<main class="bevel-inset overflow-auto bg-gradient-to-br from-white to-gray-100 p-4">
