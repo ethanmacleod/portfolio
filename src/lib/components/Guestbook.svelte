@@ -87,7 +87,10 @@
 	});
 
 	$: currentError = (() => {
-		if (serverMessage && serverMessage.includes('You have reached the maximum number of guestbook entries')) {
+		if (
+			serverMessage &&
+			serverMessage.includes('You have reached the maximum number of guestbook entries')
+		) {
 			return 'RATE_LIMIT';
 		}
 		if (serverMessage) {

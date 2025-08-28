@@ -11,6 +11,5 @@
 
 <div class="space-y-6">
 	<AboutMe />
-
 	<Guestbook {data} />
 </div>

@@ -2,6 +2,7 @@ import { fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { RetryAfterRateLimiter } from 'sveltekit-rate-limiter/server';
+import { RATE_LIMIT_SECRET } from '$env/static/private';
 import prisma from '$lib/prisma.server.js';
 import { guestbookSchema } from './schema.js';
 import type { PageServerLoad, Actions } from './$types';
@@ -11,8 +12,8 @@ const limiter = new RetryAfterRateLimiter({
 	IPUA: [25, 'h'],
 	cookie: {
 		name: 'guestbook_limiter',
-		secret: 'guestbook-rate-limit-secret',
-		rate: [5, 'h'],
+		secret: RATE_LIMIT_SECRET,
+		rate: [3, 'h'],
 		preflight: true
 	}
 });
@@ -25,14 +26,6 @@ function sanitizeHtml(input: string): string {
 		.replace(/"/g, '&quot;')
 		.replace(/'/g, '&#x27;')
 		.replace(/\//g, '&#x2F;');
-}
-
-interface GuestbookEntry {
-	id: number;
-	name: string;
-	message: string;
-	location?: string;
-	createdAt: Date;
 }
 
 export const load: PageServerLoad = async ({ url }) => {
@@ -95,33 +88,32 @@ export const actions: Actions = {
 			const form = await superValidate(event.request, zod(guestbookSchema));
 			return fail(429, {
 				form,
-				message: "You have reached the maximum number of guestbook entries for this hour. Please try again later."
+				message:
+					'You have reached the maximum number of guestbook entries for this hour. Please try again later.'
 			});
 		}
 
 		const form = await superValidate(event.request, zod(guestbookSchema));
 
 		if (!form.valid) {
-			// Check if validation failed due to length constraints
-			if (form.errors.message?.some(error => error.includes('500 characters'))) {
-				return fail(400, { 
+			if (form.errors.message?.some((error) => error.includes('500 characters'))) {
+				return fail(400, {
 					form,
-					message: "Your message is too long! Please keep it under 500 characters and try again." 
+					message: 'Your message is too long! Please keep it under 500 characters and try again.'
 				});
 			}
-			if (form.errors.name?.some(error => error.includes('100 characters'))) {
-				return fail(400, { 
+			if (form.errors.name?.some((error) => error.includes('100 characters'))) {
+				return fail(400, {
 					form,
-					message: "Your name is too long! Please keep it under 100 characters and try again." 
+					message: 'Your name is too long! Please keep it under 100 characters and try again.'
 				});
 			}
-			if (form.errors.location?.some(error => error.includes('100 characters'))) {
-				return fail(400, { 
+			if (form.errors.location?.some((error) => error.includes('100 characters'))) {
+				return fail(400, {
 					form,
-					message: "Your location is too long! Please keep it under 100 characters and try again." 
+					message: 'Your location is too long! Please keep it under 100 characters and try again.'
 				});
 			}
-			// Other validation errors (empty fields, etc.)
 			return fail(400, { form });
 		}
 
@@ -146,7 +138,7 @@ export const actions: Actions = {
 			return { form };
 		} catch (error) {
 			console.error('Error creating guestbook entry:', error);
-			return fail(500, { 
+			return fail(500, {
 				form,
 				message: 'Failed to create entry. Please try again.'
 			});
