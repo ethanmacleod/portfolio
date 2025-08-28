@@ -1,6 +1,8 @@
 <script lang="ts">
 	import AboutMe from '$lib/components/AboutMe.svelte';
 	import Guestbook from '$lib/components/Guestbook.svelte';
+
+	export let data;
 </script>
 
 <svelte:head>
@@ -10,5 +12,5 @@
 <div class="space-y-6">
 	<AboutMe />
 
-	<Guestbook />
+	<Guestbook {data} />
 </div>
