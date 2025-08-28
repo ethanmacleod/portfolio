@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model News {
+  id          Int      @id @default(autoincrement())
+  created_at  DateTime @default(now())
+  title       String
+  subtitle    String?
+  content     String?
+  author      String?
+  
+  tags        Tag[]
+
+  @@map("news")
+}
+
+model Tag {
+  id    Int     @id @default(autoincrement())
+  name  String  @unique
+
+  news  News[]
+
+  @@map("tags")
+}
+
+model Visitor {
+  id          Int      @id @default(autoincrement())
+  ipAddress   String
+  userAgent   String
+  timestamp   DateTime @default(now())
+  isBadActor  Boolean  @default(false)
+  page        String
+  sessionId   String?
+
+  @@map("visitors")
+}
+
+model AnalyticsSummary {
+  id            Int      @id @default(autoincrement())
+  uniqueVisitors Int     @default(0)
+  totalViews     Int     @default(0)
+  badActors      Int     @default(0)
+  lastUpdated    DateTime @default(now())
+
+  @@map("analytics_summary")
+}
+
+model Guestbook {
+  id          Int      @id @default(autoincrement())
+  name        String
+  message     String
+  location    String?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+
+  @@map("guestbook")
+}
