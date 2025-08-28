@@ -1,6 +1,35 @@
 @import 'tailwindcss';
-@plugin '@tailwindcss/forms';
-@plugin '@tailwindcss/typography';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.bevel-button {
+		border-width: 3px;
+		border-style: solid;
+		border-top-color: #e5e7eb;
+		border-right-color: #6b7280;
+		border-bottom-color: #6b7280;
+		border-left-color: #d1d5db;
+	}
+	.comic-font {
+		font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+	}
+	.scroll-text {
+		animation: scroll-horizontal 15s linear infinite;
+	}
+}
+
+@layer utilities {
+	@keyframes scroll-horizontal {
+		0% {
+			transform: translateX(100%);
+		}
+		100% {
+			transform: translateX(-100%);
+		}
+	}
+}
 
 body {
 	font-family: 'Verdana', 'Geneva', sans-serif;
