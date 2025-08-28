@@ -2,6 +2,9 @@
 	import Header from '$lib/components/nav/header.svelte';
 	import LeftNav from '$lib/components/nav/left-nav.svelte';
 	import '../app.css';
+	import type { LayoutData } from './$types';
+	
+	export let data: LayoutData;
 </script>
 
 <div class="grid min-h-screen grid-cols-[220px_1fr] grid-rows-[auto_1fr_auto] font-serif">
@@ -10,7 +13,7 @@
 	</aside>
 
 	<header class="border-4 border-gray-600 bg-black text-white">
-		<Header />
+		<Header analytics={data.analytics} />
 	</header>
 
 	<main class="overflow-auto border-4 border-gray-600">
