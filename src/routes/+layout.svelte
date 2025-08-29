@@ -1,12 +1,14 @@
 <script lang="ts">
 	import { injectAnalytics } from '@vercel/analytics/sveltekit';
-	import Header from '$lib/components/nav/header.svelte';
 	import LeftNav from '$lib/components/nav/left-nav.svelte';
 	import DynamicHeader from '$lib/components/DynamicHeader.svelte';
 	import ScreenTooSmall from '$lib/components/ScreenTooSmall.svelte';
+	import HighFiveCounter from '$lib/components/HighFiveCounter.svelte';
+	import UnderConstructionGif from '$lib/components/UnderConstructionGif.svelte';
 	import '../app.css';
 	import type { LayoutData } from './$types';
 	import { dev } from '$app/environment';
+	import { numberWithOrdinal } from '$lib/functions';
 
 	export let data: LayoutData;
 	injectAnalytics({ mode: dev ? 'development' : 'production' });
@@ -23,8 +25,44 @@
 
 	<header class="bevel-button bg-gradient-to-r from-black to-gray-900 text-white">
 		<div class="flex h-full w-full items-center justify-between">
-			<div class="my-2 ml-2">
-				<Header analytics={data.analytics} />
+			<div class="flex items-center gap-4">
+				<div class="bevel-button h-full bg-gradient-to-b from-gray-200 to-gray-400 p-4">
+					<div class="grid h-full grid-cols-2 gap-4">
+						<div class="bevel-inset bg-white p-1">
+							<div class="text-center">
+								<span class="retro-text-shadow mb-1 block text-xs font-bold text-yellow-600"
+									>Welcome!</span
+								>
+								<div class="flex items-center justify-center gap-1">
+									<img src="/gifs/globe.gif" alt="Globe Icon" class="h-6 w-6" />
+									<div class="text-xs text-blue-700">
+										You are the <span class="blink font-bold text-orange-600"
+											>{numberWithOrdinal(data.analytics.totalViews)}</span
+										>
+										<p>visitor!</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="bevel-inset bg-white p-1">
+							<div class="text-center">
+								<span class="mb-1 block text-xs font-bold text-red-600">Bad Actors</span>
+								<div class="flex items-center justify-center gap-1">
+									<img src="/gifs/skull.gif" alt="Warning Icon" class="h-8 w-8" />
+									<div class="text-xs text-red-700">
+										<span class="font-bold text-red-600">{data.analytics.badActors}</span>
+										bots/scrapers
+										<div>/neerdowells</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="flex flex-col items-start gap-1">
+				<HighFiveCounter />
+				<UnderConstructionGif />
 			</div>
 			<DynamicHeader />
 		</div>

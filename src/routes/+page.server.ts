@@ -12,13 +12,7 @@ const limiter = new RetryAfterRateLimiter({
 });
 
 function sanitizeHtml(input: string): string {
-	return input
-		.replace(/&/g, '&amp;')
-		.replace(/</g, '&lt;')
-		.replace(/>/g, '&gt;')
-		.replace(/"/g, '&quot;')
-		.replace(/'/g, '&#x27;')
-		.replace(/\//g, '&#x2F;');
+	return input.replace(/</g, '{').replace(/>/g, '}');
 }
 
 export const load: PageServerLoad = async ({ url }) => {

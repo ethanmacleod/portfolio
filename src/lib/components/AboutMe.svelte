@@ -92,14 +92,14 @@
 							> page.
 						</p>
 						<p class="mb-4">
-							As a kid growing up in the early 200s, websites like this one were something I visited
-							all the time - especially when looking at game dev's personal websites or some of my
-							more technically literate friends. With the constant cookie-cutter / default-template
-							portfolios I see nowadays, I find myself more drawn towards websites like these which
-							hardly exist outside of some stragglers and archives. I really hate to get on a soap
-							box here but after making 30+ web applications for clients, they all look vaguely
-							similar. At some point making bold creative decisions will affect UX, so they get
-							thrown out the door.
+							As a kid growing up in the early 2000s, websites like this one were something I
+							visited all the time - especially when looking at game dev's personal websites or some
+							of my more technically literate friends. With the constant cookie-cutter /
+							default-template portfolios I see nowadays, I find myself more drawn towards websites
+							like these which hardly exist outside of some stragglers and archives. I really hate
+							to get on a soap box here but after making 30+ web applications for clients, they all
+							look vaguely similar. At some point making bold creative decisions will affect UX, so
+							they get thrown out the door.
 						</p>
 						<div
 							class="bevel-button my-4 border-4 bg-gradient-to-br from-yellow-200 to-orange-300 p-4"
@@ -144,6 +144,7 @@
 			<SkillBlock name="LATEX" label="" icon="latex.png" brandColor="#008080" index={15} />
 			<SkillBlock name="NODEJS" label="" icon="nodejs.png" brandColor="#68C944" index={16} />
 			<SkillBlock name="PRISMA" label="" icon="prisma.png" brandColor="#2D3748" index={17} />
+			<SkillBlock name="DOCKER" label="" icon="docker.png" brandColor="#2496ED" index={18} />
 		</div>
 	</div>
 </RetroDiv>

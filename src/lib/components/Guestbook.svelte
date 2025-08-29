@@ -186,10 +186,10 @@
 				</td>
 			</tr>
 			<tr>
-				<th class="bevel-button bg-purple-200 p-2 font-bold text-purple-800">Name</th>
-				<th class="bevel-button bg-purple-200 p-2 font-bold text-purple-800">Date</th>
-				<th class="bevel-button bg-purple-200 p-2 font-bold text-purple-800">Location</th>
-				<th class="bevel-button bg-purple-200 p-2 font-bold text-purple-800">Message</th>
+				<th class="bevel-button w-[20%] bg-purple-200 p-2 font-bold text-purple-800">Name</th>
+				<th class="bevel-button w-[10%] bg-purple-200 p-2 font-bold text-purple-800">Date</th>
+				<th class="bevel-button w-[20%] bg-purple-200 p-2 font-bold text-purple-800">Location</th>
+				<th class="bevel-button w-[50%] bg-purple-200 p-2 font-bold text-purple-800">Message</th>
 			</tr>
 		</thead>
 		<tbody>
