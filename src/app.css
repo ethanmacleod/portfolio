@@ -1,124 +1,12 @@
 @import 'tailwindcss';
+@import './lib/styles/effects.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
-	.bevel-button {
-		border-width: 3px;
-		border-style: solid;
-		border-top-color: #e5e7eb;
-		border-right-color: #6b7280;
-		border-bottom-color: #6b7280;
-		border-left-color: #d1d5db;
-	}
-
-	.bevel-inset {
-		border-width: 2px;
-		border-style: solid;
-		border-top-color: #6b7280;
-		border-right-color: #e5e7eb;
-		border-bottom-color: #e5e7eb;
-		border-left-color: #9ca3af;
-	}
-
-	.retro-text-shadow {
-		text-shadow: 2px 2px 0px #000000;
-	}
-
-	.neon-glow {
-		text-shadow:
-			0 0 5px currentColor,
-			0 0 10px currentColor,
-			0 0 15px currentColor;
-	}
-
 	.comic-font {
 		font-family: 'Comic Neue', 'Comic Sans MS', cursive;
-	}
-
-	.scroll-text {
-		animation: scroll-horizontal 10s linear infinite;
-		display: inline-block;
-	}
-
-	.blink {
-		animation: blink 1s linear infinite;
-	}
-
-	.rainbow-text {
-		background: linear-gradient(
-			45deg,
-			#ff0000,
-			#ff8000,
-			#ffff00,
-			#80ff00,
-			#00ff00,
-			#00ff80,
-			#00ffff,
-			#0080ff,
-			#0000ff,
-			#8000ff,
-			#ff00ff,
-			#ff0080
-		);
-		background-size: 400% 400%;
-		-webkit-background-clip: text;
-		background-clip: text;
-		-webkit-text-fill-color: transparent;
-		animation: rainbow 3s ease infinite;
-	}
-
-	.shine-text {
-		color: #228b22;
-		animation: shine 2s ease-in-out infinite;
-	}
-}
-
-@layer utilities {
-	@keyframes scroll-horizontal {
-		0% {
-			transform: translateX(100%);
-		}
-		100% {
-			transform: translateX(-100%);
-		}
-	}
-
-	@keyframes blink {
-		0%,
-		50% {
-			opacity: 1;
-		}
-		51%,
-		100% {
-			opacity: 0;
-		}
-	}
-
-	@keyframes rainbow {
-		0% {
-			background-position: 0% 50%;
-		}
-		50% {
-			background-position: 100% 50%;
-		}
-		100% {
-			background-position: 0% 50%;
-		}
-	}
-
-	@keyframes shine {
-		0%,
-		85% {
-			color: #228b22;
-		}
-		92% {
-			color: #32cd32;
-		}
-		100% {
-			color: #228b22;
-		}
 	}
 }
 

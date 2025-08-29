@@ -2,11 +2,14 @@
 	import Header from '$lib/components/nav/header.svelte';
 	import LeftNav from '$lib/components/nav/left-nav.svelte';
 	import DynamicHeader from '$lib/components/DynamicHeader.svelte';
+	import ScreenTooSmall from '$lib/components/ScreenTooSmall.svelte';
 	import '../app.css';
 	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
 </script>
+
+<ScreenTooSmall />
 
 <div
 	class="grid min-h-screen grid-cols-[220px_1fr] grid-rows-[auto_1fr_auto] gap-1 bg-gradient-to-b from-purple-900 via-blue-900 to-black p-2 font-serif"
