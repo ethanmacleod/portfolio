@@ -1,12 +1,15 @@
 <script lang="ts">
+	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 	import Header from '$lib/components/nav/header.svelte';
 	import LeftNav from '$lib/components/nav/left-nav.svelte';
 	import DynamicHeader from '$lib/components/DynamicHeader.svelte';
 	import ScreenTooSmall from '$lib/components/ScreenTooSmall.svelte';
 	import '../app.css';
 	import type { LayoutData } from './$types';
+	import { dev } from '$app/environment';
 
 	export let data: LayoutData;
+	injectAnalytics({ mode: dev ? 'development' : 'production' });
 </script>
 
 <ScreenTooSmall />
