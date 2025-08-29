@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { getAge } from '$lib/functions';
 	import RetroDiv from './RetroDiv.svelte';
+	import SkillBlock from './SkillBlock.svelte';
 
 	let age = getAge();
 
@@ -122,4 +123,27 @@
 			</tr>
 		</tbody>
 	</table>
+</RetroDiv>
+
+<RetroDiv width="w-full" className="mb-6">
+	<div class="bevel-inset bg-gray-50 p-1">
+		<div class="flex flex-wrap justify-center gap-1">
+			<SkillBlock name="SVELTE" label="" icon="svelte.png" brandColor="#FF5722" index={0} />
+			<SkillBlock name="REACT" label="" icon="react.png" brandColor="#00D8FF" index={1} />
+			<SkillBlock name="TS" label="" icon="typescript.png" brandColor="#007ACC" index={2} />
+			<SkillBlock name="PYTHON" label="" icon="python.png" brandColor="#3B82F6" index={3} />
+			<SkillBlock name="PSQL" label="" icon="postgres.png" brandColor="#4A90E2" index={4} />
+			<SkillBlock name="JAVA" label="" icon="java.png" brandColor="#F59E0B" index={5} />
+			<SkillBlock name="REDUX" label="" icon="redux.png" brandColor="#8B5CF6" index={6} />
+			<SkillBlock name="TERRAFORM" label="" icon="terraform.png" brandColor="#7C3AED" index={7} />
+			<SkillBlock name="GIT" label="" icon="git.png" brandColor="#F97316" index={8} />
+			<SkillBlock name="FLOWBITE" label="" icon="flowbite.png" brandColor="#3B82F6" index={9} />
+			<SkillBlock name="DJANGO" label="" icon="django.png" brandColor="#10B981" index={10} />
+			<SkillBlock name="SQL" label="" icon="sql.png" brandColor="#06B6D4" index={11} />
+			<SkillBlock name="FIGMA" label="" icon="figma.png" brandColor="#F472B6" index={12} />
+			<SkillBlock name="LATEX" label="" icon="latex.png" brandColor="#008080" index={15} />
+			<SkillBlock name="NODEJS" label="" icon="nodejs.png" brandColor="#68C944" index={16} />
+			<SkillBlock name="PRISMA" label="" icon="prisma.png" brandColor="#2D3748" index={17} />
+		</div>
+	</div>
 </RetroDiv>
