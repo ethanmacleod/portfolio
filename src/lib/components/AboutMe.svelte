@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { getAge } from '$lib/functions';
 	import RetroDiv from './RetroDiv.svelte';
+	import SkillBlock from './SkillBlock.svelte';
 
 	let age = getAge();
 
@@ -91,14 +92,14 @@
 							> page.
 						</p>
 						<p class="mb-4">
-							As a kid growing up in the early 200s, websites like this one were something I visited
-							all the time - especially when looking at game dev's personal websites or some of my
-							more technically literate friends. With the constant cookie-cutter / default-template
-							portfolios I see nowadays, I find myself more drawn towards websites like these which
-							hardly exist outside of some stragglers and archives. I really hate to get on a soap
-							box here but after making 30+ web applications for clients, they all look vaguely
-							similar. At some point making bold creative decisions will affect UX, so they get
-							thrown out the door.
+							As a kid growing up in the early 2000s, websites like this one were something I
+							visited all the time - especially when looking at game dev's personal websites or some
+							of my more technically literate friends. With the constant cookie-cutter /
+							default-template portfolios I see nowadays, I find myself more drawn towards websites
+							like these which hardly exist outside of some stragglers and archives. I really hate
+							to get on a soap box here but after making 30+ web applications for clients, they all
+							look vaguely similar. At some point making bold creative decisions will affect UX, so
+							they get thrown out the door.
 						</p>
 						<div
 							class="bevel-button my-4 border-4 bg-gradient-to-br from-yellow-200 to-orange-300 p-4"
@@ -122,4 +123,28 @@
 			</tr>
 		</tbody>
 	</table>
+</RetroDiv>
+
+<RetroDiv width="w-full" className="mb-6">
+	<div class="bevel-inset bg-gray-50 p-1">
+		<div class="flex flex-wrap justify-center gap-1">
+			<SkillBlock name="SVELTE" label="" icon="svelte.png" brandColor="#FF5722" index={0} />
+			<SkillBlock name="REACT" label="" icon="react.png" brandColor="#00D8FF" index={1} />
+			<SkillBlock name="TS" label="" icon="typescript.png" brandColor="#007ACC" index={2} />
+			<SkillBlock name="PYTHON" label="" icon="python.png" brandColor="#3B82F6" index={3} />
+			<SkillBlock name="PSQL" label="" icon="postgres.png" brandColor="#4A90E2" index={4} />
+			<SkillBlock name="JAVA" label="" icon="java.png" brandColor="#F59E0B" index={5} />
+			<SkillBlock name="REDUX" label="" icon="redux.png" brandColor="#8B5CF6" index={6} />
+			<SkillBlock name="TERRAFORM" label="" icon="terraform.png" brandColor="#7C3AED" index={7} />
+			<SkillBlock name="GIT" label="" icon="git.png" brandColor="#F97316" index={8} />
+			<SkillBlock name="FLOWBITE" label="" icon="flowbite.png" brandColor="#3B82F6" index={9} />
+			<SkillBlock name="DJANGO" label="" icon="django.png" brandColor="#10B981" index={10} />
+			<SkillBlock name="SQL" label="" icon="sql.png" brandColor="#06B6D4" index={11} />
+			<SkillBlock name="FIGMA" label="" icon="figma.png" brandColor="#F472B6" index={12} />
+			<SkillBlock name="LATEX" label="" icon="latex.png" brandColor="#008080" index={15} />
+			<SkillBlock name="NODEJS" label="" icon="nodejs.png" brandColor="#68C944" index={16} />
+			<SkillBlock name="PRISMA" label="" icon="prisma.png" brandColor="#2D3748" index={17} />
+			<SkillBlock name="DOCKER" label="" icon="docker.png" brandColor="#2496ED" index={18} />
+		</div>
+	</div>
 </RetroDiv>
