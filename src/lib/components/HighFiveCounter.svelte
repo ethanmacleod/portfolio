@@ -63,15 +63,17 @@
 	}
 </script>
 
-<div class="flex flex-row items-center gap-4 bg-zinc-700 p-1 font-mono">
-	<span class="text-xs font-bold text-purple-300">HIGH FIVES GIVEN:</span>
-	<span class="neon-glow text-sm font-bold text-purple-300">{highFiveCount.toLocaleString()}</span>
-	<button
-		class="cursor-pointer"
-		on:click={giveHighFive}
-		disabled={loading || remaining <= 0}
-		title="Give a high five!"
-	>
-		<span class="drop-shadow-lg">🙏</span>
-	</button>
+<div
+	class="relative flex h-full w-full cursor-pointer items-center bg-yellow-300 px-6"
+	style="background-image: url('/gifs/flame-border.gif'); background-size: 100% 100%; background-repeat: no-repeat;"
+	on:click={giveHighFive}
+	on:keydown={(e) => e.key === 'Enter' && giveHighFive()}
+	role="button"
+	tabindex="0"
+	title="Give a high five!"
+>
+	<div class="flex w-full flex-row justify-between">
+		<div class="text-xs font-bold text-red-900">High Fives:</div>
+		<div class="text-xs font-bold text-red-900">{highFiveCount.toLocaleString()}</div>
+	</div>
 </div>

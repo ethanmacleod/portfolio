@@ -35,7 +35,7 @@
 </script>
 
 <div
-	class="bevel-button flex h-full w-[40%] flex-col border-5 bg-gradient-to-br from-green-600 to-teal-700 font-[Verdana] leading-tight text-white"
+	class="bevel-button flex h-full w-full flex-col box-border bg-gradient-to-br from-green-600 to-teal-700 font-[Verdana] leading-tight text-white"
 >
 	<div class="flex h-full flex-col justify-between px-4 py-2">
 		<span class="rainbow-text text-center text-2xl font-bold">{pageInfo.title}</span>
