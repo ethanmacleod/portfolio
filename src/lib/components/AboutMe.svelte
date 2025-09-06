@@ -112,7 +112,7 @@
 								be silly.
 							</p>
 							<p class="text-center font-bold text-purple-800">
-								But this is my website so I will do what I damn well please.
+								But this is my website so here we are.
 							</p>
 						</div>
 						<p class="text-center">
