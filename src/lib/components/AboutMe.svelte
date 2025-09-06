@@ -62,8 +62,11 @@
 							<tr>
 								<td class="py-1 font-bold text-blue-700">Interests:</td>
 								<td
-									>Programming, Football, Reading (currently Jack Reacher), Games, and long walks on
-									the beach</td
+									>Programming, Football, Reading [Currently: <span class="rainbow-text mono"
+										>Jack Reacher, At the Mountain of Madness
+									</span>], Games [Currently:
+									<span class="rainbow-text mono">Cyberpunk 2077, Slay the Spire, TBOI</span>], and
+									long walks on the beach</td
 								>
 							</tr>
 						</tbody>
