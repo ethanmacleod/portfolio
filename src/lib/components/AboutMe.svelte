@@ -148,6 +148,7 @@
 			<SkillBlock name="NODEJS" label="" icon="nodejs.png" brandColor="#68C944" index={16} />
 			<SkillBlock name="PRISMA" label="" icon="prisma.png" brandColor="#2D3748" index={17} />
 			<SkillBlock name="DOCKER" label="" icon="docker.png" brandColor="#2496ED" index={18} />
+			<SkillBlock name="AWS" label="" icon="aws.png" brandColor="#FF9900" index={19} />
 		</div>
 	</div>
 </RetroDiv>
