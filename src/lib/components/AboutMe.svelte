@@ -62,8 +62,11 @@
 							<tr>
 								<td class="py-1 font-bold text-blue-700">Interests:</td>
 								<td
-									>Programming, Football, Reading (currently Jack Reacher), Games, and long walks on
-									the beach</td
+									>Programming, Football, Reading [Currently: <span class="rainbow-text mono"
+										>Jack Reacher, At the Mountain of Madness
+									</span>], Games [Currently:
+									<span class="rainbow-text mono">Cyberpunk 2077, Slay the Spire, TBOI</span>], and
+									long walks on the beach</td
 								>
 							</tr>
 						</tbody>
@@ -112,7 +115,7 @@
 								be silly.
 							</p>
 							<p class="text-center font-bold text-purple-800">
-								But this is my website so I will do what I damn well please.
+								But this is my website so here we are.
 							</p>
 						</div>
 						<p class="text-center">
@@ -145,6 +148,7 @@
 			<SkillBlock name="NODEJS" label="" icon="nodejs.png" brandColor="#68C944" index={16} />
 			<SkillBlock name="PRISMA" label="" icon="prisma.png" brandColor="#2D3748" index={17} />
 			<SkillBlock name="DOCKER" label="" icon="docker.png" brandColor="#2496ED" index={18} />
+			<SkillBlock name="AWS" label="" icon="aws.png" brandColor="#FF9900" index={19} />
 		</div>
 	</div>
 </RetroDiv>
