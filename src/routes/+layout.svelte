@@ -2,7 +2,6 @@
 	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 	import LeftNav from '$lib/components/nav/left-nav.svelte';
 	import Header from '$lib/components/nav/header.svelte';
-	import ScreenTooSmall from '$lib/components/ScreenTooSmall.svelte';
 	import '../app.css';
 	import type { LayoutData } from './$types';
 	import { dev } from '$app/environment';
@@ -13,8 +12,6 @@
 	const fullscreenRoutes = ['/boids'];
 	injectAnalytics({ mode: dev ? 'development' : 'production' });
 </script>
-
-<ScreenTooSmall />
 
 <div
 	class="flex h-screen gap-4 p-2 font-serif"
