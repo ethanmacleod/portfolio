@@ -6,7 +6,6 @@
 		BOUNDARY_MARGIN,
 		BOUNDARY_WEIGHT,
 		createVector,
-		distance,
 		limit,
 		multiplyVector,
 		normalize,
@@ -57,65 +56,95 @@
 		return Array.from({ length: BOID_COUNT }, () => addBoid());
 	}
 
-	function rule1(boid: Boid, boids: Boid[]): Vector {
-		let sum = createVector(0, 0);
-		let count = 0;
-		for (const other of boids) {
-			const d = distance(boid.position, other.position);
-			if (d > 0 && d < ALIGNMENT_RADIUS) {
-				sum = addVectors(sum, other.velocity);
-				count++;
-			}
+	function buildGrid(cellSize: number): Map<number, number[]> {
+		const cols = Math.ceil(canvas.width / cellSize) + 1;
+		const grid = new Map<number, number[]>();
+		for (let i = 0; i < boids.length; i++) {
+			const { x, y } = boids[i].position;
+			const key = Math.floor(x / cellSize) + Math.floor(y / cellSize) * cols;
+			const cell = grid.get(key);
+			if (cell) cell.push(i);
+			else grid.set(key, [i]);
 		}
-		if (count > 0) {
-			sum = multiplyVector(sum, 1 / count);
-			sum = normalize(sum);
-			sum = multiplyVector(sum, MAX_SPEED);
-			let steer = subtractVectors(sum, boid.velocity);
-			steer = limit(steer, MAX_FORCE);
-			return steer;
-		}
-		return createVector(0, 0);
+		return grid;
 	}
 
-	function rule2(boid: Boid, boids: Boid[]): Vector {
-		let steer = createVector(0, 0);
-		let count = 0;
-		for (const other of boids) {
-			const d = distance(boid.position, other.position);
-			if (d > 0 && d < SEPARATION_RADIUS) {
-				let diff = subtractVectors(boid.position, other.position);
-				diff = normalize(diff);
-				diff = multiplyVector(diff, 1 / d);
-				steer = addVectors(steer, diff);
-				count++;
+	function getNeighbors(boid: Boid, grid: Map<number, number[]>, cellSize: number): number[] {
+		const cols = Math.ceil(canvas.width / cellSize) + 1;
+		const cx = Math.floor(boid.position.x / cellSize);
+		const cy = Math.floor(boid.position.y / cellSize);
+		const neighbors: number[] = [];
+		for (let dx = -1; dx <= 1; dx++) {
+			for (let dy = -1; dy <= 1; dy++) {
+				const cell = grid.get(cx + dx + (cy + dy) * cols);
+				if (cell) {
+					for (const idx of cell) neighbors.push(idx);
+				}
 			}
 		}
-		if (count > 0) {
-			steer = multiplyVector(steer, 1 / count);
-			steer = normalize(steer);
+		return neighbors;
+	}
+
+	function computeForces(boid: Boid, neighbors: number[]): [Vector, Vector, Vector] {
+		let alignSumX = 0,
+			alignSumY = 0,
+			alignCount = 0;
+		let sepX = 0,
+			sepY = 0,
+			sepCount = 0;
+		let cohSumX = 0,
+			cohSumY = 0,
+			cohCount = 0;
+
+		const sepR2 = SEPARATION_RADIUS * SEPARATION_RADIUS;
+		const aliR2 = ALIGNMENT_RADIUS * ALIGNMENT_RADIUS;
+		const cohR2 = COHESION_RADIUS * COHESION_RADIUS;
+
+		for (const idx of neighbors) {
+			const other = boids[idx];
+			const dx = other.position.x - boid.position.x;
+			const dy = other.position.y - boid.position.y;
+			const d2 = dx * dx + dy * dy;
+			if (d2 === 0) continue;
+
+			if (d2 < sepR2) {
+				sepX += -dx / d2;
+				sepY += -dy / d2;
+				sepCount++;
+			}
+			if (d2 < aliR2) {
+				alignSumX += other.velocity.x;
+				alignSumY += other.velocity.y;
+				alignCount++;
+			}
+			if (d2 < cohR2) {
+				cohSumX += other.position.x;
+				cohSumY += other.position.y;
+				cohCount++;
+			}
+		}
+
+		let alignment = createVector(0, 0);
+		if (alignCount > 0) {
+			let avg = normalize({ x: alignSumX / alignCount, y: alignSumY / alignCount });
+			avg = multiplyVector(avg, MAX_SPEED);
+			alignment = limit(subtractVectors(avg, boid.velocity), MAX_FORCE);
+		}
+
+		let separation = createVector(0, 0);
+		if (sepCount > 0) {
+			let steer = normalize({ x: sepX / sepCount, y: sepY / sepCount });
 			steer = multiplyVector(steer, MAX_SPEED);
 			steer = subtractVectors(steer, boid.velocity);
-			steer = limit(steer, MAX_FORCE);
+			separation = limit(steer, MAX_FORCE);
 		}
-		return steer;
-	}
 
-	function rule3(boid: Boid, boids: Boid[]): Vector {
-		let sum = createVector(0, 0);
-		let count = 0;
-		for (const other of boids) {
-			const d = distance(boid.position, other.position);
-			if (d > 0 && d < COHESION_RADIUS) {
-				sum = addVectors(sum, other.position);
-				count++;
-			}
+		let cohesion = createVector(0, 0);
+		if (cohCount > 0) {
+			cohesion = seek(boid, { x: cohSumX / cohCount, y: cohSumY / cohCount });
 		}
-		if (count > 0) {
-			sum = multiplyVector(sum, 1 / count);
-			return seek(boid, sum);
-		}
-		return createVector(0, 0);
+
+		return [alignment, separation, cohesion];
 	}
 
 	function seek(boid: Boid, target: Vector): Vector {
@@ -142,14 +171,15 @@
 		return steer;
 	}
 
-	function updateBoid(boid: Boid, boids: Boid[]): void {
-		const v1 = multiplyVector(rule1(boid, boids), ALIGNMENT_WEIGHT);
-		const v2 = multiplyVector(rule2(boid, boids), SEPARATION_WEIGHT);
-		const v3 = multiplyVector(rule3(boid, boids), COHESION_WEIGHT);
+	function updateBoid(boid: Boid, neighbors: number[]): void {
+		const [alignment, separation, cohesion] = computeForces(boid, neighbors);
 		const v4 = multiplyVector(boundary(boid), BOUNDARY_WEIGHT);
-		boid.acceleration = addVectors(boid.acceleration, v1);
-		boid.acceleration = addVectors(boid.acceleration, v2);
-		boid.acceleration = addVectors(boid.acceleration, v3);
+		boid.acceleration = addVectors(boid.acceleration, multiplyVector(alignment, ALIGNMENT_WEIGHT));
+		boid.acceleration = addVectors(
+			boid.acceleration,
+			multiplyVector(separation, SEPARATION_WEIGHT)
+		);
+		boid.acceleration = addVectors(boid.acceleration, multiplyVector(cohesion, COHESION_WEIGHT));
 		boid.acceleration = addVectors(boid.acceleration, v4);
 		boid.velocity = addVectors(boid.velocity, boid.acceleration);
 		boid.velocity = limit(boid.velocity, MAX_SPEED);
@@ -190,7 +220,9 @@
 			fps = Math.round(1000 / delta);
 			lastFrameTime = now;
 
-			for (const boid of boids) updateBoid(boid, boids);
+			const cellSize = Math.max(SEPARATION_RADIUS, ALIGNMENT_RADIUS, COHESION_RADIUS);
+			const grid = buildGrid(cellSize);
+			for (const boid of boids) updateBoid(boid, getNeighbors(boid, grid, cellSize));
 			ctx.fillStyle = 'black';
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 			for (const boid of boids) drawBoid(ctx, boid);
