@@ -1,5 +1,4 @@
 <script lang="ts">
-	import './pipboy.css';
 	import { onMount } from 'svelte';
 	import {
 		addVectors,
@@ -251,7 +250,7 @@
 	}
 </script>
 
-<div class="pip-terminal flicker">
+<div class="pip-terminal flicker h-full">
 	<div class="screen-container">
 		<div class="screen-header blink">&gt; BOIDS SIMULATION ACTIVE</div>
 
@@ -305,4 +304,156 @@
 
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+	.pip-terminal {
+		display: grid;
+		grid-template-columns: 1fr 300px;
+		height: 100%;
+		min-height: 350px;
+		overflow: hidden;
+		background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+		border: 4px solid #333;
+		position: relative;
+		padding: 1em;
+	}
+
+	.pip-terminal::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background:
+			radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%),
+			linear-gradient(90deg, transparent 98%, rgba(0, 255, 65, 0.03) 100%),
+			linear-gradient(0deg, transparent 98%, rgba(0, 255, 65, 0.03) 100%);
+		pointer-events: none;
+		z-index: 10;
+	}
+
+	.screen-container {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.screen-header {
+		color: #00ff41;
+		font-size: 14px;
+		margin-bottom: 10px;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		text-shadow: 0 0 10px #00ff41;
+	}
+
+	.screen {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.screen::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: repeating-linear-gradient(
+			0deg,
+			transparent,
+			transparent 1.5px,
+			rgba(0, 255, 65, 0.08) 1.5px,
+			rgba(0, 255, 65, 0.08) 3px
+		);
+		pointer-events: none;
+		z-index: 5;
+	}
+
+	.screen::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.4) 100%);
+		pointer-events: none;
+		z-index: 6;
+	}
+
+	canvas {
+		display: block;
+		width: 100%;
+		height: 100%;
+		max-height: 100%;
+		filter: brightness(1.1) contrast(1.2) drop-shadow(0 0 8px #00ff41);
+	}
+
+	.canvas-wrapper {
+		position: relative;
+		padding: 0px 20px 0px 20px;
+		flex: 1;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: visible;
+	}
+
+	.dial-panel {
+		display: grid;
+		grid-template-columns: 200px 1fr;
+		align-items: flex-start;
+		gap: 2rem;
+		margin-top: 1rem;
+		padding: 10px 20px;
+		border: 1px solid #333;
+		background: #0f0f0f;
+	}
+
+	.blink {
+		animation: blink 2s infinite;
+	}
+
+	@keyframes blink {
+		0%,
+		50% {
+			opacity: 1;
+		}
+		51%,
+		100% {
+			opacity: 0.3;
+		}
+	}
+
+	.flicker {
+		animation: flicker 0.15s infinite linear;
+	}
+
+	@keyframes flicker {
+		0% {
+			opacity: 1;
+		}
+		98% {
+			opacity: 1;
+		}
+		99% {
+			opacity: 0.8;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		.pip-terminal {
+			grid-template-columns: 1fr;
+			grid-template-rows: 1fr auto;
+			height: 100%;
+		}
+	}
 </style>

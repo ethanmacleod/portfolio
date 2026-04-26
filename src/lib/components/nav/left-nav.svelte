@@ -42,6 +42,10 @@
 		<li>
 			<GifButton href="/homelab" gifName="homelab" alt="Homelab" />
 		</li>
+
+		<li>
+			<GifButton href="/boids" gifName="boids" alt="Boids" />
+		</li>
 	</ul>
 
 	<div class="my-4 px-1">

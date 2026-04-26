@@ -6,8 +6,11 @@
 	import '../app.css';
 	import type { LayoutData } from './$types';
 	import { dev } from '$app/environment';
+	import { page } from '$app/stores';
 
 	export let data: LayoutData;
+
+	const fullscreenRoutes = ['/boids'];
 	injectAnalytics({ mode: dev ? 'development' : 'production' });
 </script>
 
@@ -24,7 +27,7 @@
 	<div class="flex min-w-0 flex-1 flex-col gap-4 overflow-hidden">
 		<Header analytics={data.analytics} />
 
-		<main class="bevel-inset flex-1 overflow-auto bg-[#d4d4d4] p-8">
+		<main class="bevel-inset flex-1 overflow-auto bg-[#d4d4d4]" class:p-8={!fullscreenRoutes.includes($page.url.pathname)}>
 			<slot />
 		</main>
 
