@@ -14,13 +14,14 @@
 <ScreenTooSmall />
 
 <div
-	class="flex h-screen gap-1 bg-gradient-to-b from-purple-900 via-blue-900 to-black p-2 font-serif"
+	class="flex h-screen gap-4 p-2 font-serif"
+	style="background-color: #005050; background-image: linear-gradient(45deg, #003d3d 25%, transparent 25%), linear-gradient(-45deg, #003d3d 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #003d3d 75%), linear-gradient(-45deg, transparent 75%, #003d3d 75%); background-size: 8px 8px; background-position: 0 0, 0 4px, 4px -4px, -4px 0px;"
 >
 	<aside class="bevel-button h-full w-[220px] shrink-0 overflow-y-auto bg-[#c0c0c0] p-3 text-black">
 		<LeftNav />
 	</aside>
 
-	<div class="flex min-w-0 flex-1 flex-col gap-1 overflow-hidden">
+	<div class="flex min-w-0 flex-1 flex-col gap-4 overflow-hidden">
 		<Header analytics={data.analytics} />
 
 		<main class="bevel-inset flex-1 overflow-auto bg-[#d4d4d4] p-8">
