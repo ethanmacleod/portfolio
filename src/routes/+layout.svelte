@@ -31,23 +31,35 @@
 			class="bevel-button shrink-0 overflow-hidden bg-gradient-to-t from-gray-900 to-gray-700 py-2 text-white"
 		>
 			<div class="marquee-track">
-				<span class="marquee-item neon-glow text-cyan-400">★ Welcome! Last updated: {new Date().toLocaleDateString()} — Thanks for visiting! ★</span>
+				<span class="marquee-item neon-glow text-cyan-400"
+					>★ Welcome! Last updated: {new Date().toLocaleDateString()} — Thanks for visiting! ★</span
+				>
 				<span class="marquee-sep rainbow-text">&gt;&gt;</span>
 				<span class="marquee-item text-yellow-300">Proudly made by Ethan MacLeod</span>
 				<span class="marquee-sep rainbow-text">&gt;&gt;</span>
-				<span class="marquee-item text-purple-300">Best viewed in whatever resolution you currently have</span>
+				<span class="marquee-item text-purple-300"
+					>Best viewed in whatever resolution you currently have</span
+				>
 				<span class="marquee-sep rainbow-text">&gt;&gt;</span>
-				<span class="marquee-item text-green-400">No cookies. But I am actually logging your IP address everytime you visit</span>
+				<span class="marquee-item text-green-400"
+					>No cookies. But I am actually logging your IP address everytime you visit</span
+				>
 				<span class="marquee-sep rainbow-text">&gt;&gt;</span>
 				<span class="marquee-item text-orange-300">Est. 2024 - Always under construction</span>
 				<span class="marquee-sep rainbow-text">&gt;&gt;</span>
-				<span class="marquee-item neon-glow text-cyan-400">★ Welcome! Last updated: {new Date().toLocaleDateString()} — Thanks for visiting! ★</span>
+				<span class="marquee-item neon-glow text-cyan-400"
+					>★ Welcome! Last updated: {new Date().toLocaleDateString()} — Thanks for visiting! ★</span
+				>
 				<span class="marquee-sep rainbow-text">&gt;&gt;</span>
 				<span class="marquee-item text-yellow-300">Proudly made by Ethan MacLeod</span>
 				<span class="marquee-sep rainbow-text">&gt;&gt;</span>
-				<span class="marquee-item text-purple-300">Best viewed in whatever resolution you currently have</span>
+				<span class="marquee-item text-purple-300"
+					>Best viewed in whatever resolution you currently have</span
+				>
 				<span class="marquee-sep rainbow-text">&gt;&gt;</span>
-				<span class="marquee-item text-green-400">No cookies. But I am actually logging your IP address everytime you visit</span>
+				<span class="marquee-item text-green-400"
+					>No cookies. But I am actually logging your IP address everytime you visit</span
+				>
 				<span class="marquee-sep rainbow-text">&gt;&gt;</span>
 				<span class="marquee-item text-orange-300">Est. 2024 - Always under construction</span>
 				<span class="marquee-sep rainbow-text">&gt;&gt;</span>

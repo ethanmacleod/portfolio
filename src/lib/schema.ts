@@ -71,6 +71,18 @@ export const paginationInfoSchema = z.object({
 	hasPrev: z.boolean()
 });
 
+export const contactSchema = z.object({
+	name: z.string().trim().min(1, 'Name is required').max(100, 'Name is too long'),
+	email: z.string().trim().email('Invalid email address').max(200, 'Email is too long'),
+	subject: z.string().trim().max(200, 'Subject is too long').optional(),
+	message: z
+		.string()
+		.trim()
+		.min(1, 'Message is required')
+		.max(5000, 'Message is too long (max 5000 characters)')
+});
+
+export type ContactForm = z.infer<typeof contactSchema>;
 export type GuestbookEntry = z.infer<typeof guestbookEntrySchema>;
 export type Analytics = z.infer<typeof analyticsSchema>;
 export type Technology = z.infer<typeof technologySchema>;
