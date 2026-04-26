@@ -7,7 +7,7 @@
 
 <RetroDiv width="w-full" className="p-3">
 	<h2 class="mb-3 flex items-center gap-2 font-mono text-xs font-bold text-blue-700">
-		<span>{section.icon}</span>
+		<svelte:component this={section.Icon} size={14} />
 		{section.title}
 	</h2>
 	<div class="flex flex-col gap-1">

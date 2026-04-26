@@ -1,4 +1,5 @@
-import type { Component } from 'svelte';
+import type { Component, ComponentType, SvelteComponent } from 'svelte';
+import type { IconProps } from 'lucide-svelte';
 
 export interface Skill {
 	name: string;
@@ -13,7 +14,7 @@ export interface SpecItem {
 
 export interface Section {
 	title: string;
-	icon: string;
+	Icon: ComponentType<SvelteComponent<IconProps>>;
 	items: SpecItem[];
 }
 

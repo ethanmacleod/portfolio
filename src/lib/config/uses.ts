@@ -1,21 +1,22 @@
 import type { Section } from '$lib/types';
+import { Monitor, Laptop, Keyboard, Terminal, Package, Sparkles } from 'lucide-svelte';
 
 export const sections: Section[] = [
 	{
 		title: 'DESKTOP PC',
-		icon: '🖥',
+		Icon: Monitor,
 		items: [
-			{ label: 'CPU', value: 'AMD Ryzen 9 5900X' },
-			{ label: 'GPU', value: 'NVIDIA RTX 3080' },
+			{ label: 'CPU', value: 'AMD Ryzen 5 3600' },
+			{ label: 'GPU', value: 'AMD Radeon RX 580' },
 			{ label: 'RAM', value: '32GB DDR4 3600MHz' },
 			{ label: 'Storage', value: '2TB NVMe SSD + 4TB HDD' },
-			{ label: 'OS', value: 'Arch Linux / Windows 11' },
-			{ label: 'Case', value: 'Lian Li PC-O11 Dynamic' }
+			{ label: 'OS', value: 'Ubuntu / Windows 11' },
+			{ label: 'Motherboard', value: 'Asrock B450 Steel Legend' }
 		]
 	},
 	{
 		title: 'LAPTOP',
-		icon: '💻',
+		Icon: Laptop,
 		items: [
 			{ label: 'Model', value: 'Lenovo ThinkPad T15 Gen 2i' },
 			{ label: 'CPU', value: 'Intel Core i5-1135G7 @ 4.20 GHz' },
@@ -28,7 +29,7 @@ export const sections: Section[] = [
 	},
 	{
 		title: 'PERIPHERALS',
-		icon: '⌨',
+		Icon: Keyboard,
 		items: [
 			{ label: 'Monitor 1', value: 'MSI Optix G27C4 27" Curved 165Hz' },
 			{ label: 'Monitor 2', value: 'MSI PRO MP241 24" FHD' },
@@ -41,38 +42,35 @@ export const sections: Section[] = [
 	},
 	{
 		title: 'DEV STACK',
-		icon: '⚙',
+		Icon: Terminal,
 		items: [
-			{ label: 'Languages', value: 'TypeScript, Python, Go' },
+			{ label: 'Languages', value: 'TypeScript, Python, C++' },
 			{ label: 'Frontend', value: 'SvelteKit, React, Next.js' },
-			{ label: 'Backend', value: 'tRPC, Django, FastAPI' },
-			{ label: 'Database', value: 'PostgreSQL, Redis' },
+			{ label: 'Backend', value: 'tRPC, Django, FastAPI, GraphQL' },
+			{ label: 'Database', value: 'PostgreSQL, Redis, SQL Server' },
 			{ label: 'Infra', value: 'Docker, Terraform, AWS' },
-			{ label: 'Editor', value: 'Neovim / VS Code' }
+			{ label: 'Editor', value: 'VS Code' }
 		]
 	},
 	{
 		title: 'SOFTWARE',
-		icon: '📦',
+		Icon: Package,
 		items: [
-			{ label: 'Terminal', value: 'WezTerm + Zsh + Starship' },
-			{ label: 'Browser', value: 'Firefox (dev) / Arc' },
-			{ label: 'Notes', value: 'Obsidian' },
-			{ label: 'Git UI', value: 'Lazygit' },
-			{ label: 'Design', value: 'Figma' },
-			{ label: 'AI', value: 'Claude Code, Cursor' }
+			{ label: 'Terminal', value: 'Bash' },
+			{ label: 'Browser', value: 'Google Chrome, Zen' },
+			{ label: 'Notes', value: 'Notion' },
+			{ label: 'Git', value: 'Github, Gitlab' },
+			{ label: 'Design', value: 'Figma' }
 		]
 	},
 	{
 		title: 'MISC',
-		icon: '✦',
+		Icon: Sparkles,
 		items: [
 			{ label: 'Location', value: 'New Zealand' },
 			{ label: 'Camera', value: 'Canon EOS 650' },
-			{ label: 'Hobby', value: 'Mechanical keyboards, hiking' },
-			{ label: 'Currently reading', value: 'The Pragmatic Programmer' },
-			{ label: 'Currently playing', value: 'Insert game here' },
-			{ label: 'Music', value: 'Lo-fi, post-rock, metal' }
+			{ label: 'Currently reading', value: 'The Pragmatic Programmer, Database Internals, ' },
+			{ label: 'Music', value: "SOAD, Guns N' Roses, Alice in Chains" }
 		]
 	}
 ];
