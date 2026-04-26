@@ -12,6 +12,6 @@
 		playsinline
 		aria-hidden="true"
 		src={`/gifs/${gifName}.webm`}
-		class="bevel-button h-[40px] w-full transition-all duration-200 group-hover:shadow-lg group-hover:brightness-110"
+		class="bevel-button block h-[40px] w-full object-fill transition-all duration-200 group-hover:shadow-lg group-hover:brightness-110"
 	></video>
 </a>
