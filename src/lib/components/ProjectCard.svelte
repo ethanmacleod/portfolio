@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Project } from '$lib/types';
+	import type { Project } from '$lib/schema.js';
 	import RetroDiv from './RetroDiv.svelte';
 	import SkillBlock from './SkillBlock.svelte';
 	import GitHubIcon from './icons/GitHubIcon.svelte';

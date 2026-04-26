@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Project } from '$lib/types';
+	import type { Project } from '$lib/schema.js';
 	import ProjectCard from './ProjectCard.svelte';
 	import ProjectPagination from './ProjectPagination.svelte';
 

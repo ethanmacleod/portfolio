@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { numberWithOrdinal } from '$lib/functions';
-	import type { Analytics } from '$lib/types';
+	import type { Analytics } from '$lib/schema.js';
 
 	export let analytics: Analytics;
 </script>

@@ -7,7 +7,7 @@
 	import { guestbookSchema } from '$lib/schema.js';
 	import { goto, invalidateAll } from '$app/navigation';
 	import { page } from '$app/stores';
-	import type { GuestbookEntry as GuestbookEntryType, PaginationInfo } from '$lib/types';
+	import type { GuestbookEntry as GuestbookEntryType, PaginationInfo } from '$lib/schema.js';
 
 	export let data;
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Analytics } from '$lib/types';
+	import type { Analytics } from '$lib/schema.js';
 	import DynamicHeader from '../DynamicHeader.svelte';
 	import HighFiveCounter from '../HighFiveCounter.svelte';
 	import UnderConstructionGif from '../UnderConstructionGif.svelte';

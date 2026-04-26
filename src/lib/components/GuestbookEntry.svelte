@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { GuestbookEntry } from '$lib/types';
+	import type { GuestbookEntry } from '$lib/schema.js';
 	import { formatDate } from '$lib/functions';
 
 	export let entry: GuestbookEntry;
