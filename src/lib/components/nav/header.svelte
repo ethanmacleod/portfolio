@@ -37,38 +37,17 @@
 								</td>
 								<td class="overflow-hidden p-0" style="height: 25%; max-height: 32px;">
 									<div class="flex w-full items-center" style="height: 32px;">
-										<img
-											src="/gifs/rainbow.gif"
-											alt="Rainbow"
-											class="w-full"
-											style="height: 32px; object-fit: cover;"
-										/>
+										<video autoplay loop muted playsinline aria-hidden="true" src="/gifs/rainbow.webm" class="w-full" style="height: 32px; object-fit: cover;"></video>
 									</div>
 								</td>
 							</tr>
 							<tr style="height: 25%">
 								<td class="overflow-hidden p-0">
 									<div class="flex h-full w-full items-center justify-center gap-1 bg-black">
-										<img
-											src="/gifs/hot_1.gif"
-											alt="Hot 1"
-											class="max-h-full max-w-[25%] object-contain"
-										/>
-										<img
-											src="/gifs/hot_2.gif"
-											alt="Hot 2"
-											class="max-h-full max-w-[25%] object-contain"
-										/>
-										<img
-											src="/gifs/hot_3.gif"
-											alt="Hot 3"
-											class="max-h-full max-w-[25%] object-contain"
-										/>
-										<img
-											src="/gifs/hot_4.gif"
-											alt="Hot 4"
-											class="max-h-full max-w-[25%] object-contain"
-										/>
+										<video autoplay loop muted playsinline aria-hidden="true" src="/gifs/hot_1.webm" class="max-h-full max-w-[25%] object-contain"></video>
+										<video autoplay loop muted playsinline aria-hidden="true" src="/gifs/hot_2.webm" class="max-h-full max-w-[25%] object-contain"></video>
+										<video autoplay loop muted playsinline aria-hidden="true" src="/gifs/hot_3.webm" class="max-h-full max-w-[25%] object-contain"></video>
+										<video autoplay loop muted playsinline aria-hidden="true" src="/gifs/hot_4.webm" class="max-h-full max-w-[25%] object-contain"></video>
 									</div>
 								</td>
 

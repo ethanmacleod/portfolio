@@ -8,12 +8,12 @@ export const projects = [
 			'Infrastructure as Code (IaC) solution that automates the deployment and management of AWS cloud resources. This architecture was built for the deployment of a sister project - "BetterReads" - a book themed social media for the tracking and sharing of book stats. The infrastructure includes management of public and private subnets, security, CI/CD, and accounts for high availability for the application',
 		githubUrl: 'https://github.com/ethanmacleod/AWS-Terraform',
 		technologies: [
-			{ name: 'TERRAFORM', icon: 'terraform.png', brandColor: '#623CE4' },
-			{ name: 'AWS', icon: 'aws.png', brandColor: '#FF9900' }
+			{ name: 'TERRAFORM', icon: 'terraform.avif', brandColor: '#623CE4' },
+			{ name: 'AWS', icon: 'aws.avif', brandColor: '#FF9900' }
 		],
 		images: [
 			{
-				url: '/project-screenshots/1/aws-terraform-architecture.png',
+				url: '/project-screenshots/1/aws-terraform-architecture.avif',
 				alt: 'AWS infrastructure diagram',
 				caption: 'Automated AWS infrastructure deployment architecture'
 			}
@@ -34,30 +34,30 @@ export const projects = [
             Provides insights into energy efficiency, sustainability, and economic feasibility of micro-grid infrastructure.',
 		githubUrl: 'https://github.com/ethanmacleod/micro-grid-simulator',
 		technologies: [
-			{ name: 'REACT', icon: 'react.png', brandColor: '#00D8FF' },
-			{ name: 'DJANGO', icon: 'django.png', brandColor: '#10B981' },
-			{ name: 'TS', icon: 'typescript.png', brandColor: '#007ACC' },
-			{ name: 'PSQL', icon: 'postgres.png', brandColor: '#4A90E2' },
-			{ name: 'DOCKER', icon: 'docker.png', brandColor: '#2496ED' }
+			{ name: 'REACT', icon: 'react.avif', brandColor: '#00D8FF' },
+			{ name: 'DJANGO', icon: 'django.avif', brandColor: '#10B981' },
+			{ name: 'TS', icon: 'typescript.avif', brandColor: '#007ACC' },
+			{ name: 'PSQL', icon: 'postgres.avif', brandColor: '#4A90E2' },
+			{ name: 'DOCKER', icon: 'docker.avif', brandColor: '#2496ED' }
 		],
 		images: [
 			{
-				url: '/project-screenshots/2/1.png',
+				url: '/project-screenshots/2/1.avif',
 				alt: 'Micro-grid simulation dashboard',
 				caption: 'Micro grid simulator accordion dash'
 			},
 			{
-				url: '/project-screenshots/2/2.png',
+				url: '/project-screenshots/2/2.avif',
 				alt: 'Micro-grid simulation dashboard single item',
 				caption: 'Micro grid simulator single item'
 			},
 			{
-				url: '/project-screenshots/2/3.png',
+				url: '/project-screenshots/2/3.avif',
 				alt: 'Micro-grid simulation dashboard collapsed',
 				caption: 'Micro grid simulator collapsed view'
 			},
 			{
-				url: '/project-screenshots/2/4.png',
+				url: '/project-screenshots/2/4.avif',
 				alt: 'Micro-grid simulation dashboard projects',
 				caption: 'Micro grid simulator projects view'
 			}
@@ -77,8 +77,8 @@ export const projects = [
 		githubUrl: 'https://github.com/ethanmacleod/flashd',
 		technologies: [
 			{ name: 'EXPO', icon: 'expo.png', brandColor: '#000020' },
-			{ name: 'REACT', icon: 'react.png', brandColor: '#00D8FF' },
-			{ name: 'TS', icon: 'typescript.png', brandColor: '#007ACC' },
+			{ name: 'REACT', icon: 'react.avif', brandColor: '#00D8FF' },
+			{ name: 'TS', icon: 'typescript.avif', brandColor: '#007ACC' },
 			{ name: 'MOBILE', icon: 'mobile.png', brandColor: '#6B7280' }
 		],
 		images: [
@@ -102,25 +102,25 @@ export const projects = [
 			'Comprehensive home server solution built with Docker Compose across two Raspberry Pi devices. Features system monitoring with Prometheus and Grafana, media streaming with Plex, file management, and remote device control. Includes modular service stacks, Wake-on-LAN API, torrent management, and customizable dashboards for complete home infrastructure management.',
 		githubUrl: 'https://github.com/ethanmacleod/pi-services',
 		technologies: [
-			{ name: 'DOCKER', icon: 'docker.png', brandColor: '#2496ED' },
-			{ name: 'PYTHON', icon: 'python.png', brandColor: '#3B82F6' },
+			{ name: 'DOCKER', icon: 'docker.avif', brandColor: '#2496ED' },
+			{ name: 'PYTHON', icon: 'python.avif', brandColor: '#3B82F6' },
 			{ name: 'GRAFANA', icon: 'grafana.png', brandColor: '#F46800' },
-			{ name: 'PSQL', icon: 'postgres.png', brandColor: '#4A90E2' },
+			{ name: 'PSQL', icon: 'postgres.avif', brandColor: '#4A90E2' },
 			{ name: 'RASPBERRY', icon: 'raspberry.png', brandColor: '#C51A4A' }
 		],
 		images: [
 			{
-				url: '/project-screenshots/4/1.png',
+				url: '/project-screenshots/4/1.avif',
 				alt: 'Home page view',
 				caption: 'Home page view'
 			},
 			{
-				url: '/project-screenshots/4/2.png',
+				url: '/project-screenshots/4/2.avif',
 				alt: 'Portainer dash',
 				caption: 'Portainer dash'
 			},
 			{
-				url: '/project-screenshots/4/3.png',
+				url: '/project-screenshots/4/3.avif',
 				alt: 'rafana dash',
 				caption: 'Grafana dash'
 			}

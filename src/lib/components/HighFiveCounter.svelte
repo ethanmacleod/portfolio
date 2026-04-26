@@ -65,7 +65,7 @@
 
 <div
 	class="relative flex h-full w-full cursor-pointer items-center bg-yellow-300 px-6"
-	style="background-image: url('/gifs/flame-border.gif'); background-size: 100% 100%; background-repeat: no-repeat;"
+	style="background-image: url('/gifs/flame-border.webp'); background-size: 100% 100%; background-repeat: no-repeat;"
 	on:click={giveHighFive}
 	on:keydown={(e) => e.key === 'Enter' && giveHighFive()}
 	role="button"

@@ -4,6 +4,6 @@
 	export let alt: string;
 </script>
 
-<a {href} class="block group">
-	<img src={`/gifs/${gifName}.gif`} {alt} class="bevel-button h-[40px] w-full transition-all duration-200 group-hover:brightness-110 group-hover:shadow-lg" />
+<a {href} aria-label={alt} class="block group">
+	<video autoplay loop muted playsinline aria-hidden="true" src={`/gifs/${gifName}.webm`} class="bevel-button h-[40px] w-full transition-all duration-200 group-hover:brightness-110 group-hover:shadow-lg"></video>
 </a>
