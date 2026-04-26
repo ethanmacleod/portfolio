@@ -23,7 +23,7 @@
 	<div class="flex min-w-0 flex-1 flex-col gap-1 overflow-hidden">
 		<Header analytics={data.analytics} />
 
-		<main class="bevel-inset flex-1 overflow-auto bg-gradient-to-br from-white to-gray-100 p-4">
+		<main class="bevel-inset flex-1 overflow-auto bg-[#d4d4d4] p-8">
 			<slot />
 		</main>
 

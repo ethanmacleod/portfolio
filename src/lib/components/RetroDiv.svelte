@@ -1,12 +1,12 @@
 <script lang="ts">
-	import BevelRaised from './ui/BevelRaised.svelte';
+	import BevelInset from './ui/BevelInset.svelte';
 
 	export let width: string = 'w-56';
 	export let className: string = '';
 </script>
 
-<BevelRaised
-	class="flex {width} flex-col border-5 bg-[#d4d4d4] px-4 py-2 font-[Verdana] text-[13px] leading-tight text-black {className}"
+<BevelInset
+	class="flex {width} flex-col bg-[#d4d4d4] font-[Verdana] text-[13px] leading-tight text-black {className}"
 >
 	<slot />
-</BevelRaised>
+</BevelInset>

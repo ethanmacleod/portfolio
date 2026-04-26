@@ -17,18 +17,18 @@
 	<table class="w-full table-auto border-collapse">
 		<thead>
 			<tr>
-				<td colspan="2" class="bg-gradient-to-r from-blue-600 to-purple-600 p-2 text-center">
+				<td colspan="3" class="bg-gradient-to-r from-blue-600 to-purple-600 p-2 text-center">
 					<span class="retro-text-shadow text-lg font-bold text-white">About Me</span>
 				</td>
 			</tr>
 		</thead>
 		<tbody>
 			<tr class="bg-gray-100">
-				<td class="bevel-inset w-32 p-3 align-top">
+				<td class="w-32 p-3 align-top">
 					<img
 						src="/me.avif"
 						alt="Ethan MacLeod"
-						class="bevel-button h-full w-full bg-gray-300 object-fill"
+						class="h-full w-full border-r-2 border-b-2 border-gray-600 bg-gray-300 object-fill"
 					/>
 				</td>
 				<td class="p-3 align-top">
@@ -70,9 +70,16 @@
 						</tbody>
 					</table>
 				</td>
+				<td class="w-32 p-3 align-top">
+					<img
+						src="/me2.jpg"
+						alt="Ethan MacLeod"
+						class="h-full w-full border-r-2 border-b-2 border-gray-600 object-fill"
+					/>
+				</td>
 			</tr>
 			<tr>
-				<td colspan="2" class="bg-white p-3">
+				<td colspan="3" class="bg-white p-3">
 					<div class="bevel-inset bg-gray-50 p-3">
 						<p class="mb-2"><strong class="text-purple-700">Welcome to my website!</strong></p>
 						<p class="mb-2">
