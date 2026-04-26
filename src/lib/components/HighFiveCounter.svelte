@@ -4,8 +4,7 @@
 	let highFiveCount = 0;
 	let loading = false;
 	let remaining = 5;
-	let rateLimitMessage = '';
-	let resetTimer: NodeJS.Timeout | null = null;
+	let resetTimer: ReturnType<typeof setInterval> | null = null;
 
 	onMount(async () => {
 		try {
@@ -34,7 +33,6 @@
 
 			if (!response.ok) {
 				if (response.status === 429) {
-					rateLimitMessage = data.message;
 					remaining = 0;
 					if (resetTimer) clearInterval(resetTimer);
 					let timeLeft = data.resetTime;
@@ -42,10 +40,7 @@
 						timeLeft--;
 						if (timeLeft <= 0) {
 							remaining = 5;
-							rateLimitMessage = '';
 							if (resetTimer) clearInterval(resetTimer);
-						} else {
-							rateLimitMessage = `Rate limited! Try again in ${timeLeft}s`;
 						}
 					}, 1000);
 				}
@@ -65,7 +60,7 @@
 
 <div
 	class="relative flex h-full w-full cursor-pointer items-center bg-yellow-300 px-6"
-	style="background-image: url('/gifs/flame-border.gif'); background-size: 100% 100%; background-repeat: no-repeat;"
+	style="background-image: url('/gifs/flame-border.webp'); background-size: 100% 100%; background-repeat: no-repeat;"
 	on:click={giveHighFive}
 	on:keydown={(e) => e.key === 'Enter' && giveHighFive()}
 	role="button"

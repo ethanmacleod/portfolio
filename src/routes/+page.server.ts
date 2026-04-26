@@ -3,7 +3,7 @@ import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { RetryAfterRateLimiter } from 'sveltekit-rate-limiter/server';
 import prisma from '$lib/prisma.server.js';
-import { guestbookSchema } from './schema.js';
+import { guestbookSchema } from '$lib/schema.js';
 import type { PageServerLoad, Actions } from './$types';
 import { discordGuestBook } from '$lib/server/discord.js';
 

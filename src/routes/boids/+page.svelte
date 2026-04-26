@@ -5,7 +5,6 @@
 		BOUNDARY_MARGIN,
 		BOUNDARY_WEIGHT,
 		createVector,
-		distance,
 		limit,
 		multiplyVector,
 		normalize,
@@ -14,8 +13,9 @@
 		type Vector
 	} from './boidLogic';
 	import Dial from '$lib/components/ui/dial.svelte';
+	import BoidNameplate from './BoidNameplate.svelte';
+	import BoidControlPanel from './BoidControlPanel.svelte';
 
-	// Editable params
 	let MAX_SPEED = 2;
 	let MAX_FORCE = 0.03;
 	let BOID_SIZE = 3;
@@ -33,7 +33,6 @@
 	let ctx: CanvasRenderingContext2D;
 	let boids: Boid[] = [];
 
-	// Frame rate
 	let lastFrameTime = performance.now();
 	let fps = 60;
 
@@ -53,165 +52,164 @@
 	}
 
 	function initializeBoids(): Boid[] {
-		return Array.from({ length: BOID_COUNT }, () => {
-			return addBoid();
-		});
+		return Array.from({ length: BOID_COUNT }, () => addBoid());
 	}
 
-	// Rule 1: Align center of mass with other boids
-	function rule1(boid: Boid, boids: Boid[]): Vector {
-		let sum = createVector(0, 0);
-		let count = 0;
+	function buildGrid(cellSize: number): Map<number, number[]> {
+		const cols = Math.ceil(canvas.width / cellSize) + 1;
+		const grid = new Map<number, number[]>();
+		for (let i = 0; i < boids.length; i++) {
+			const { x, y } = boids[i].position;
+			const key = Math.floor(x / cellSize) + Math.floor(y / cellSize) * cols;
+			const cell = grid.get(key);
+			if (cell) cell.push(i);
+			else grid.set(key, [i]);
+		}
+		return grid;
+	}
 
-		for (const other of boids) {
-			const d = distance(boid.position, other.position);
-			if (d > 0 && d < ALIGNMENT_RADIUS) {
-				sum = addVectors(sum, other.velocity);
-				count++;
+	function getNeighbors(boid: Boid, grid: Map<number, number[]>, cellSize: number): number[] {
+		const cols = Math.ceil(canvas.width / cellSize) + 1;
+		const cx = Math.floor(boid.position.x / cellSize);
+		const cy = Math.floor(boid.position.y / cellSize);
+		const neighbors: number[] = [];
+		for (let dx = -1; dx <= 1; dx++) {
+			for (let dy = -1; dy <= 1; dy++) {
+				const cell = grid.get(cx + dx + (cy + dy) * cols);
+				if (cell) {
+					for (const idx of cell) neighbors.push(idx);
+				}
+			}
+		}
+		return neighbors;
+	}
+
+	function computeForces(boid: Boid, neighbors: number[]): [Vector, Vector, Vector] {
+		let alignSumX = 0,
+			alignSumY = 0,
+			alignCount = 0;
+		let sepX = 0,
+			sepY = 0,
+			sepCount = 0;
+		let cohSumX = 0,
+			cohSumY = 0,
+			cohCount = 0;
+
+		const sepR2 = SEPARATION_RADIUS * SEPARATION_RADIUS;
+		const aliR2 = ALIGNMENT_RADIUS * ALIGNMENT_RADIUS;
+		const cohR2 = COHESION_RADIUS * COHESION_RADIUS;
+
+		for (const idx of neighbors) {
+			const other = boids[idx];
+			const dx = other.position.x - boid.position.x;
+			const dy = other.position.y - boid.position.y;
+			const d2 = dx * dx + dy * dy;
+			if (d2 === 0) continue;
+
+			if (d2 < sepR2) {
+				sepX += -dx / d2;
+				sepY += -dy / d2;
+				sepCount++;
+			}
+			if (d2 < aliR2) {
+				alignSumX += other.velocity.x;
+				alignSumY += other.velocity.y;
+				alignCount++;
+			}
+			if (d2 < cohR2) {
+				cohSumX += other.position.x;
+				cohSumY += other.position.y;
+				cohCount++;
 			}
 		}
 
-		if (count > 0) {
-			sum = multiplyVector(sum, 1 / count);
-			sum = normalize(sum);
-			sum = multiplyVector(sum, MAX_SPEED);
-			let steer = subtractVectors(sum, boid.velocity);
-			steer = limit(steer, MAX_FORCE);
-			return steer;
+		let alignment = createVector(0, 0);
+		if (alignCount > 0) {
+			let avg = normalize({ x: alignSumX / alignCount, y: alignSumY / alignCount });
+			avg = multiplyVector(avg, MAX_SPEED);
+			alignment = limit(subtractVectors(avg, boid.velocity), MAX_FORCE);
 		}
 
-		return createVector(0, 0);
-	}
-
-	// Rule 2: Maintain a degree of seperation from other boids
-	function rule2(boid: Boid, boids: Boid[]): Vector {
-		let steer = createVector(0, 0);
-		let count = 0;
-
-		for (const other of boids) {
-			const d = distance(boid.position, other.position);
-			if (d > 0 && d < SEPARATION_RADIUS) {
-				let diff = subtractVectors(boid.position, other.position);
-				diff = normalize(diff);
-				diff = multiplyVector(diff, 1 / d);
-				steer = addVectors(steer, diff);
-				count++;
-			}
-		}
-
-		if (count > 0) {
-			steer = multiplyVector(steer, 1 / count);
-			steer = normalize(steer);
+		let separation = createVector(0, 0);
+		if (sepCount > 0) {
+			let steer = normalize({ x: sepX / sepCount, y: sepY / sepCount });
 			steer = multiplyVector(steer, MAX_SPEED);
 			steer = subtractVectors(steer, boid.velocity);
-			steer = limit(steer, MAX_FORCE);
+			separation = limit(steer, MAX_FORCE);
 		}
 
-		return steer;
-	}
-
-	// Rule 3: Match velocity with other boids
-	function rule3(boid: Boid, boids: Boid[]): Vector {
-		let sum = createVector(0, 0);
-		let count = 0;
-
-		for (const other of boids) {
-			const d = distance(boid.position, other.position);
-			if (d > 0 && d < COHESION_RADIUS) {
-				sum = addVectors(sum, other.position);
-				count++;
-			}
+		let cohesion = createVector(0, 0);
+		if (cohCount > 0) {
+			cohesion = seek(boid, { x: cohSumX / cohCount, y: cohSumY / cohCount });
 		}
 
-		if (count > 0) {
-			sum = multiplyVector(sum, 1 / count);
-			return seek(boid, sum);
-		}
-
-		return createVector(0, 0);
+		return [alignment, separation, cohesion];
 	}
 
 	function seek(boid: Boid, target: Vector): Vector {
 		let desired = subtractVectors(target, boid.position);
 		desired = normalize(desired);
 		desired = multiplyVector(desired, MAX_SPEED);
-
 		let steer = subtractVectors(desired, boid.velocity);
 		steer = limit(steer, MAX_FORCE);
 		return steer;
 	}
 
-	// Apply steering force when near a boundary
 	function boundary(boid: Boid): Vector {
 		let steer = createVector(0, 0);
-		if (boid.position.x < BOUNDARY_MARGIN) steer.x = MAX_SPEED; // Left
-		if (boid.position.x > canvas.width - BOUNDARY_MARGIN) steer.x = -MAX_SPEED; // Right
-		if (boid.position.y < BOUNDARY_MARGIN) steer.y = MAX_SPEED; // Top
-		if (boid.position.y > canvas.height - BOUNDARY_MARGIN) steer.y = -MAX_SPEED; // Bottom
-
+		if (boid.position.x < BOUNDARY_MARGIN) steer.x = MAX_SPEED;
+		if (boid.position.x > canvas.width - BOUNDARY_MARGIN) steer.x = -MAX_SPEED;
+		if (boid.position.y < BOUNDARY_MARGIN) steer.y = MAX_SPEED;
+		if (boid.position.y > canvas.height - BOUNDARY_MARGIN) steer.y = -MAX_SPEED;
 		if (steer.x !== 0 || steer.y !== 0) {
 			steer = normalize(steer);
 			steer = multiplyVector(steer, MAX_SPEED);
 			steer = subtractVectors(steer, boid.velocity);
 			steer = limit(steer, MAX_FORCE);
 		}
-
 		return steer;
 	}
 
-	function updateBoid(boid: Boid, boids: Boid[]): void {
-		// Calculate velocities
-		const v1 = multiplyVector(rule1(boid, boids), ALIGNMENT_WEIGHT);
-		const v2 = multiplyVector(rule2(boid, boids), SEPARATION_WEIGHT);
-		const v3 = multiplyVector(rule3(boid, boids), COHESION_WEIGHT);
+	function updateBoid(boid: Boid, neighbors: number[]): void {
+		const [alignment, separation, cohesion] = computeForces(boid, neighbors);
 		const v4 = multiplyVector(boundary(boid), BOUNDARY_WEIGHT);
-
-		// Apply velocities
-		boid.acceleration = addVectors(boid.acceleration, v1);
-		boid.acceleration = addVectors(boid.acceleration, v2);
-		boid.acceleration = addVectors(boid.acceleration, v3);
+		boid.acceleration = addVectors(boid.acceleration, multiplyVector(alignment, ALIGNMENT_WEIGHT));
+		boid.acceleration = addVectors(
+			boid.acceleration,
+			multiplyVector(separation, SEPARATION_WEIGHT)
+		);
+		boid.acceleration = addVectors(boid.acceleration, multiplyVector(cohesion, COHESION_WEIGHT));
 		boid.acceleration = addVectors(boid.acceleration, v4);
-
-		// Update velocity and position
 		boid.velocity = addVectors(boid.velocity, boid.acceleration);
 		boid.velocity = limit(boid.velocity, MAX_SPEED);
 		boid.position = addVectors(boid.position, boid.velocity);
-
-		// Reset acceleration
 		boid.acceleration = createVector(0, 0);
 	}
 
 	function drawBoid(ctx: CanvasRenderingContext2D, boid: Boid): void {
 		const angle = Math.atan2(boid.velocity.y, boid.velocity.x);
-
 		ctx.save();
 		ctx.translate(boid.position.x, boid.position.y);
 		ctx.rotate(angle);
-
 		ctx.beginPath();
 		ctx.moveTo(BOID_SIZE * 2, 0);
 		ctx.lineTo(-BOID_SIZE, -BOID_SIZE);
 		ctx.lineTo(-BOID_SIZE, BOID_SIZE);
 		ctx.closePath();
-
 		ctx.shadowColor = '#00ff41';
-
 		ctx.fillStyle = '#00ff41';
 		ctx.fill();
 		ctx.strokeStyle = '#00ff41';
 		ctx.lineWidth = 0.5;
 		ctx.stroke();
-
 		ctx.restore();
 	}
 
 	onMount(() => {
 		ctx = canvas.getContext('2d')!;
-
 		const rect = canvas.getBoundingClientRect();
 		canvas.width = rect.width;
 		canvas.height = rect.height;
-
 		boids = initializeBoids();
 
 		let frame: number;
@@ -221,10 +219,9 @@
 			fps = Math.round(1000 / delta);
 			lastFrameTime = now;
 
-			const fpsElement = document.getElementById('frameRate');
-			if (fpsElement) fpsElement.textContent = `${fps} FPS`;
-
-			for (const boid of boids) updateBoid(boid, boids);
+			const cellSize = Math.max(SEPARATION_RADIUS, ALIGNMENT_RADIUS, COHESION_RADIUS);
+			const grid = buildGrid(cellSize);
+			for (const boid of boids) updateBoid(boid, getNeighbors(boid, grid, cellSize));
 			ctx.fillStyle = 'black';
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 			for (const boid of boids) drawBoid(ctx, boid);
@@ -232,10 +229,7 @@
 		}
 
 		loop();
-
-		return () => {
-			cancelAnimationFrame(frame);
-		};
+		return () => cancelAnimationFrame(frame);
 	});
 
 	function updateMaxSpeed(val: number) {
@@ -267,28 +261,7 @@
 		</div>
 
 		<div class="dial-panel">
-			<div class="nameplate">
-				<div class="screw top-left"></div>
-				<div class="screw top-right"></div>
-				<div class="screw bottom-left"></div>
-				<div class="screw bottom-right"></div>
-
-				<div class="nameplate-content">
-					<div class="manufacturer">MACLEOD ENGINEERING INC</div>
-					<div class="model">MODEL: BS-2187</div>
-					<div class="serial">S/N: 08051984</div>
-
-					<div class="instructions">
-						<div class="instruction-title">OPERATION GUIDE</div>
-						<div class="instruction-text">• SPEED: Controls agent velocity</div>
-						<div class="instruction-text">• FORCE: Steering strength</div>
-						<div class="instruction-text">• COUNT: Population density</div>
-						<div class="instruction-text">• Use sliders for behavior tuning</div>
-					</div>
-
-					<div class="warning">⚠ AUTHORIZED PERSONNEL ONLY</div>
-				</div>
-			</div>
+			<BoidNameplate />
 			<div class="controls grid grid-cols-1 gap-6 p-4 sm:grid-cols-3">
 				<Dial
 					label="Speed"
@@ -317,126 +290,163 @@
 		</div>
 	</div>
 
-	<div class="control-panel">
-		<div class="panel-header">CONTROL PANEL</div>
-
-		<!-- Separation Radius -->
-		<div class="control-group">
-			<label class="control-label" for="separationRadius">Separation Radius</label>
-			<div class="slider-container">
-				<input
-					type="range"
-					id="separationRadius"
-					class="slider"
-					min="10"
-					max="60"
-					bind:value={SEPARATION_RADIUS}
-				/>
-				<div class="value-display">{SEPARATION_RADIUS}</div>
-			</div>
-		</div>
-
-		<!-- Alignment Radius -->
-		<div class="control-group">
-			<label class="control-label" for="alignmentRadius">Alignment Radius</label>
-			<div class="slider-container">
-				<input
-					type="range"
-					id="alignmentRadius"
-					class="slider"
-					min="20"
-					max="100"
-					bind:value={ALIGNMENT_RADIUS}
-				/>
-				<div class="value-display">{ALIGNMENT_RADIUS}</div>
-			</div>
-		</div>
-
-		<!-- Cohesion Radius -->
-		<div class="control-group">
-			<label class="control-label" for="cohesionRadius">Cohesion Radius</label>
-			<div class="slider-container">
-				<input
-					type="range"
-					id="cohesionRadius"
-					class="slider"
-					min="20"
-					max="100"
-					bind:value={COHESION_RADIUS}
-				/>
-				<div class="value-display">{COHESION_RADIUS}</div>
-			</div>
-		</div>
-
-		<!-- Separation Weight -->
-		<div class="control-group">
-			<label class="control-label" for="separationWeight">Separation Weight</label>
-			<div class="slider-container">
-				<input
-					type="range"
-					id="separationWeight"
-					class="slider"
-					min="0"
-					max="3"
-					step="0.1"
-					bind:value={SEPARATION_WEIGHT}
-				/>
-				<div class="value-display">{SEPARATION_WEIGHT}</div>
-			</div>
-		</div>
-
-		<!-- Alignment Weight -->
-		<div class="control-group">
-			<label class="control-label" for="alignmentWeight">Alignment Weight</label>
-			<div class="slider-container">
-				<input
-					type="range"
-					id="alignmentWeight"
-					class="slider"
-					min="0"
-					max="3"
-					step="0.1"
-					bind:value={ALIGNMENT_WEIGHT}
-				/>
-				<div class="value-display">{ALIGNMENT_WEIGHT}</div>
-			</div>
-		</div>
-
-		<!-- Cohesion Weight -->
-		<div class="control-group">
-			<label class="control-label" for="cohesionWeight">Cohesion Weight</label>
-			<div class="slider-container">
-				<input
-					type="range"
-					id="cohesionWeight"
-					class="slider"
-					min="0"
-					max="3"
-					step="0.1"
-					bind:value={COHESION_WEIGHT}
-				/>
-				<div class="value-display">{COHESION_WEIGHT}</div>
-			</div>
-		</div>
-
-		<div class="stats-panel">
-			<div class="stat-line">
-				<span>ACTIVE BOIDS:</span>
-				<span id="boidCount">100</span>
-			</div>
-			<div class="stat-line">
-				<span>FRAME RATE:</span>
-				<span id="frameRate">60 FPS</span>
-			</div>
-			<div class="stat-line">
-				<span>STATUS:</span>
-				<span class="blink">OPERATIONAL</span>
-			</div>
-		</div>
-	</div>
+	<BoidControlPanel
+		bind:separationRadius={SEPARATION_RADIUS}
+		bind:alignmentRadius={ALIGNMENT_RADIUS}
+		bind:cohesionRadius={COHESION_RADIUS}
+		bind:separationWeight={SEPARATION_WEIGHT}
+		bind:alignmentWeight={ALIGNMENT_WEIGHT}
+		bind:cohesionWeight={COHESION_WEIGHT}
+		boidCount={boids.length}
+		{fps}
+	/>
 </div>
 
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-	@import './pipboy.css';
+
+	.pip-terminal {
+		display: grid;
+		grid-template-columns: 1fr 300px;
+		background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+		border: 4px solid #333;
+		position: relative;
+		padding: 1em;
+	}
+
+	.pip-terminal::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background:
+			radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%),
+			linear-gradient(90deg, transparent 98%, rgba(0, 255, 65, 0.03) 100%),
+			linear-gradient(0deg, transparent 98%, rgba(0, 255, 65, 0.03) 100%);
+		pointer-events: none;
+		z-index: 10;
+	}
+
+	.screen-container {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.screen-header {
+		color: #00ff41;
+		font-size: 14px;
+		margin-bottom: 10px;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		text-shadow: 0 0 10px #00ff41;
+	}
+
+	.screen {
+		height: 450px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.screen::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: repeating-linear-gradient(
+			0deg,
+			transparent,
+			transparent 1.5px,
+			rgba(0, 255, 65, 0.08) 1.5px,
+			rgba(0, 255, 65, 0.08) 3px
+		);
+		pointer-events: none;
+		z-index: 5;
+	}
+
+	.screen::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.4) 100%);
+		pointer-events: none;
+		z-index: 6;
+	}
+
+	canvas {
+		display: block;
+		width: 100%;
+		height: 100%;
+		max-height: 100%;
+		filter: brightness(1.1) contrast(1.2) drop-shadow(0 0 8px #00ff41);
+	}
+
+	.canvas-wrapper {
+		position: relative;
+		padding: 0px 20px;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: visible;
+	}
+
+	.dial-panel {
+		display: grid;
+		grid-template-columns: 200px 1fr;
+		align-items: flex-start;
+		gap: 2rem;
+		margin-top: 1rem;
+		padding: 10px 20px;
+		border: 1px solid #333;
+		background: #0f0f0f;
+	}
+
+	.blink {
+		animation: blink 2s infinite;
+	}
+
+	@keyframes blink {
+		0%,
+		50% {
+			opacity: 1;
+		}
+		51%,
+		100% {
+			opacity: 0.3;
+		}
+	}
+
+	.flicker {
+		animation: flicker 0.15s infinite linear;
+	}
+
+	@keyframes flicker {
+		0% {
+			opacity: 1;
+		}
+		98% {
+			opacity: 1;
+		}
+		99% {
+			opacity: 0.8;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	@media (max-width: 1024px) {
+		.pip-terminal {
+			grid-template-columns: 1fr;
+		}
+	}
 </style>

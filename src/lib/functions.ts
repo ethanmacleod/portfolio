@@ -1,3 +1,11 @@
+export function formatDate(date: Date): string {
+	return new Date(date).toLocaleDateString('en-US', {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric'
+	});
+}
+
 export function numberWithOrdinal(num: number) {
 	const j = num % 10;
 	const k = num % 100;

@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>Welcome to my Homepage!</title>
+	<title>Welcome!</title>
 </svelte:head>
 
 <div class="space-y-6">

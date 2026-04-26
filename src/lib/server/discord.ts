@@ -1,6 +1,7 @@
 import type { Guestbook } from '@prisma/client';
+import { env } from '$env/dynamic/private';
 
-const discordWebhookUrl = process.env.DISCORD_WEBHOOK_URL;
+const discordWebhookUrl = env.DISCORD_WEBHOOK_URL;
 
 export async function discordGuestBook(entry: Guestbook) {
 	if (!discordWebhookUrl) return;

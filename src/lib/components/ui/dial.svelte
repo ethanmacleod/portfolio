@@ -35,7 +35,6 @@
 
 	onMount(() => {
 		const knob = knobEl.querySelector('.knob') as HTMLDivElement;
-		let startAngle = 0;
 		let currentRotation = valueToDeg(value);
 		rotation = currentRotation;
 
@@ -78,7 +77,6 @@
 		knob.addEventListener('mousedown', (e) => {
 			e.preventDefault();
 			isDragging = true;
-			startAngle = getAngleFromMouse(e);
 			document.addEventListener('mousemove', onMouseMove);
 			document.addEventListener('mouseup', onMouseUp);
 		});
@@ -94,8 +92,7 @@
 	</div>
 
 	<div bind:this={knobEl} class="relative h-[120px] w-[120px]">
-		<!-- "Scale" Bars -->
-		{#each Array.from({ length: barCount }) as _, i}
+		{#each Array.from({ length: barCount }, (_, idx) => idx) as i (i)}
 			{@const percent = i / (barCount - 1)}
 			{@const deg = percent * activeArc}
 			{@const colorHue = 120 - percent * 120}

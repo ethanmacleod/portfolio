@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Analytics } from '$lib/types';
+	import type { Analytics } from '$lib/schema.js';
 	import DynamicHeader from '../DynamicHeader.svelte';
 	import HighFiveCounter from '../HighFiveCounter.svelte';
 	import UnderConstructionGif from '../UnderConstructionGif.svelte';
@@ -9,89 +9,39 @@
 </script>
 
 <header
-	class="bevel-button box-border h-32 overflow-hidden bg-gradient-to-r from-black to-gray-900 text-white"
+	class="bevel-button box-border flex h-20 shrink-0 gap-1 overflow-hidden p-1 pr-2"
+	style="background: linear-gradient(180deg, #dce2e8 0%, #8e96a0 100%);"
 >
-	<table class="h-full w-full table-fixed border-collapse">
-		<colgroup>
-			<col style="width: 28.57%" />
-			<col style="width: 28.57%" />
-			<col style="width: 42.86%" />
-		</colgroup>
-		<tbody>
-			<tr class="h-full">
-				<td class="h-full p-0 align-top">
-					<HeaderWidgets {analytics} />
-				</td>
-				<td class="h-full p-0 align-top">
-					<table class="h-full w-full table-fixed border-collapse" style="table-layout: fixed; height: 100%;">
-						<colgroup>
-							<col style="width: 50%" />
-							<col style="width: 50%" />
-						</colgroup>
-						<tbody>
-							<tr style="height: 25%;">
-								<td class="p-0 align-top overflow-hidden" style="height: 25%; max-height: 32px;">
-									<div class="w-full overflow-hidden" style="height: 32px;">
-										<HighFiveCounter />
-									</div>
-								</td>
-								<td class="overflow-hidden p-0" style="height: 25%; max-height: 32px;">
-									<div class="flex w-full items-center" style="height: 32px;">
-										<img
-											src="/gifs/rainbow.gif"
-											alt="Rainbow"
-											class="w-full"
-											style="height: 32px; object-fit: cover;"
-										/>
-									</div>
-								</td>
-							</tr>
-							<tr style="height: 25%">
-								<td class="overflow-hidden p-0">
-									<div class="flex h-full w-full items-center justify-center gap-1 bg-black">
-										<img
-											src="/gifs/hot_1.gif"
-											alt="Hot 1"
-											class="max-h-full max-w-[25%] object-contain"
-										/>
-										<img
-											src="/gifs/hot_2.gif"
-											alt="Hot 2"
-											class="max-h-full max-w-[25%] object-contain"
-										/>
-										<img
-											src="/gifs/hot_3.gif"
-											alt="Hot 3"
-											class="max-h-full max-w-[25%] object-contain"
-										/>
-										<img
-											src="/gifs/hot_4.gif"
-											alt="Hot 4"
-											class="max-h-full max-w-[25%] object-contain"
-										/>
-									</div>
-								</td>
+	<div class="w-[45%] shrink-0">
+		<HeaderWidgets {analytics} />
+	</div>
 
-								<td class="h-0 overflow-hidden p-0"> </td>
-							</tr>
-							<tr style="height: 25%">
-								<td class="overflow-hidden p-0"> </td>
-								<td class="h-0 overflow-hidden p-0"> </td>
-							</tr>
-							<tr style="height: 25%">
-								<td colspan="2" class="p-0 align-top">
-									<div class="h-full w-full overflow-hidden">
-										<UnderConstructionGif />
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</td>
-				<td class="h-full p-0 align-top">
-					<DynamicHeader />
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<div
+		class="bevel-inset my-1 flex w-[25%] shrink-0 flex-col gap-1 overflow-hidden bg-[#c0c0c0] p-1"
+	>
+		<div class="flex min-h-0 flex-1 gap-1">
+			<div class="min-w-0 flex-1 overflow-hidden">
+				<HighFiveCounter />
+			</div>
+			<div class="min-w-0 flex-1 overflow-hidden">
+				<video
+					autoplay
+					loop
+					muted
+					playsinline
+					aria-hidden="true"
+					src="/gifs/rainbow.webm"
+					class="h-full w-full"
+					style="object-fit: cover;"
+				></video>
+			</div>
+		</div>
+		<div class="min-h-0 flex-1 overflow-hidden">
+			<UnderConstructionGif />
+		</div>
+	</div>
+
+	<div class="bevel-inset my-1 w-[30%] shrink-0 overflow-hidden">
+		<DynamicHeader />
+	</div>
 </header>
