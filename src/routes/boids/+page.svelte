@@ -1,4 +1,5 @@
 <script lang="ts">
+	import './pipboy.css';
 	import { onMount } from 'svelte';
 	import {
 		addVectors,
@@ -14,8 +15,9 @@
 		type Vector
 	} from './boidLogic';
 	import Dial from '$lib/components/ui/dial.svelte';
+	import BoidNameplate from './BoidNameplate.svelte';
+	import BoidControlPanel from './BoidControlPanel.svelte';
 
-	// Editable params
 	let MAX_SPEED = 2;
 	let MAX_FORCE = 0.03;
 	let BOID_SIZE = 3;
@@ -33,7 +35,6 @@
 	let ctx: CanvasRenderingContext2D;
 	let boids: Boid[] = [];
 
-	// Frame rate
 	let lastFrameTime = performance.now();
 	let fps = 60;
 
@@ -53,16 +54,12 @@
 	}
 
 	function initializeBoids(): Boid[] {
-		return Array.from({ length: BOID_COUNT }, () => {
-			return addBoid();
-		});
+		return Array.from({ length: BOID_COUNT }, () => addBoid());
 	}
 
-	// Rule 1: Align center of mass with other boids
 	function rule1(boid: Boid, boids: Boid[]): Vector {
 		let sum = createVector(0, 0);
 		let count = 0;
-
 		for (const other of boids) {
 			const d = distance(boid.position, other.position);
 			if (d > 0 && d < ALIGNMENT_RADIUS) {
@@ -70,7 +67,6 @@
 				count++;
 			}
 		}
-
 		if (count > 0) {
 			sum = multiplyVector(sum, 1 / count);
 			sum = normalize(sum);
@@ -79,15 +75,12 @@
 			steer = limit(steer, MAX_FORCE);
 			return steer;
 		}
-
 		return createVector(0, 0);
 	}
 
-	// Rule 2: Maintain a degree of seperation from other boids
 	function rule2(boid: Boid, boids: Boid[]): Vector {
 		let steer = createVector(0, 0);
 		let count = 0;
-
 		for (const other of boids) {
 			const d = distance(boid.position, other.position);
 			if (d > 0 && d < SEPARATION_RADIUS) {
@@ -98,7 +91,6 @@
 				count++;
 			}
 		}
-
 		if (count > 0) {
 			steer = multiplyVector(steer, 1 / count);
 			steer = normalize(steer);
@@ -106,15 +98,12 @@
 			steer = subtractVectors(steer, boid.velocity);
 			steer = limit(steer, MAX_FORCE);
 		}
-
 		return steer;
 	}
 
-	// Rule 3: Match velocity with other boids
 	function rule3(boid: Boid, boids: Boid[]): Vector {
 		let sum = createVector(0, 0);
 		let count = 0;
-
 		for (const other of boids) {
 			const d = distance(boid.position, other.position);
 			if (d > 0 && d < COHESION_RADIUS) {
@@ -122,12 +111,10 @@
 				count++;
 			}
 		}
-
 		if (count > 0) {
 			sum = multiplyVector(sum, 1 / count);
 			return seek(boid, sum);
 		}
-
 		return createVector(0, 0);
 	}
 
@@ -135,83 +122,65 @@
 		let desired = subtractVectors(target, boid.position);
 		desired = normalize(desired);
 		desired = multiplyVector(desired, MAX_SPEED);
-
 		let steer = subtractVectors(desired, boid.velocity);
 		steer = limit(steer, MAX_FORCE);
 		return steer;
 	}
 
-	// Apply steering force when near a boundary
 	function boundary(boid: Boid): Vector {
 		let steer = createVector(0, 0);
-		if (boid.position.x < BOUNDARY_MARGIN) steer.x = MAX_SPEED; // Left
-		if (boid.position.x > canvas.width - BOUNDARY_MARGIN) steer.x = -MAX_SPEED; // Right
-		if (boid.position.y < BOUNDARY_MARGIN) steer.y = MAX_SPEED; // Top
-		if (boid.position.y > canvas.height - BOUNDARY_MARGIN) steer.y = -MAX_SPEED; // Bottom
-
+		if (boid.position.x < BOUNDARY_MARGIN) steer.x = MAX_SPEED;
+		if (boid.position.x > canvas.width - BOUNDARY_MARGIN) steer.x = -MAX_SPEED;
+		if (boid.position.y < BOUNDARY_MARGIN) steer.y = MAX_SPEED;
+		if (boid.position.y > canvas.height - BOUNDARY_MARGIN) steer.y = -MAX_SPEED;
 		if (steer.x !== 0 || steer.y !== 0) {
 			steer = normalize(steer);
 			steer = multiplyVector(steer, MAX_SPEED);
 			steer = subtractVectors(steer, boid.velocity);
 			steer = limit(steer, MAX_FORCE);
 		}
-
 		return steer;
 	}
 
 	function updateBoid(boid: Boid, boids: Boid[]): void {
-		// Calculate velocities
 		const v1 = multiplyVector(rule1(boid, boids), ALIGNMENT_WEIGHT);
 		const v2 = multiplyVector(rule2(boid, boids), SEPARATION_WEIGHT);
 		const v3 = multiplyVector(rule3(boid, boids), COHESION_WEIGHT);
 		const v4 = multiplyVector(boundary(boid), BOUNDARY_WEIGHT);
-
-		// Apply velocities
 		boid.acceleration = addVectors(boid.acceleration, v1);
 		boid.acceleration = addVectors(boid.acceleration, v2);
 		boid.acceleration = addVectors(boid.acceleration, v3);
 		boid.acceleration = addVectors(boid.acceleration, v4);
-
-		// Update velocity and position
 		boid.velocity = addVectors(boid.velocity, boid.acceleration);
 		boid.velocity = limit(boid.velocity, MAX_SPEED);
 		boid.position = addVectors(boid.position, boid.velocity);
-
-		// Reset acceleration
 		boid.acceleration = createVector(0, 0);
 	}
 
 	function drawBoid(ctx: CanvasRenderingContext2D, boid: Boid): void {
 		const angle = Math.atan2(boid.velocity.y, boid.velocity.x);
-
 		ctx.save();
 		ctx.translate(boid.position.x, boid.position.y);
 		ctx.rotate(angle);
-
 		ctx.beginPath();
 		ctx.moveTo(BOID_SIZE * 2, 0);
 		ctx.lineTo(-BOID_SIZE, -BOID_SIZE);
 		ctx.lineTo(-BOID_SIZE, BOID_SIZE);
 		ctx.closePath();
-
 		ctx.shadowColor = '#00ff41';
-
 		ctx.fillStyle = '#00ff41';
 		ctx.fill();
 		ctx.strokeStyle = '#00ff41';
 		ctx.lineWidth = 0.5;
 		ctx.stroke();
-
 		ctx.restore();
 	}
 
 	onMount(() => {
 		ctx = canvas.getContext('2d')!;
-
 		const rect = canvas.getBoundingClientRect();
 		canvas.width = rect.width;
 		canvas.height = rect.height;
-
 		boids = initializeBoids();
 
 		let frame: number;
@@ -221,9 +190,6 @@
 			fps = Math.round(1000 / delta);
 			lastFrameTime = now;
 
-			const fpsElement = document.getElementById('frameRate');
-			if (fpsElement) fpsElement.textContent = `${fps} FPS`;
-
 			for (const boid of boids) updateBoid(boid, boids);
 			ctx.fillStyle = 'black';
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -232,10 +198,7 @@
 		}
 
 		loop();
-
-		return () => {
-			cancelAnimationFrame(frame);
-		};
+		return () => cancelAnimationFrame(frame);
 	});
 
 	function updateMaxSpeed(val: number) {
@@ -267,28 +230,7 @@
 		</div>
 
 		<div class="dial-panel">
-			<div class="nameplate">
-				<div class="screw top-left"></div>
-				<div class="screw top-right"></div>
-				<div class="screw bottom-left"></div>
-				<div class="screw bottom-right"></div>
-
-				<div class="nameplate-content">
-					<div class="manufacturer">MACLEOD ENGINEERING INC</div>
-					<div class="model">MODEL: BS-2187</div>
-					<div class="serial">S/N: 08051984</div>
-
-					<div class="instructions">
-						<div class="instruction-title">OPERATION GUIDE</div>
-						<div class="instruction-text">• SPEED: Controls agent velocity</div>
-						<div class="instruction-text">• FORCE: Steering strength</div>
-						<div class="instruction-text">• COUNT: Population density</div>
-						<div class="instruction-text">• Use sliders for behavior tuning</div>
-					</div>
-
-					<div class="warning">⚠ AUTHORIZED PERSONNEL ONLY</div>
-				</div>
-			</div>
+			<BoidNameplate />
 			<div class="controls grid grid-cols-1 gap-6 p-4 sm:grid-cols-3">
 				<Dial
 					label="Speed"
@@ -317,126 +259,18 @@
 		</div>
 	</div>
 
-	<div class="control-panel">
-		<div class="panel-header">CONTROL PANEL</div>
-
-		<!-- Separation Radius -->
-		<div class="control-group">
-			<label class="control-label" for="separationRadius">Separation Radius</label>
-			<div class="slider-container">
-				<input
-					type="range"
-					id="separationRadius"
-					class="slider"
-					min="10"
-					max="60"
-					bind:value={SEPARATION_RADIUS}
-				/>
-				<div class="value-display">{SEPARATION_RADIUS}</div>
-			</div>
-		</div>
-
-		<!-- Alignment Radius -->
-		<div class="control-group">
-			<label class="control-label" for="alignmentRadius">Alignment Radius</label>
-			<div class="slider-container">
-				<input
-					type="range"
-					id="alignmentRadius"
-					class="slider"
-					min="20"
-					max="100"
-					bind:value={ALIGNMENT_RADIUS}
-				/>
-				<div class="value-display">{ALIGNMENT_RADIUS}</div>
-			</div>
-		</div>
-
-		<!-- Cohesion Radius -->
-		<div class="control-group">
-			<label class="control-label" for="cohesionRadius">Cohesion Radius</label>
-			<div class="slider-container">
-				<input
-					type="range"
-					id="cohesionRadius"
-					class="slider"
-					min="20"
-					max="100"
-					bind:value={COHESION_RADIUS}
-				/>
-				<div class="value-display">{COHESION_RADIUS}</div>
-			</div>
-		</div>
-
-		<!-- Separation Weight -->
-		<div class="control-group">
-			<label class="control-label" for="separationWeight">Separation Weight</label>
-			<div class="slider-container">
-				<input
-					type="range"
-					id="separationWeight"
-					class="slider"
-					min="0"
-					max="3"
-					step="0.1"
-					bind:value={SEPARATION_WEIGHT}
-				/>
-				<div class="value-display">{SEPARATION_WEIGHT}</div>
-			</div>
-		</div>
-
-		<!-- Alignment Weight -->
-		<div class="control-group">
-			<label class="control-label" for="alignmentWeight">Alignment Weight</label>
-			<div class="slider-container">
-				<input
-					type="range"
-					id="alignmentWeight"
-					class="slider"
-					min="0"
-					max="3"
-					step="0.1"
-					bind:value={ALIGNMENT_WEIGHT}
-				/>
-				<div class="value-display">{ALIGNMENT_WEIGHT}</div>
-			</div>
-		</div>
-
-		<!-- Cohesion Weight -->
-		<div class="control-group">
-			<label class="control-label" for="cohesionWeight">Cohesion Weight</label>
-			<div class="slider-container">
-				<input
-					type="range"
-					id="cohesionWeight"
-					class="slider"
-					min="0"
-					max="3"
-					step="0.1"
-					bind:value={COHESION_WEIGHT}
-				/>
-				<div class="value-display">{COHESION_WEIGHT}</div>
-			</div>
-		</div>
-
-		<div class="stats-panel">
-			<div class="stat-line">
-				<span>ACTIVE BOIDS:</span>
-				<span id="boidCount">100</span>
-			</div>
-			<div class="stat-line">
-				<span>FRAME RATE:</span>
-				<span id="frameRate">60 FPS</span>
-			</div>
-			<div class="stat-line">
-				<span>STATUS:</span>
-				<span class="blink">OPERATIONAL</span>
-			</div>
-		</div>
-	</div>
+	<BoidControlPanel
+		bind:separationRadius={SEPARATION_RADIUS}
+		bind:alignmentRadius={ALIGNMENT_RADIUS}
+		bind:cohesionRadius={COHESION_RADIUS}
+		bind:separationWeight={SEPARATION_WEIGHT}
+		bind:alignmentWeight={ALIGNMENT_WEIGHT}
+		bind:cohesionWeight={COHESION_WEIGHT}
+		boidCount={boids.length}
+		{fps}
+	/>
 </div>
 
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-	@import './pipboy.css';
 </style>
