@@ -4,7 +4,7 @@
 	let highFiveCount = 0;
 	let loading = false;
 	let remaining = 5;
-	let resetTimer: NodeJS.Timeout | null = null;
+	let resetTimer: ReturnType<typeof setInterval> | null = null;
 
 	onMount(async () => {
 		try {

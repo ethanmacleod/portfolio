@@ -1,15 +1,15 @@
-import { createClient, type RedisClientType } from 'redis';
-import { REDIS_URL } from '$env/static/private';
+import { createClient } from 'redis';
+import { env } from '$env/dynamic/private';
 
-let redisClient: RedisClientType | null = null;
+type RedisClient = ReturnType<typeof createClient>;
 
-export async function getRedisClient(): Promise<RedisClientType> {
+let redisClient: RedisClient | null = null;
+
+export async function getRedisClient(): Promise<RedisClient> {
 	if (!redisClient) {
-		redisClient = createClient({
-			url: REDIS_URL
-		}) as RedisClientType;
+		redisClient = createClient({ url: env.REDIS_URL });
 
-		redisClient.on('error', (err) => {
+		redisClient.on('error', (err: unknown) => {
 			console.error('Redis Client Error:', err);
 		});
 
