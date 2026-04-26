@@ -23,31 +23,75 @@
 					<HeaderWidgets {analytics} />
 				</td>
 				<td class="h-full p-0 align-top">
-					<table class="h-full w-full table-fixed border-collapse" style="table-layout: fixed; height: 100%;">
+					<table
+						class="h-full w-full table-fixed border-collapse"
+						style="table-layout: fixed; height: 100%;"
+					>
 						<colgroup>
 							<col style="width: 50%" />
 							<col style="width: 50%" />
 						</colgroup>
 						<tbody>
 							<tr style="height: 25%;">
-								<td class="p-0 align-top overflow-hidden" style="height: 25%; max-height: 32px;">
+								<td class="overflow-hidden p-0 align-top" style="height: 25%; max-height: 32px;">
 									<div class="w-full overflow-hidden" style="height: 32px;">
 										<HighFiveCounter />
 									</div>
 								</td>
 								<td class="overflow-hidden p-0" style="height: 25%; max-height: 32px;">
 									<div class="flex w-full items-center" style="height: 32px;">
-										<video autoplay loop muted playsinline aria-hidden="true" src="/gifs/rainbow.webm" class="w-full" style="height: 32px; object-fit: cover;"></video>
+										<video
+											autoplay
+											loop
+											muted
+											playsinline
+											aria-hidden="true"
+											src="/gifs/rainbow.webm"
+											class="w-full"
+											style="height: 32px; object-fit: cover;"
+										></video>
 									</div>
 								</td>
 							</tr>
 							<tr style="height: 25%">
 								<td class="overflow-hidden p-0">
 									<div class="flex h-full w-full items-center justify-center gap-1 bg-black">
-										<video autoplay loop muted playsinline aria-hidden="true" src="/gifs/hot_1.webm" class="max-h-full max-w-[25%] object-contain"></video>
-										<video autoplay loop muted playsinline aria-hidden="true" src="/gifs/hot_2.webm" class="max-h-full max-w-[25%] object-contain"></video>
-										<video autoplay loop muted playsinline aria-hidden="true" src="/gifs/hot_3.webm" class="max-h-full max-w-[25%] object-contain"></video>
-										<video autoplay loop muted playsinline aria-hidden="true" src="/gifs/hot_4.webm" class="max-h-full max-w-[25%] object-contain"></video>
+										<video
+											autoplay
+											loop
+											muted
+											playsinline
+											aria-hidden="true"
+											src="/gifs/hot_1.webm"
+											class="max-h-full max-w-[25%] object-contain"
+										></video>
+										<video
+											autoplay
+											loop
+											muted
+											playsinline
+											aria-hidden="true"
+											src="/gifs/hot_2.webm"
+											class="max-h-full max-w-[25%] object-contain"
+										></video>
+										<video
+											autoplay
+											loop
+											muted
+											playsinline
+											aria-hidden="true"
+											src="/gifs/hot_3.webm"
+											class="max-h-full max-w-[25%] object-contain"
+										></video>
+										<video
+											autoplay
+											loop
+											muted
+											playsinline
+											aria-hidden="true"
+											src="/gifs/hot_4.webm"
+											class="max-h-full max-w-[25%] object-contain"
+										></video>
 									</div>
 								</td>
 

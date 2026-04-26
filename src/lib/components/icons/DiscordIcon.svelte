@@ -1,5 +1,5 @@
 <script>
-	export let className = "h-8 w-8 flex-shrink-0 fill-current";
+	export let className = 'h-8 w-8 flex-shrink-0 fill-current';
 </script>
 
 <svg class={className} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

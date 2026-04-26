@@ -15,7 +15,13 @@
 	<div class="bevel-inset bg-gray-50 p-1">
 		<div class="flex flex-wrap justify-center gap-1">
 			{#each skills as skill, index}
-				<SkillBlock name={skill.name} label="" icon={skill.icon} brandColor={skill.brandColor} {index} />
+				<SkillBlock
+					name={skill.name}
+					label=""
+					icon={skill.icon}
+					brandColor={skill.brandColor}
+					{index}
+				/>
 			{/each}
 		</div>
 	</div>
