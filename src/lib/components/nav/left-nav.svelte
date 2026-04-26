@@ -1,4 +1,5 @@
 <script>
+	import BevelRaised from '$lib/components/ui/BevelRaised.svelte';
 	import GifButton from './gif-button.svelte';
 	import DiscordIcon from '../icons/DiscordIcon.svelte';
 	import GitHubIcon from '../icons/GitHubIcon.svelte';
@@ -9,16 +10,17 @@
 <nav class="flex h-full flex-col">
 	<ul class="flex flex-col gap-2">
 		<li>
-			<a
-				href="/"
-				class="bevel-button block border-3 bg-[#d4d0c8] transition-all duration-200 hover:bg-[#e4e0d8]"
+			<BevelRaised
+				class="block h-[40px] bg-[#d4d0c8] transition-all duration-200 hover:shadow-lg hover:brightness-110"
 			>
-				<img
-					src="https://images.cooltext.com/5732587.gif"
-					class="h-[40px] w-full"
-					alt="Home Page"
-				/>
-			</a>
+				<a href="/" aria-label="Home" class="block h-full w-full">
+					<img
+						src="https://images.cooltext.com/5732587.gif"
+						class="block h-full w-full object-fill"
+						alt="Home Page"
+					/>
+				</a>
+			</BevelRaised>
 		</li>
 
 		<li>
@@ -43,44 +45,52 @@
 
 	<ul class="flex flex-col gap-1">
 		<li>
-			<a
-				href="https://discord.com/users/484309345362771981"
-				target="_blank"
-				class="bevel-button flex h-8 w-full items-center gap-2 bg-[#d4d0c8] px-2 font-mono text-xs font-bold text-black transition-all duration-150 hover:bg-[#e4e0d8] active:border-t-[#6b7280] active:border-r-[#e5e7eb] active:border-b-[#e5e7eb] active:border-l-[#6b7280]"
-			>
-				<DiscordIcon className="h-4 w-4 flex-shrink-0 fill-current" />
-				DISCORD
-			</a>
+			<BevelRaised class="bg-[#d4d0c8] transition-all duration-150 hover:bg-[#e4e0d8]">
+				<a
+					href="https://discord.com/users/484309345362771981"
+					target="_blank"
+					class="flex h-8 w-full items-center gap-2 px-2 font-mono text-xs font-bold text-black"
+				>
+					<DiscordIcon className="h-4 w-4 flex-shrink-0 fill-current" />
+					DISCORD
+				</a>
+			</BevelRaised>
 		</li>
 		<li>
-			<a
-				href="https://github.com/ethanmacleod"
-				target="_blank"
-				class="bevel-button flex h-8 w-full items-center gap-2 bg-[#d4d0c8] px-2 font-mono text-xs font-bold text-black transition-all duration-150 hover:bg-[#e4e0d8]"
-			>
-				<GitHubIcon className="h-4 w-4 flex-shrink-0 fill-current" />
-				GITHUB
-			</a>
+			<BevelRaised class="bg-[#d4d0c8] transition-all duration-150 hover:bg-[#e4e0d8]">
+				<a
+					href="https://github.com/ethanmacleod"
+					target="_blank"
+					class="flex h-8 w-full items-center gap-2 px-2 font-mono text-xs font-bold text-black"
+				>
+					<GitHubIcon className="h-4 w-4 flex-shrink-0 fill-current" />
+					GITHUB
+				</a>
+			</BevelRaised>
 		</li>
 		<li>
-			<a
-				href="https://www.linkedin.com/in/macleod-ethan/"
-				target="_blank"
-				class="bevel-button flex h-8 w-full items-center gap-2 bg-[#d4d0c8] px-2 font-mono text-xs font-bold text-black transition-all duration-150 hover:bg-[#e4e0d8]"
-			>
-				<LinkedInIcon className="h-4 w-4 flex-shrink-0 fill-current" />
-				LINKEDIN
-			</a>
+			<BevelRaised class="bg-[#d4d0c8] transition-all duration-150 hover:bg-[#e4e0d8]">
+				<a
+					href="https://www.linkedin.com/in/macleod-ethan/"
+					target="_blank"
+					class="flex h-8 w-full items-center gap-2 px-2 font-mono text-xs font-bold text-black"
+				>
+					<LinkedInIcon className="h-4 w-4 flex-shrink-0 fill-current" />
+					LINKEDIN
+				</a>
+			</BevelRaised>
 		</li>
 		<li>
-			<a
-				href="https://www.instagram.com/ethandavidfrancis"
-				target="_blank"
-				class="bevel-button flex h-8 w-full items-center gap-2 bg-[#d4d0c8] px-2 font-mono text-xs font-bold text-black transition-all duration-150 hover:bg-[#e4e0d8]"
-			>
-				<InstagramIcon className="h-4 w-4 flex-shrink-0 fill-current" />
-				INSTAGRAM
-			</a>
+			<BevelRaised class="bg-[#d4d0c8] transition-all duration-150 hover:bg-[#e4e0d8]">
+				<a
+					href="https://www.instagram.com/ethandavidfrancis"
+					target="_blank"
+					class="flex h-8 w-full items-center gap-2 px-2 font-mono text-xs font-bold text-black"
+				>
+					<InstagramIcon className="h-4 w-4 flex-shrink-0 fill-current" />
+					INSTAGRAM
+				</a>
+			</BevelRaised>
 		</li>
 	</ul>
 </nav>
