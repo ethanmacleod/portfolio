@@ -3,5 +3,8 @@
 		"wrangler.json": "jsonc"
 	},
 	"doppler.autocomplete.enable": true,
-	"doppler.hover.enable": true
+	"doppler.hover.enable": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"eslint.enable": true,
+	"oxc.enable": false
 }

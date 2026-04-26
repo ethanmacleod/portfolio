@@ -1,0 +1,11 @@
+{
+	"$schema": "https://raw.githubusercontent.com/oxc-project/oxc/refs/heads/main/npm/oxlint/configuration_schema.json",
+	"env": {
+		"browser": true,
+		"node": true
+	},
+	"rules": {
+		"no-undef": "allow",
+		"unicorn/no-empty-file": "allow"
+	}
+}
