@@ -12,7 +12,7 @@
 
 <div class="mt-2">
 	<div
-		class="bevel-button flex w-full flex-col border-5 bg-[#d4d4d4] px-4 py-2 font-[Verdana] text-[13px] leading-tight text-black"
+		class="bevel-inset flex w-full flex-col bg-[#d4d4d4] px-4 py-2 font-[Verdana] text-[13px] leading-tight text-black"
 	>
 		<div class="px-3 py-1">
 			<div class="flex items-center justify-between">

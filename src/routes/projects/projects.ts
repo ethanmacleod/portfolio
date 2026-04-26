@@ -76,18 +76,12 @@ export const projects = [
 			'Universal mobile application developed using the Expo ecosystem with file-based routing and cross-platform compatibility. Features include development builds, mobile emulator support, and configurable development environment. Built with modern React Native practices and TypeScript for type safety and maintainable code.',
 		githubUrl: 'https://github.com/ethanmacleod/flashd',
 		technologies: [
-			{ name: 'EXPO', icon: 'expo.png', brandColor: '#000020' },
+			{ name: 'EXPO', brandColor: '#000020' },
 			{ name: 'REACT', icon: 'react.avif', brandColor: '#00D8FF' },
 			{ name: 'TS', icon: 'typescript.avif', brandColor: '#007ACC' },
-			{ name: 'MOBILE', icon: 'mobile.png', brandColor: '#6B7280' }
+			{ name: 'MOBILE', brandColor: '#6B7280' }
 		],
-		images: [
-			{
-				url: '/project-screenshots/3/1.png',
-				alt: 'Home page view',
-				caption: 'Home page view'
-			}
-		],
+		images: [],
 		status: 'active' as const,
 		featured: false,
 		startDate: '2024-06',
@@ -104,9 +98,9 @@ export const projects = [
 		technologies: [
 			{ name: 'DOCKER', icon: 'docker.avif', brandColor: '#2496ED' },
 			{ name: 'PYTHON', icon: 'python.avif', brandColor: '#3B82F6' },
-			{ name: 'GRAFANA', icon: 'grafana.png', brandColor: '#F46800' },
+			{ name: 'GRAFANA', brandColor: '#F46800' },
 			{ name: 'PSQL', icon: 'postgres.avif', brandColor: '#4A90E2' },
-			{ name: 'RASPBERRY', icon: 'raspberry.png', brandColor: '#C51A4A' }
+			{ name: 'RASPBERRY', brandColor: '#C51A4A' }
 		],
 		images: [
 			{
