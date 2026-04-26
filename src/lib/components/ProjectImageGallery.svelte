@@ -50,7 +50,7 @@
 
 {#if images.length > 1}
 	<div class="mb-2 flex justify-center gap-1">
-		{#each images as _, index}
+		{#each images as image, index (image.url)}
 			<button
 				aria-label="select-image"
 				onclick={() => select(index)}

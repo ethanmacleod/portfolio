@@ -57,7 +57,7 @@
 					<h3 class="mb-2 text-center text-sm font-bold text-blue-700">Tech Stack</h3>
 					<div class="bevel-inset flex-1 overflow-auto bg-gray-50 p-2">
 						<div class="grid grid-cols-2 place-items-center gap-1">
-							{#each project.technologies as tech, index}
+							{#each project.technologies as tech, index (tech.name)}
 								<SkillBlock
 									name={tech.name}
 									label=""

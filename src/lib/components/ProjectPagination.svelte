@@ -25,19 +25,19 @@
 				</button>
 
 				<div class="flex items-center gap-1">
-					{#each Array(totalPages) as _, index}
+					{#each Array.from({ length: totalPages }, (_, i) => i) as pageIndex (pageIndex)}
 						<button
-							onclick={() => onGoToPage(index)}
+							onclick={() => onGoToPage(pageIndex)}
 							class="bevel-button px-2 py-1 text-xs font-bold transition-all duration-200"
-							class:bg-gradient-to-br={index === currentPage}
-							class:from-blue-500={index === currentPage}
-							class:to-purple-600={index === currentPage}
-							class:text-white={index === currentPage}
-							class:bg-gray-200={index !== currentPage}
-							class:hover:bg-gray-300={index !== currentPage}
-							class:text-gray-700={index !== currentPage}
+							class:bg-gradient-to-br={pageIndex === currentPage}
+							class:from-blue-500={pageIndex === currentPage}
+							class:to-purple-600={pageIndex === currentPage}
+							class:text-white={pageIndex === currentPage}
+							class:bg-gray-200={pageIndex !== currentPage}
+							class:hover:bg-gray-300={pageIndex !== currentPage}
+							class:text-gray-700={pageIndex !== currentPage}
 						>
-							{index + 1}
+							{pageIndex + 1}
 						</button>
 					{/each}
 				</div>

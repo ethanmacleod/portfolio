@@ -14,6 +14,7 @@
 	{/if}
 
 	<div class="mt-2">
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html item.content}
 	</div>
 

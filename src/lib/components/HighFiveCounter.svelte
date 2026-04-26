@@ -4,7 +4,6 @@
 	let highFiveCount = 0;
 	let loading = false;
 	let remaining = 5;
-	let rateLimitMessage = '';
 	let resetTimer: NodeJS.Timeout | null = null;
 
 	onMount(async () => {
@@ -34,7 +33,6 @@
 
 			if (!response.ok) {
 				if (response.status === 429) {
-					rateLimitMessage = data.message;
 					remaining = 0;
 					if (resetTimer) clearInterval(resetTimer);
 					let timeLeft = data.resetTime;
@@ -42,10 +40,7 @@
 						timeLeft--;
 						if (timeLeft <= 0) {
 							remaining = 5;
-							rateLimitMessage = '';
 							if (resetTimer) clearInterval(resetTimer);
-						} else {
-							rateLimitMessage = `Rate limited! Try again in ${timeLeft}s`;
 						}
 					}, 1000);
 				}
