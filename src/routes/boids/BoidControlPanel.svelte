@@ -164,6 +164,7 @@
 		background: #333;
 		border-radius: 2px;
 		outline: none;
+		appearance: none;
 		-webkit-appearance: none;
 		cursor: pointer;
 		border: 1px solid #555;

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
-	$: pageInfo = getPageInfo($page.route.id);
+	let pageInfo = $derived(getPageInfo(page.route.id));
 
 	function getPageInfo(routeId: string | null): { title: string; subtitle: string } {
 		switch (routeId) {
