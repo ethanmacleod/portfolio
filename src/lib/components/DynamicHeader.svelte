@@ -7,7 +7,7 @@
 		switch (routeId) {
 			case '/':
 				return {
-					title: 'Welcome to My Homepage!',
+					title: 'Welcome to My Website!',
 					subtitle: 'Get to know a little bit about me and sign my guestbook :)'
 				};
 			case '/projects':
@@ -30,10 +30,10 @@
 </script>
 
 <div
-	class="bevel-button box-border flex h-full w-full flex-col bg-gradient-to-br from-green-600 to-teal-700 font-[Verdana] leading-tight text-white"
+	class="box-border flex h-full w-full flex-col bg-gradient-to-br from-green-600 to-teal-700 font-[Verdana] leading-tight text-white"
 >
 	<div class="flex h-full flex-col justify-between px-4 py-2">
-		<span class="rainbow-text text-center text-2xl font-bold">{pageInfo.title}</span>
-		<span class="text-center text-sm">{pageInfo.subtitle}</span>
+		<span class="rainbow-text text-center text-base leading-tight font-bold">{pageInfo.title}</span>
+		<span class="text-center text-xs leading-tight">{pageInfo.subtitle}</span>
 	</div>
 </div>

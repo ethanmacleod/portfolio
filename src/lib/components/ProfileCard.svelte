@@ -74,7 +74,7 @@
 			<tr>
 				<td colspan="2" class="bg-white p-3">
 					<div class="bevel-inset bg-gray-50 p-3">
-						<p class="mb-2"><strong class="text-purple-700">Welcome to my homepage!</strong></p>
+						<p class="mb-2"><strong class="text-purple-700">Welcome to my website!</strong></p>
 						<p class="mb-2">
 							Take a look around, I aim to update this website as often as possible, adding little
 							easter eggs and just stuff I find cool to make. If you are struggling to find what to
