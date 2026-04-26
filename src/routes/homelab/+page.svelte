@@ -46,7 +46,7 @@
 			</div>
 		</RetroDiv>
 
-		<div class="flex gap-3">
+		<div class="flex flex-col gap-3 md:flex-row">
 			<RetroDiv width="w-full" className="flex-1 p-3">
 				<h2 class="mb-3 font-mono text-xs font-bold text-gray-600">
 					[ OPTIPLEX CLUSTER - {optiplexNodes.length} NODES ]
@@ -58,7 +58,7 @@
 				</div>
 			</RetroDiv>
 
-			<RetroDiv width="w-72" className="shrink-0 p-3">
+			<RetroDiv width="w-full md:w-72" className="shrink-0 p-3">
 				<h2 class="mb-3 font-mono text-xs font-bold text-gray-600">
 					[ RASPBERRY PI - {piNodes.length} NODES ]
 				</h2>
@@ -70,7 +70,7 @@
 			</RetroDiv>
 		</div>
 
-		<div class="flex gap-3">
+		<div class="flex flex-col gap-3 md:flex-row">
 			<RetroDiv width="w-full" className="flex-1 p-3">
 				<h2 class="mb-3 font-mono text-xs font-bold text-gray-600">
 					[ NETWORKING & INFRASTRUCTURE ]
@@ -82,7 +82,7 @@
 				</div>
 			</RetroDiv>
 
-			<RetroDiv width="w-64" className="shrink-0 p-3">
+			<RetroDiv width="w-full md:w-64" className="shrink-0 p-3">
 				<h2 class="mb-3 font-mono text-xs font-bold text-gray-600">[ STORAGE ]</h2>
 				<div class="flex flex-col gap-2">
 					<div class="bevel-button bg-[#d4d0c8]">
@@ -142,7 +142,7 @@
 						>
 							{category}
 						</p>
-						<div class="grid grid-cols-2 gap-1.5 xl:grid-cols-3">
+						<div class="grid grid-cols-1 gap-1.5 sm:grid-cols-2 xl:grid-cols-3">
 							{#each stacks.filter((s) => s.category === category) as stack (stack.name)}
 								<StackCard
 									name={stack.name}

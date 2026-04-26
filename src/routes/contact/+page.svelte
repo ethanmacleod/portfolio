@@ -25,7 +25,7 @@
 	<meta name="description" content="Get in touch with me" />
 </svelte:head>
 
-<div class="flex h-full min-h-0 gap-4">
+<div class="flex h-full min-h-0 flex-col gap-4 md:flex-row">
 	<div class="flex min-w-0 flex-1 flex-col gap-3">
 		<RetroDiv width="w-full" className="shrink-0 p-3">
 			<h1 class="font-mono text-base font-bold text-blue-700">// CONTACT</h1>
@@ -131,7 +131,7 @@
 		</RetroDiv>
 	</div>
 
-	<div class="flex w-72 shrink-0 flex-col gap-3">
+	<div class="flex w-full shrink-0 flex-col gap-3 md:w-72">
 		<RetroDiv width="w-full" className="shrink-0 p-3">
 			<h2 class="mb-2 font-mono text-xs font-bold text-gray-600">[ CURRENT STATUS ]</h2>
 			<div class="bevel-inset bg-black p-3">

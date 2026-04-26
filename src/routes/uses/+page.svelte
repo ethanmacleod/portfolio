@@ -18,7 +18,7 @@
 	</RetroDiv>
 
 	<div class="min-h-0 flex-1 overflow-auto">
-		<div class="grid grid-cols-2 gap-3 xl:grid-cols-3">
+		<div class="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
 			{#each sections as section (section.title)}
 				<UsesCard {section} />
 			{/each}
