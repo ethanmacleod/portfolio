@@ -250,7 +250,7 @@
 	}
 </script>
 
-<div class="pip-terminal flicker h-full">
+<div class="pip-terminal flicker">
 	<div class="screen-container">
 		<div class="screen-header blink">&gt; BOIDS SIMULATION ACTIVE</div>
 
@@ -308,9 +308,6 @@
 	.pip-terminal {
 		display: grid;
 		grid-template-columns: 1fr 300px;
-		height: 100%;
-		min-height: 350px;
-		overflow: hidden;
 		background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
 		border: 4px solid #333;
 		position: relative;
@@ -335,8 +332,6 @@
 	.screen-container {
 		display: flex;
 		flex-direction: column;
-		height: 100%;
-		overflow: hidden;
 	}
 
 	.screen-header {
@@ -349,7 +344,7 @@
 	}
 
 	.screen {
-		flex: 1;
+		height: 450px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -395,8 +390,8 @@
 
 	.canvas-wrapper {
 		position: relative;
-		padding: 0px 20px 0px 20px;
-		flex: 1;
+		padding: 0px 20px;
+		width: 100%;
 		height: 100%;
 		display: flex;
 		align-items: center;
@@ -452,8 +447,6 @@
 	@media (max-width: 1024px) {
 		.pip-terminal {
 			grid-template-columns: 1fr;
-			grid-template-rows: 1fr auto;
-			height: 100%;
 		}
 	}
 </style>
