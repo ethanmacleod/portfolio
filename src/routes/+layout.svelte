@@ -27,7 +27,10 @@
 	<div class="flex min-w-0 flex-1 flex-col gap-4 overflow-hidden">
 		<Header analytics={data.analytics} />
 
-		<main class="bevel-inset flex-1 overflow-auto bg-[#d4d4d4]" class:p-8={!fullscreenRoutes.includes($page.url.pathname)}>
+		<main
+			class="bevel-inset flex-1 overflow-auto bg-[#d4d4d4]"
+			class:p-8={!fullscreenRoutes.includes($page.url.pathname)}
+		>
 			<slot />
 		</main>
 
