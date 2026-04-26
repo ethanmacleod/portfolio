@@ -6,6 +6,8 @@
 <svelte:head>
 	<title>Projects - Ethan MacLeod</title>
 	<meta name="description" content="Explore my latest projects and development work" />
+	<meta property="og:title" content="Projects - Ethan MacLeod" />
+	<meta property="og:description" content="Explore my latest projects and development work" />
 </svelte:head>
 
 <Projects {projects} itemsPerPage={1} showPagination={true} className="h-full" />

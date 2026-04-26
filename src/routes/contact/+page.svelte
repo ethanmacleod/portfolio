@@ -23,6 +23,8 @@
 <svelte:head>
 	<title>Contact - Ethan MacLeod</title>
 	<meta name="description" content="Get in touch with me" />
+	<meta property="og:title" content="Contact - Ethan MacLeod" />
+	<meta property="og:description" content="Get in touch with me" />
 </svelte:head>
 
 <div class="flex h-full min-h-0 flex-col gap-4 md:flex-row">

@@ -20,6 +20,16 @@
 	});
 </script>
 
+<svelte:head>
+	<meta property="og:site_name" content="Ethan MacLeod" />
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content="https://ethanmacleod.com/me2.jpg" />
+	<meta property="og:url" content={$page.url.href} />
+	<meta property="og:locale" content="en_NZ" />
+	<meta name="twitter:card" content="summary" />
+	<link rel="canonical" href={$page.url.href} />
+</svelte:head>
+
 <div
 	class="flex h-screen gap-4 p-2 font-serif"
 	style="background-color: #005050; background-image: linear-gradient(45deg, #003d3d 25%, transparent 25%), linear-gradient(-45deg, #003d3d 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #003d3d 75%), linear-gradient(-45deg, transparent 75%, #003d3d 75%); background-size: 8px 8px; background-position: 0 0, 0 4px, 4px -4px, -4px 0px;"
