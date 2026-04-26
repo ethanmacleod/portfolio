@@ -129,6 +129,22 @@
 	display: inline-block;
 }
 
+.marquee-track {
+	display: flex;
+	width: max-content;
+	animation: marquee-loop 36s linear infinite;
+}
+
+.marquee-item {
+	white-space: nowrap;
+	padding: 0 1.5rem;
+}
+
+.marquee-sep {
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+
 .blink {
 	animation: blink 1s linear infinite;
 }
@@ -179,6 +195,15 @@
 	}
 	100% {
 		transform: translateX(-100%);
+	}
+}
+
+@keyframes marquee-loop {
+	0% {
+		transform: translateX(0);
+	}
+	100% {
+		transform: translateX(-50%);
 	}
 }
 

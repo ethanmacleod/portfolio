@@ -6,7 +6,7 @@
 </script>
 
 <BevelInset
-	class="flex {width} flex-col bg-[#d4d4d4] font-[Verdana] text-[13px] leading-tight text-black {className}"
+	class="flex {width} flex-col overflow-hidden bg-[#d4d4d4] font-[Verdana] text-[13px] leading-tight text-black {className}"
 >
 	<slot />
 </BevelInset>

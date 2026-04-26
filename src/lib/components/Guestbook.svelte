@@ -39,7 +39,7 @@
 </script>
 
 <RetroDiv width="w-full">
-	<table class="w-full table-auto border-collapse bg-yellow-100">
+	<table class="-ml-[2px] w-[calc(100%+4px)] table-auto border-collapse bg-yellow-100">
 		<thead>
 			<tr>
 				<td colspan="4" class="bg-gradient-to-r from-green-600 to-blue-600 p-2 text-center">
