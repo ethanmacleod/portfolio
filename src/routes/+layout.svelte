@@ -33,7 +33,7 @@
 		>
 			<div class="marquee-track">
 				<span class="marquee-item neon-glow text-cyan-400"
-					>★ Welcome! Last updated: {new Date().toLocaleDateString()} — Thanks for visiting! ★</span
+					>★ Welcome! Last updated: {new Date().toLocaleDateString()} - Thanks for visiting! ★</span
 				>
 				<span class="marquee-sep rainbow-text">&gt;&gt;</span>
 				<span class="marquee-item text-yellow-300">Proudly made by Ethan MacLeod</span>
@@ -49,7 +49,7 @@
 				<span class="marquee-item text-orange-300">Est. 2024 - Always under construction</span>
 				<span class="marquee-sep rainbow-text">&gt;&gt;</span>
 				<span class="marquee-item neon-glow text-cyan-400"
-					>★ Welcome! Last updated: {new Date().toLocaleDateString()} — Thanks for visiting! ★</span
+					>★ Welcome! Last updated: {new Date().toLocaleDateString()} - Thanks for visiting! ★</span
 				>
 				<span class="marquee-sep rainbow-text">&gt;&gt;</span>
 				<span class="marquee-item text-yellow-300">Proudly made by Ethan MacLeod</span>

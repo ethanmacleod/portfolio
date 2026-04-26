@@ -1,12 +1,7 @@
 <script lang="ts">
 	import SkillBlock from './SkillBlock.svelte';
 	import RetroDiv from './RetroDiv.svelte';
-
-	interface Skill {
-		name: string;
-		icon: string;
-		brandColor: string;
-	}
+	import type { Skill } from '$lib/types';
 
 	export let skills: Skill[];
 </script>

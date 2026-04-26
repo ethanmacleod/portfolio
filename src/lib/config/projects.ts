@@ -1,4 +1,6 @@
-export const projects = [
+import type { Project } from '$lib/schema';
+
+export const projects: Project[] = [
 	{
 		id: 'aws-terraform',
 		title: 'AWS Infrastructure Automation',
@@ -18,7 +20,7 @@ export const projects = [
 				caption: 'Automated AWS infrastructure deployment architecture'
 			}
 		],
-		status: 'completed' as const,
+		status: 'completed',
 		featured: false,
 		startDate: '2023-03',
 		endDate: '2023-05'
@@ -62,10 +64,9 @@ export const projects = [
 				caption: 'Micro grid simulator projects view'
 			}
 		],
-		status: 'active' as const,
+		status: 'active',
 		featured: false,
-		startDate: '2024-02',
-		endDate: undefined
+		startDate: '2024-02'
 	},
 	{
 		id: 'flashd-mobile-app',
@@ -82,10 +83,9 @@ export const projects = [
 			{ name: 'MOBILE', brandColor: '#6B7280' }
 		],
 		images: [],
-		status: 'active' as const,
+		status: 'active',
 		featured: false,
-		startDate: '2024-06',
-		endDate: undefined
+		startDate: '2024-06'
 	},
 	{
 		id: 'pi-services-homelab',
@@ -115,13 +115,12 @@ export const projects = [
 			},
 			{
 				url: '/project-screenshots/4/3.avif',
-				alt: 'rafana dash',
+				alt: 'Grafana dash',
 				caption: 'Grafana dash'
 			}
 		],
-		status: 'active' as const,
+		status: 'active',
 		featured: true,
-		startDate: '2024-03',
-		endDate: undefined
+		startDate: '2024-03'
 	}
 ];

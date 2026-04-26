@@ -24,15 +24,23 @@
 		</li>
 
 		<li>
-			<GifButton href="/" gifName="about-me" alt="About Me" />
-		</li>
-
-		<li>
 			<GifButton href="/projects" gifName="projects" alt="Projects" />
 		</li>
 
 		<li>
 			<GifButton href="/contact" gifName="contact-me" alt="Contact Me" />
+		</li>
+
+		<li>
+			<GifButton href="/resume" gifName="resume" alt="Resume" />
+		</li>
+
+		<li>
+			<GifButton href="/uses" gifName="uses" alt="Uses" />
+		</li>
+
+		<li>
+			<GifButton href="/homelab" gifName="homelab" alt="Homelab" />
 		</li>
 	</ul>
 
