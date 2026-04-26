@@ -20,6 +20,27 @@
 					title: 'Contact Me!',
 					subtitle: "Get in touch - I'd love to hear from you"
 				};
+			case '/resume':
+				return {
+					title: 'My Resume',
+					subtitle: 'Always keen for some feedback, chuck it in the guestbook!'
+				};
+			case '/uses':
+				return {
+					title: 'My Stack & Setup',
+					subtitle: 'Just some misc stats about me :)'
+				};
+			case '/homelab':
+				return {
+					title: 'My Homelab',
+					subtitle: 'About $20/month of maintenance that sits in my livingroom'
+				};
+			case '/boids':
+				return {
+					title: 'Boids Simulation',
+					subtitle:
+						"Always thought boids were cool. 3D would be the next plan... let's take a look at D3"
+				};
 			default:
 				return {
 					title: 'Welcome to My Site!',
