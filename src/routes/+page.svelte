@@ -6,7 +6,16 @@
 </script>
 
 <svelte:head>
-	<title>Welcome!</title>
+	<title>Ethan MacLeod - Software Developer</title>
+	<meta
+		name="description"
+		content="NZ-based software developer. Personal portfolio showcasing projects, homelab, and more."
+	/>
+	<meta property="og:title" content="Ethan MacLeod - Software Developer" />
+	<meta
+		property="og:description"
+		content="NZ-based software developer. Personal portfolio showcasing projects, homelab, and more."
+	/>
 </svelte:head>
 
 <div class="space-y-6">

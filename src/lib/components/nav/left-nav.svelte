@@ -16,7 +16,7 @@
 				<a href="/" aria-label="Home" class="block h-full w-full">
 					<img
 						src="https://images.cooltext.com/5732587.gif"
-						class="block h-full w-full object-fill"
+						class="block h-full w-full object-contain"
 						alt="Home Page"
 					/>
 				</a>

@@ -25,7 +25,15 @@
 
 <svelte:head>
 	<title>Homelab - Ethan MacLeod</title>
-	<meta name="description" content="My homelab setup" />
+	<meta
+		name="description"
+		content="My homelab setup - Docker Swarm cluster, networking, and self-hosted stacks"
+	/>
+	<meta property="og:title" content="Homelab - Ethan MacLeod" />
+	<meta
+		property="og:description"
+		content="My homelab setup - Docker Swarm cluster, networking, and self-hosted stacks"
+	/>
 </svelte:head>
 
 <div class="h-full overflow-auto">

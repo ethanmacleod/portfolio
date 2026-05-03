@@ -6,7 +6,9 @@
 
 <svelte:head>
 	<title>Resume - Ethan MacLeod</title>
-	<meta name="description" content="My resume" />
+	<meta name="description" content="My resume and professional background" />
+	<meta property="og:title" content="Resume - Ethan MacLeod" />
+	<meta property="og:description" content="My resume and professional background" />
 </svelte:head>
 
 <div class="flex h-full min-h-0 flex-col gap-3">

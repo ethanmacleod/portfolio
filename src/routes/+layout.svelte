@@ -7,6 +7,7 @@
 	import type { LayoutData } from './$types';
 	import { dev } from '$app/environment';
 	import { page } from '$app/stores';
+	import SparkCursor from '$lib/components/SparkCursor.svelte';
 
 	export let data: LayoutData;
 
@@ -19,6 +20,18 @@
 		sidebarOpen = false;
 	});
 </script>
+
+<svelte:head>
+	<meta property="og:site_name" content="Ethan MacLeod" />
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content="https://ethanmacleod.com/me2.jpg" />
+	<meta property="og:url" content={$page.url.href} />
+	<meta property="og:locale" content="en_NZ" />
+	<meta name="twitter:card" content="summary" />
+	<link rel="canonical" href={$page.url.href} />
+</svelte:head>
+
+<SparkCursor />
 
 <div
 	class="flex h-screen gap-4 p-2 font-serif"

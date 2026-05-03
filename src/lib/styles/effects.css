@@ -120,7 +120,7 @@
 }
 
 .shine-text {
-	color: #228b22;
+	color: #166534;
 	animation: shine 2s ease-in-out infinite;
 }
 
@@ -233,13 +233,13 @@
 @keyframes shine {
 	0%,
 	85% {
-		color: #228b22;
+		color: #166534;
 	}
 	92% {
-		color: #32cd32;
+		color: #15803d;
 	}
 	100% {
-		color: #228b22;
+		color: #166534;
 	}
 }
 

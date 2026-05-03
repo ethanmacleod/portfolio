@@ -11,7 +11,7 @@
 	<div class="grid h-full grid-cols-3 gap-3">
 		<HeaderWidget src="/gifs/globe.webm" ariaLabel="Globe Icon">
 			<span class="text-blue-700"
-				>You are the <span class="blink font-bold text-orange-600"
+				>You are the <span class="blink font-bold text-orange-700"
 					>{numberWithOrdinal(analytics.totalViews)}</span
 				> visitor!</span
 			>

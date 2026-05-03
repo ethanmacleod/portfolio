@@ -7,6 +7,8 @@
 <svelte:head>
 	<title>Uses - Ethan MacLeod</title>
 	<meta name="description" content="What I use - hardware, software, and more" />
+	<meta property="og:title" content="Uses - Ethan MacLeod" />
+	<meta property="og:description" content="What I use - hardware, software, and more" />
 </svelte:head>
 
 <div class="flex h-full min-h-0 flex-col gap-3">
