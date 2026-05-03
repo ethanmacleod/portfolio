@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/environment';
+
 	const colour = 'random';
 	const sparkles = 50;
 
@@ -16,8 +17,6 @@
 	let x = (ox = 400);
 	let y = (oy = 300);
 	let shigh = 600;
-	let sdown = 0;
-	let sleft = (sdown = 0); // eslint-disable-line @typescript-eslint/no-unused-vars
 	let tiny: HTMLDivElement[] = [];
 	let star: HTMLDivElement[] = [];
 	let starv: number[] = [];
@@ -27,48 +26,51 @@
 	let tinyy: number[] = [];
 	let tinyv: number[] = [];
 	let timer: ReturnType<typeof setTimeout> | null = null;
+	let container: HTMLDivElement | null = null;
 
 	onMount(() => {
-		if (browser) {
-			let rats, rlef, rdow;
-			for (let i = 0; i < sparkles; i++) {
-				rats = createDiv(3, 3);
-				rats.style.visibility = 'hidden';
-				rats.style.zIndex = '999';
-				document.body.appendChild((tiny[i] = rats));
-				starv[i] = 0;
-				tinyv[i] = 0;
-				rats = createDiv(5, 5);
-				rats.style.backgroundColor = 'transparent';
-				rats.style.visibility = 'hidden';
-				rats.style.zIndex = '999';
-				rlef = createDiv(1, 5);
-				rdow = createDiv(5, 1);
-				rats.appendChild(rlef);
-				rats.appendChild(rdow);
-				rlef.style.top = '2px';
-				rlef.style.left = '0px';
-				rdow.style.top = '0px';
-				rdow.style.left = '2px';
-				document.body.appendChild((star[i] = rats));
-			}
-			set_width();
-			sparkle();
+		if (!browser) return;
 
-			document.onmousemove = mouse;
-			window.onscroll = set_scroll;
-			window.onresize = set_width;
+		container = document.createElement('div');
+		container.style.cssText =
+			'position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:9999;';
+		document.body.appendChild(container);
+
+		let rats: HTMLDivElement, rlef: HTMLDivElement, rdow: HTMLDivElement;
+		for (let i = 0; i < sparkles; i++) {
+			rats = createDiv(3, 3);
+			rats.style.visibility = 'hidden';
+			rats.style.zIndex = '999';
+			container.appendChild((tiny[i] = rats));
+			starv[i] = 0;
+			tinyv[i] = 0;
+			rats = createDiv(5, 5);
+			rats.style.backgroundColor = 'transparent';
+			rats.style.visibility = 'hidden';
+			rats.style.zIndex = '999';
+			rlef = createDiv(1, 5);
+			rdow = createDiv(5, 1);
+			rats.appendChild(rlef);
+			rats.appendChild(rdow);
+			rlef.style.top = '2px';
+			rlef.style.left = '0px';
+			rdow.style.top = '0px';
+			rdow.style.left = '2px';
+			container.appendChild((star[i] = rats));
 		}
+		set_width();
+		sparkle();
+
+		window.addEventListener('mousemove', mouse);
+		window.addEventListener('resize', set_width);
 	});
 
 	onDestroy(() => {
-		if (browser) {
-			document.onmousemove = null;
-			window.onscroll = null;
-			window.onresize = null;
-			if (timer) clearTimeout(timer);
-			[...tiny, ...star].forEach((el) => el?.remove());
-		}
+		if (!browser) return;
+		window.removeEventListener('mousemove', mouse);
+		window.removeEventListener('resize', set_width);
+		if (timer) clearTimeout(timer);
+		container?.remove();
 	});
 
 	function sparkle() {
@@ -141,61 +143,21 @@
 	}
 
 	function mouse(e: MouseEvent) {
-		if (e) {
-			y = e.clientY;
-			x = e.clientX;
-		}
-	}
-
-	function set_scroll() {
-		if (typeof self.pageYOffset == 'number') {
-			sdown = self.pageYOffset;
-			sleft = self.pageXOffset;
-		} else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
-			sdown = document.body.scrollTop;
-			sleft = document.body.scrollLeft;
-		} else if (
-			document.documentElement &&
-			(document.documentElement.scrollTop || document.documentElement.scrollLeft)
-		) {
-			sleft = document.documentElement.scrollLeft;
-			sdown = document.documentElement.scrollTop;
-		} else {
-			sdown = 0;
-			sleft = 0;
-		}
+		y = e.clientY;
+		x = e.clientX;
 	}
 
 	function set_width() {
-		let sw_min = 999999;
-		let sh_min = 999999;
-		if (document.documentElement && document.documentElement.clientWidth) {
-			if (document.documentElement.clientWidth > 0) sw_min = document.documentElement.clientWidth;
-			if (document.documentElement.clientHeight > 0) sh_min = document.documentElement.clientHeight;
-		}
-		if (typeof self.innerWidth == 'number' && self.innerWidth) {
-			if (self.innerWidth > 0 && self.innerWidth < sw_min) sw_min = self.innerWidth;
-			if (self.innerHeight > 0 && self.innerHeight < sh_min) sh_min = self.innerHeight;
-		}
-		if (document.body.clientWidth) {
-			if (document.body.clientWidth > 0 && document.body.clientWidth < sw_min)
-				sw_min = document.body.clientWidth;
-			if (document.body.clientHeight > 0 && document.body.clientHeight < sh_min)
-				sh_min = document.body.clientHeight;
-		}
-		if (sw_min == 999999 || sh_min == 999999) {
-			sw_min = 800;
-			sh_min = 600;
-		}
-		shigh = sh_min;
+		shigh = window.innerHeight;
 	}
 
 	function createDiv(height: number, width: number) {
-		let div = document.createElement('div');
-		div.style.position = 'fixed';
+		const div = document.createElement('div');
+		div.style.position = 'absolute';
 		div.style.height = height + 'px';
 		div.style.width = width + 'px';
 		div.style.overflow = 'hidden';
+		div.style.pointerEvents = 'none';
 		return div;
 	}
 
@@ -204,9 +166,7 @@
 		c[0] = 255;
 		c[1] = Math.floor(Math.random() * 256);
 		c[2] = Math.floor(Math.random() * (256 - c[1] / 2));
-		c.sort(function () {
-			return 0.5 - Math.random();
-		});
+		c.sort(() => 0.5 - Math.random());
 		return 'rgb(' + c[0] + ', ' + c[1] + ', ' + c[2] + ')';
 	}
 	// ]]>
