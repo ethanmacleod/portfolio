@@ -24,7 +24,7 @@
 		</thead>
 		<tbody>
 			<tr class="bg-gray-100">
-				<td class="w-32 p-3 align-top">
+				<td class="hidden w-32 p-3 align-top md:table-cell">
 					<img
 						src="/me.avif"
 						alt="Ethan MacLeod"
@@ -70,7 +70,7 @@
 						</tbody>
 					</table>
 				</td>
-				<td class="w-32 p-3 align-top">
+				<td class="hidden w-32 p-3 align-top md:table-cell">
 					<img
 						src="/me2-thumb.avif"
 						alt="Ethan MacLeod"
