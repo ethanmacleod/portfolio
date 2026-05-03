@@ -1,5 +1,7 @@
 import type { RequestHandler } from './$types';
 
+export const prerender = true;
+
 const SITE = 'https://ethanmacleod.com';
 
 const pages = [
@@ -8,7 +10,8 @@ const pages = [
 	{ path: '/resume', priority: '0.8', changefreq: 'monthly' },
 	{ path: '/contact', priority: '0.8', changefreq: 'yearly' },
 	{ path: '/uses', priority: '0.7', changefreq: 'monthly' },
-	{ path: '/homelab', priority: '0.7', changefreq: 'monthly' }
+	{ path: '/homelab', priority: '0.7', changefreq: 'monthly' },
+	{ path: '/boids', priority: '0.5', changefreq: 'yearly' }
 ];
 
 export const GET: RequestHandler = () => {
