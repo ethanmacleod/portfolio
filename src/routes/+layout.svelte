@@ -7,6 +7,7 @@
 	import type { LayoutData } from './$types';
 	import { dev } from '$app/environment';
 	import { page } from '$app/stores';
+	import SparkCursor from '$lib/components/SparkCursor.svelte';
 
 	export let data: LayoutData;
 
@@ -29,6 +30,8 @@
 	<meta name="twitter:card" content="summary" />
 	<link rel="canonical" href={$page.url.href} />
 </svelte:head>
+
+<SparkCursor />
 
 <div
 	class="flex h-screen gap-4 p-2 font-serif"
