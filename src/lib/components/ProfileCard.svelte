@@ -41,12 +41,12 @@
 							<tr class="bg-gray-50">
 								<td class="py-1 font-bold text-blue-700">Age:</td>
 								<td class="font-mono text-sm">
-									<span class="font-bold text-green-600">{age.years}</span> years,
+									<span class="font-bold text-green-700">{age.years}</span> years,
 									<span class="font-bold text-blue-600">{age.months}</span> months,
 									<span class="font-bold text-purple-600">{age.days}</span> days,
-									<span class="font-bold text-orange-600">{age.hours}</span> hours,
+									<span class="font-bold text-orange-700">{age.hours}</span> hours,
 									<span class="font-bold text-red-600">{age.minutes}</span> minutes,
-									<span class="font-bold text-cyan-600">{age.seconds}</span> seconds old!
+									<span class="font-bold text-cyan-700">{age.seconds}</span> seconds old!
 								</td>
 							</tr>
 							<tr>
