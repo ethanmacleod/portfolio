@@ -72,7 +72,7 @@
 				</td>
 				<td class="w-32 p-3 align-top">
 					<img
-						src="/me2.jpg"
+						src="/me2-thumb.avif"
 						alt="Ethan MacLeod"
 						class="h-full w-full border-r-2 border-b-2 border-gray-600 object-fill"
 					/>
