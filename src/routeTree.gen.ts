@@ -9,38 +9,175 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as BoidsRouteImport } from './routes/boids'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as HomelabRouteImport } from './routes/homelab'
+import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as ResumeRouteImport } from './routes/resume'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as UsesRouteImport } from './routes/uses'
 
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BoidsRoute = BoidsRouteImport.update({
+  id: '/boids',
+  path: '/boids',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomelabRoute = HomelabRouteImport.update({
+  id: '/homelab',
+  path: '/homelab',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResumeRoute = ResumeRouteImport.update({
+  id: '/resume',
+  path: '/resume',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UsesRoute = UsesRouteImport.update({
+  id: '/uses',
+  path: '/uses',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
+  '/': typeof IndexRoute
+  '/boids': typeof BoidsRoute
+  '/contact': typeof ContactRoute
+  '/homelab': typeof HomelabRoute
+  '/projects': typeof ProjectsRoute
+  '/resume': typeof ResumeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/uses': typeof UsesRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof IndexRoute
+  '/boids': typeof BoidsRoute
+  '/contact': typeof ContactRoute
+  '/homelab': typeof HomelabRoute
+  '/projects': typeof ProjectsRoute
+  '/resume': typeof ResumeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/uses': typeof UsesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/boids': typeof BoidsRoute
+  '/contact': typeof ContactRoute
+  '/homelab': typeof HomelabRoute
+  '/projects': typeof ProjectsRoute
+  '/resume': typeof ResumeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/uses': typeof UsesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/sitemap.xml'
+  fullPaths:
+    | '/'
+    | '/boids'
+    | '/contact'
+    | '/homelab'
+    | '/projects'
+    | '/resume'
+    | '/sitemap.xml'
+    | '/uses'
   fileRoutesByTo: FileRoutesByTo
-  to: '/sitemap.xml'
-  id: '__root__' | '/sitemap.xml'
+  to:
+    | '/'
+    | '/boids'
+    | '/contact'
+    | '/homelab'
+    | '/projects'
+    | '/resume'
+    | '/sitemap.xml'
+    | '/uses'
+  id:
+    | '__root__'
+    | '/'
+    | '/boids'
+    | '/contact'
+    | '/homelab'
+    | '/projects'
+    | '/resume'
+    | '/sitemap.xml'
+    | '/uses'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
+  BoidsRoute: typeof BoidsRoute
+  ContactRoute: typeof ContactRoute
+  HomelabRoute: typeof HomelabRoute
+  ProjectsRoute: typeof ProjectsRoute
+  ResumeRoute: typeof ResumeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  UsesRoute: typeof UsesRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/boids': {
+      id: '/boids'
+      path: '/boids'
+      fullPath: '/boids'
+      preLoaderRoute: typeof BoidsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/homelab': {
+      id: '/homelab'
+      path: '/homelab'
+      fullPath: '/homelab'
+      preLoaderRoute: typeof HomelabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resume': {
+      id: '/resume'
+      path: '/resume'
+      fullPath: '/resume'
+      preLoaderRoute: typeof ResumeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -48,11 +185,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/uses': {
+      id: '/uses'
+      path: '/uses'
+      fullPath: '/uses'
+      preLoaderRoute: typeof UsesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  BoidsRoute: BoidsRoute,
+  ContactRoute: ContactRoute,
+  HomelabRoute: HomelabRoute,
+  ProjectsRoute: ProjectsRoute,
+  ResumeRoute: ResumeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  UsesRoute: UsesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

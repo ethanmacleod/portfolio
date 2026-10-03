@@ -1,8 +1,5 @@
-import DiscordIcon from '$lib/components/icons/DiscordIcon.svelte';
-import GitHubIcon from '$lib/components/icons/GitHubIcon.svelte';
-import LinkedInIcon from '$lib/components/icons/LinkedInIcon.svelte';
-import InstagramIcon from '$lib/components/icons/InstagramIcon.svelte';
-import type { Social, StatusConfig } from '$lib/types';
+import { DiscordIcon, GitHubIcon, InstagramIcon, LinkedInIcon } from '~/lib/components/icons';
+import type { Social, StatusConfig } from '~/lib/types';
 
 export const socials: Social[] = [
 	{

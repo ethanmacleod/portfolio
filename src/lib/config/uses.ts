@@ -1,5 +1,5 @@
-import type { Section } from '$lib/types';
-import { Monitor, Laptop, Keyboard, Terminal, Package, Sparkles } from 'lucide-svelte';
+import type { Section } from '~/lib/types';
+import { Monitor, Laptop, Keyboard, Terminal, Package, Sparkles } from 'lucide-react';
 
 export const sections: Section[] = [
 	{

@@ -1,4 +1,4 @@
-import type { Project } from '$lib/schema';
+import type { Project } from '~/lib/schema';
 
 export const projects: Project[] = [
 	{

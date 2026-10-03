@@ -6,3 +6,10 @@
 body {
 	font-family: 'Verdana', 'Geneva', sans-serif;
 }
+
+@layer base {
+	button:not(:disabled),
+	[role='button']:not([aria-disabled='true']) {
+		cursor: pointer;
+	}
+}

@@ -322,3 +322,46 @@
 		opacity: 0.98;
 	}
 }
+
+.skill-block {
+	transform-origin: center;
+	animation: skill-wave-bounce 8s ease-in-out infinite;
+	animation-delay: calc(var(--wave-delay) * 0.4s);
+}
+
+.skill-block:hover {
+	animation: none;
+	transform: scale(calc(var(--scale) * 1.05));
+	transition: transform 0.2s ease-in-out;
+}
+
+.skill-block-stripe {
+	animation: skill-stripe-slide 2.5s linear infinite;
+}
+
+.skill-block-white-background-fix {
+	mix-blend-mode: multiply;
+	filter: contrast(1.2) brightness(1.1);
+}
+
+@keyframes skill-stripe-slide {
+	0% {
+		transform: translateX(-120px);
+	}
+	70%,
+	100% {
+		transform: translateX(160px);
+	}
+}
+
+@keyframes skill-wave-bounce {
+	0%,
+	6%,
+	90%,
+	100% {
+		transform: scale(var(--scale)) translateY(0px);
+	}
+	3% {
+		transform: scale(var(--scale)) translateY(-4px);
+	}
+}

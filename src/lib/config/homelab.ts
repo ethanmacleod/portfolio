@@ -1,4 +1,5 @@
-import type { Node, Drive, NetworkDevice, Stack } from '$lib/types';
+import type { Node, Drive, NetworkDevice, Stack } from '~/lib/types';
+import type { PanelVariant } from '~/lib/components/HomelabCards';
 
 export const optiplexNodes: Node[] = [
 	{
@@ -202,9 +203,9 @@ export const stacks: Stack[] = [
 	}
 ];
 
-export const stackCategories = [...new Set(stacks.map((s) => s.category))];
+export const stackCategories = [...new Set(stacks.map((stack) => stack.category))];
 
-export const categoryVariant: Record<string, 'blue' | 'green'> = {
+export const categoryVariant: Record<string, PanelVariant> = {
 	Media: 'green',
 	Monitoring: 'blue',
 	Networking: 'blue',

@@ -1,5 +1,5 @@
-import type { Component, ComponentType, SvelteComponent } from 'svelte';
-import type { IconProps } from 'lucide-svelte';
+import type { LucideIcon } from 'lucide-react';
+import type { ComponentType } from 'react';
 
 export interface Skill {
 	name: string;
@@ -14,7 +14,7 @@ export interface SpecItem {
 
 export interface Section {
 	title: string;
-	Icon: ComponentType<SvelteComponent<IconProps>>;
+	Icon: LucideIcon;
 	items: SpecItem[];
 }
 
@@ -52,7 +52,7 @@ export interface Stack {
 export interface Social {
 	href: string;
 	label: string;
-	Icon: Component<{ className?: string }>;
+	Icon: ComponentType<{ className?: string }>;
 	color: string;
 }
 

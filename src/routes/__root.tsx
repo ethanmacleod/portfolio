@@ -2,10 +2,18 @@ import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-r
 import { Analytics } from '@vercel/analytics/react';
 import appCss from '~/app.css?url';
 import { trackVisitAndGetAnalytics } from '~/lib/analytics.functions';
+import { AppShell } from '~/lib/components/nav/AppShell';
+import { getHighFiveCount } from '~/lib/highFive.functions';
 import { siteUrl } from '~/lib/site';
 
 export const Route = createRootRoute({
-	loader: () => trackVisitAndGetAnalytics(),
+	loader: async () => {
+		const [analytics, highFiveCount] = await Promise.all([
+			trackVisitAndGetAnalytics(),
+			getHighFiveCount()
+		]);
+		return { analytics, highFiveCount };
+	},
 	shouldReload: false,
 	head: ({ matches }) => {
 		const pageUrl = `${siteUrl}${matches.at(-1)?.pathname ?? '/'}`;
@@ -59,13 +67,17 @@ export const Route = createRootRoute({
 });
 
 function RootDocument() {
+	const { analytics, highFiveCount } = Route.useLoaderData();
+
 	return (
 		<html lang="en">
 			<head>
 				<HeadContent />
 			</head>
 			<body className="bg-[url('/background.webp')] bg-repeat">
-				<Outlet />
+				<AppShell analytics={analytics} highFiveCount={highFiveCount}>
+					<Outlet />
+				</AppShell>
 				<Analytics />
 				<Scripts />
 			</body>

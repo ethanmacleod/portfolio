@@ -3,7 +3,6 @@ import { consumeIpRateLimit } from '~/lib/server/rateLimit.server';
 import { getCount, increment } from '~/lib/server/redis.server';
 
 const highFiveCountKey = 'highfives:count';
-export const highFiveRateLimitWindowSeconds = 30;
 
 export const getHighFiveCount = createServerFn().handler(async () => {
 	return await getCount(highFiveCountKey);
@@ -13,7 +12,7 @@ export const giveHighFive = createServerFn({ method: 'POST' }).handler(async () 
 	const rateLimit = await consumeIpRateLimit({
 		scope: 'highfive',
 		maxRequests: 5,
-		windowSeconds: highFiveRateLimitWindowSeconds
+		windowSeconds: 30
 	});
 	if (rateLimit.isLimited) return { result: 'rateLimited' } as const;
 
