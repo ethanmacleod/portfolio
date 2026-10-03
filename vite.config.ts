@@ -1,13 +1,12 @@
 import tailwindcss from '@tailwindcss/vite';
-import { sveltekit } from '@sveltejs/kit/vite';
+import { tanstackStart } from '@tanstack/react-start/plugin/vite';
+import viteReact from '@vitejs/plugin-react';
+import { nitro } from 'nitro/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-	plugins: [tailwindcss(), sveltekit()],
-	optimizeDeps: {
-		include: ['sveltekit-superforms']
+	resolve: {
+		tsconfigPaths: true
 	},
-	ssr: {
-		noExternal: ['sveltekit-superforms']
-	}
+	plugins: [tailwindcss(), tanstackStart(), nitro(), viteReact()]
 });

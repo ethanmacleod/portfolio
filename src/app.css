@@ -1,14 +1,7 @@
 @import 'tailwindcss';
 @import './lib/styles/effects.css';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-@layer components {
-	.comic-font {
-		font-family: 'Comic Neue', 'Comic Sans MS', cursive;
-	}
-}
+@source not '../legacy-svelte';
 
 body {
 	font-family: 'Verdana', 'Geneva', sans-serif;
