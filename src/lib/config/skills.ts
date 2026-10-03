@@ -1,4 +1,4 @@
-import type { Skill } from '$lib/types';
+import type { Skill } from '~/lib/types';
 
 export const skills: Skill[] = [
 	{ name: 'SVELTE', icon: 'svelte.avif', brandColor: '#FF5722' },

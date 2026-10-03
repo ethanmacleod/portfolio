@@ -1,3 +1,5 @@
+import { tz } from '@date-fns/tz';
+import { format } from 'date-fns';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -36,4 +38,10 @@ export function mapNullish<Value, Result>(
 	if (value === null) return null;
 	if (value === undefined) return undefined;
 	return transform(value);
+}
+
+const nzTimeZone = tz('Pacific/Auckland');
+
+export function formatNzDay(date: Date) {
+	return format(date, 'MMM d, yyyy', { in: nzTimeZone });
 }

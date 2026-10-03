@@ -19,7 +19,6 @@ export const guestbookSchema = z.object({
 		.trim()
 		.max(100, 'TOO_LONG_LOCATION')
 		.refine((text) => !text || !containsSwearWords(text), { message: 'SWEAR_WORDS_LOCATION' })
-		.optional()
 });
 
 export const technologySchema = z.object({
@@ -52,7 +51,7 @@ export const projectSchema = z.object({
 export const contactSchema = z.object({
 	name: z.string().trim().min(1, 'Name is required').max(100, 'Name is too long'),
 	email: z.string().trim().email('Invalid email address').max(200, 'Email is too long'),
-	subject: z.string().trim().max(200, 'Subject is too long').optional(),
+	subject: z.string().trim().max(200, 'Subject is too long'),
 	message: z
 		.string()
 		.trim()

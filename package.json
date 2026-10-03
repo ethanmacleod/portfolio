@@ -13,7 +13,9 @@
 		"format": "oxfmt"
 	},
 	"dependencies": {
+		"@date-fns/tz": "^1.5.0",
 		"@prisma/client": "^6.8.2",
+		"@tanstack/react-form": "^1.33.5",
 		"@tanstack/react-router": "^1.170.39",
 		"@tanstack/react-start": "^1.168.58",
 		"@vercel/analytics": "^1.5.0",
