@@ -1,4 +1,4 @@
-import type { Guestbook } from '@prisma/client';
+import type { Guestbook } from '~/generated/prisma/client';
 
 const discordTimeoutMs = 3000;
 

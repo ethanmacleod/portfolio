@@ -14,28 +14,29 @@
 	},
 	"dependencies": {
 		"@date-fns/tz": "^1.5.0",
-		"@prisma/client": "^6.8.2",
+		"@prisma/adapter-pg": "^7.10.0",
+		"@prisma/client": "^7.10.0",
 		"@tanstack/react-form": "^1.33.5",
 		"@tanstack/react-router": "^1.170.39",
 		"@tanstack/react-start": "^1.168.58",
-		"@vercel/analytics": "^1.5.0",
+		"@vercel/analytics": "^2.0.1",
 		"clsx": "^2.1.1",
 		"date-fns": "^4.4.0",
-		"isbot": "^5.1.30",
+		"isbot": "^5.2.2",
 		"lodash-es": "^4.18.1",
 		"lucide-react": "^1.48.0",
-		"nodemailer": "^8.0.6",
+		"nodemailer": "^10.0.10",
 		"react": "^19.3.0",
 		"react-dom": "^19.3.0",
-		"redis": "^5.8.2",
+		"redis": "^6.2.1",
 		"tailwind-merge": "^3.7.0",
-		"zod": "^3.25.76"
+		"zod": "^4.6.5"
 	},
 	"devDependencies": {
 		"@tailwindcss/vite": "^4.3.3",
 		"@types/lodash-es": "^4.17.12",
-		"@types/node": "^26.6.3",
-		"@types/nodemailer": "^8.0.0",
+		"@types/node": "^24.19.0",
+		"@types/nodemailer": "^8.0.2",
 		"@types/react": "^19.3.0",
 		"@types/react-dom": "^19.3.0",
 		"@typescript/native-preview": "^7.0.0-dev.20260707.2",
@@ -44,16 +45,15 @@
 		"nitro": "^3.0.260903-beta",
 		"oxfmt": "^0.70.0",
 		"oxlint": "^1.85.0",
-		"prisma": "^6.8.2",
+		"prisma": "^7.10.0",
 		"tailwindcss": "^4.3.3",
 		"vite": "^8.3.1"
 	},
 	"engines": {
-		"node": ">=22.12.0"
+		"node": ">=24.0.0"
 	},
 	"allowScripts": {
 		"prisma": true,
-		"@prisma/client": true,
 		"@prisma/engines": true,
 		"lefthook": false
 	}

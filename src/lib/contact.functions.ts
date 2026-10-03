@@ -18,7 +18,7 @@ export const sendContactMessage = createServerFn({ method: 'POST' })
 	.handler(async ({ data: { name, email, subject, message } }) => {
 		const smtpEnv = smtpEnvSchema.safeParse(process.env);
 		if (!smtpEnv.success) {
-			console.error('contact: SMTP is not configured', smtpEnv.error.flatten().fieldErrors);
+			console.error('contact: SMTP is not configured', z.flattenError(smtpEnv.error).fieldErrors);
 			return { result: 'notConfigured' } as const;
 		}
 
