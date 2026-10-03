@@ -3,10 +3,11 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useState, type ReactNode } from 'react';
 import { Input, Textarea } from '~/lib/components/Input';
 import { RetroDiv } from '~/lib/components/RetroDiv';
-import { socials, status, statusColors } from '~/lib/config/contact';
+import { socials, status } from '~/lib/config/contact';
 import { sendContactMessage } from '~/lib/contact.functions';
 import { contactSchema } from '~/lib/schema';
 import { pageMeta } from '~/lib/site';
+import type { StatusConfig } from '~/lib/types';
 import { cn } from '~/lib/utils';
 
 export const Route = createFileRoute('/contact')({
@@ -29,6 +30,12 @@ const submitErrorMessages = {
 	failed:
 		'Something went wrong sending your message. Please try again or reach out via social links.'
 } as const;
+
+const availabilityClassNames: Record<StatusConfig['state'], { dot: string; label: string }> = {
+	open: { dot: 'bg-availability-open', label: 'text-availability-open' },
+	busy: { dot: 'bg-availability-busy', label: 'text-availability-busy' },
+	away: { dot: 'bg-availability-away', label: 'text-availability-away' }
+};
 
 type SubmitState = 'idle' | 'sent' | keyof typeof submitErrorMessages;
 
@@ -70,12 +77,16 @@ function ContactPage() {
 					<div className="bevel-inset bg-black p-3">
 						<div className="flex items-center gap-2">
 							<span
-								className="blink h-2.5 w-2.5 shrink-0 rounded-full"
-								style={{ backgroundColor: statusColors[status.state] }}
+								className={cn(
+									'blink h-2.5 w-2.5 shrink-0 rounded-full',
+									availabilityClassNames[status.state].dot
+								)}
 							/>
 							<span
-								className="neon-glow font-mono text-sm font-bold"
-								style={{ color: statusColors[status.state] }}
+								className={cn(
+									'neon-glow font-mono text-sm font-bold',
+									availabilityClassNames[status.state].label
+								)}
 							>
 								{status.label}
 							</span>
@@ -97,7 +108,7 @@ function ContactPage() {
 								href={social.href}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="bevel-button flex items-center gap-3 bg-[#c0c0c0] px-3 py-2 transition-colors hover:bg-[#d0d0d0]"
+								className="bevel-button flex items-center gap-3 bg-win-face px-3 py-2 transition-colors hover:bg-win-face-hover"
 							>
 								<span style={{ color: social.color }} className="shrink-0">
 									<social.Icon className="h-4 w-4" />

@@ -12,7 +12,7 @@ type HeaderProps = {
 
 export function Header({ analytics, highFiveCount }: HeaderProps) {
 	return (
-		<header className="bevel-button title-bar-gradient box-border flex h-20 shrink-0 gap-1 overflow-hidden p-1 pr-2">
+		<header className="bevel-button title-bar-chrome box-border flex h-20 shrink-0 gap-1 overflow-hidden p-1 pr-2">
 			<div className="box-border grid h-full w-[45%] shrink-0 grid-cols-3 gap-3 p-3">
 				<HeaderWidget videoSrc="/gifs/globe.webm">
 					<span className="text-blue-700">
@@ -32,7 +32,7 @@ export function Header({ analytics, highFiveCount }: HeaderProps) {
 				<LiveClock />
 			</div>
 
-			<div className="bevel-inset my-1 flex w-[25%] shrink-0 flex-col gap-1 overflow-hidden bg-[#c0c0c0] p-1">
+			<div className="bevel-inset my-1 flex w-[25%] shrink-0 flex-col gap-1 overflow-hidden bg-win-face p-1">
 				<div className="flex min-h-0 flex-1 gap-1">
 					<div className="min-w-0 flex-1 overflow-hidden">
 						<HighFiveCounter initialCount={highFiveCount} />

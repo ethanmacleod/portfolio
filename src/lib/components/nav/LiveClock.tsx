@@ -10,7 +10,7 @@ export function LiveClock() {
 			<span className="font-mono text-sm leading-none font-bold text-green-400">
 				{mapNullish(now, (date) => format(date, 'HH:mm:ss')) ?? '--:--:--'}
 			</span>
-			<span className="font-mono text-[10px] leading-none text-green-600">
+			<span className="font-mono text-2xs leading-none text-green-600">
 				{mapNullish(now, (date) => format(date, 'EEE dd MMM').toUpperCase()) ?? '--- -- ---'}
 			</span>
 		</div>

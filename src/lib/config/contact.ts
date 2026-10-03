@@ -35,9 +35,3 @@ export const status: StatusConfig = {
 	timezone: 'NZT (UTC+12)',
 	response: '~24 hours'
 };
-
-export const statusColors: Record<StatusConfig['state'], string> = {
-	open: '#22c55e',
-	busy: '#eab308',
-	away: '#ef4444'
-};

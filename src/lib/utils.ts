@@ -1,7 +1,15 @@
 import { tz } from '@date-fns/tz';
 import { format } from 'date-fns';
 import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { extendTailwindMerge } from 'tailwind-merge';
+
+const twMerge = extendTailwindMerge({
+	extend: {
+		theme: {
+			text: ['2xs', 'window']
+		}
+	}
+});
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));

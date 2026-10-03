@@ -10,7 +10,7 @@ export function RetroDiv({ className, children }: RetroDivProps) {
 	return (
 		<div
 			className={cn(
-				'bevel-inset flex w-full flex-col overflow-hidden bg-[#d4d4d4] font-[Verdana] text-[13px] leading-tight text-black',
+				'bevel-inset flex w-full flex-col overflow-hidden bg-win-surface font-window text-window leading-tight text-black',
 				className
 			)}
 		>

@@ -28,8 +28,7 @@ export function HighFiveCounter({ initialCount }: { initialCount: number }) {
 			disabled={isPending}
 			title="Give a high five!"
 			aria-label={`Give a high five! ${formatNumber(count)} so far`}
-			className="relative flex h-full w-full items-center bg-yellow-300 bg-size-[100%_100%] bg-no-repeat px-6 disabled:cursor-wait"
-			style={{ backgroundImage: "url('/gifs/flame-border.webp')" }}
+			className="relative flex h-full w-full items-center bg-yellow-300 bg-[url('/gifs/flame-border.webp')] bg-size-[100%_100%] bg-no-repeat px-6 disabled:cursor-wait"
 		>
 			<span className="flex w-full flex-row justify-between text-xs font-bold text-red-900">
 				<span>High Fives:</span>

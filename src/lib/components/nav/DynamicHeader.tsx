@@ -10,7 +10,7 @@ export function DynamicHeader() {
 		useMatches({ select: (matches) => matches.at(-1)?.staticData.heading }) ?? fallbackHeading;
 
 	return (
-		<div className="box-border flex h-full w-full flex-col justify-between bg-gradient-to-br from-green-600 to-teal-700 px-4 py-2 font-[Verdana] leading-tight text-white">
+		<div className="box-border flex h-full w-full flex-col justify-between bg-gradient-to-br from-green-600 to-teal-700 px-4 py-2 font-window leading-tight text-white">
 			<span className="rainbow-text text-center text-base leading-tight font-bold">
 				{heading.title}
 			</span>

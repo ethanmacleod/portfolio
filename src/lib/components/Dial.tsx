@@ -103,9 +103,9 @@ export function Dial({ label, value, min, max, step = 1, onChange }: DialProps) 
 						className="absolute inset-0 rounded-full border-2 border-green-700 bg-gradient-to-b from-gray-800 to-black shadow-lg transition-transform duration-100 ease-out"
 						style={{ transform: `rotate(${rotationDegrees}deg)` }}
 					>
-						<div className="absolute top-1 left-1/2 h-4 w-0.5 -translate-x-1/2 rounded-full bg-green-400 shadow-[0_0_6px_#00ff41]" />
+						<div className="absolute top-1 left-1/2 h-4 w-0.5 -translate-x-1/2 rounded-full bg-green-400 shadow-[0_0_6px_var(--color-phosphor)]" />
 					</div>
-					<div className="absolute top-1/2 left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-green-500 shadow-[0_0_6px_#00ff41]" />
+					<div className="absolute top-1/2 left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-green-500 shadow-[0_0_6px_var(--color-phosphor)]" />
 				</div>
 				<label
 					htmlFor={inputId}

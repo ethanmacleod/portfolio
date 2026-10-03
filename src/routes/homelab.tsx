@@ -105,10 +105,10 @@ function HomelabPage() {
 											key={drive.label}
 											drive={drive}
 											labelClassName="w-10"
-											barClassName="bg-[#000080]"
+											barClassName="bg-win-navy"
 										/>
 									))}
-									<p className="border-t border-gray-400 pt-2 font-mono text-[10px] text-gray-500">
+									<p className="border-t border-gray-400 pt-2 font-mono text-2xs text-gray-500">
 										{nasNotes}
 									</p>
 								</div>
@@ -120,7 +120,7 @@ function HomelabPage() {
 											key={drive.label}
 											drive={drive}
 											labelClassName="w-4"
-											barClassName="bg-[#006400]"
+											barClassName="bg-win-forest"
 										/>
 									))}
 								</div>
@@ -134,7 +134,7 @@ function HomelabPage() {
 					<div className="flex flex-col gap-4">
 						{stackCategories.map((category) => (
 							<div key={category}>
-								<p className="mb-1.5 font-mono text-[10px] font-bold tracking-widest text-blue-700 uppercase">
+								<p className="mb-1.5 font-mono text-2xs font-bold tracking-widest text-blue-700 uppercase">
 									{category}
 								</p>
 								<div className="grid grid-cols-1 gap-1.5 sm:grid-cols-2 xl:grid-cols-3">

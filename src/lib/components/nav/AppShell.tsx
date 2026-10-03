@@ -7,15 +7,7 @@ import { LeftNav } from '~/lib/components/nav/LeftNav';
 import { useNow } from '~/lib/hooks/useNow';
 import { cn, mapNullish } from '~/lib/utils';
 
-const checkerboardBackground = {
-	backgroundColor: '#005050',
-	backgroundImage:
-		'linear-gradient(45deg, #003d3d 25%, transparent 25%), linear-gradient(-45deg, #003d3d 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #003d3d 75%), linear-gradient(-45deg, transparent 75%, #003d3d 75%)',
-	backgroundSize: '8px 8px',
-	backgroundPosition: '0 0, 0 4px, 4px -4px, -4px 0px'
-};
-
-const sidebarClassName = 'bevel-button w-[220px] overflow-y-auto bg-[#c0c0c0] p-3 text-black';
+const sidebarClassName = 'bevel-button w-[220px] overflow-y-auto bg-win-face p-3 text-black';
 
 type AppShellProps = {
 	analytics: Analytics;
@@ -43,7 +35,7 @@ export function AppShell({ analytics, highFiveCount, children }: AppShellProps) 
 	);
 
 	return (
-		<div className="flex h-screen gap-4 p-2 font-serif" style={checkerboardBackground}>
+		<div className="desktop-checkerboard flex h-screen gap-4 p-2 font-serif">
 			<aside className={cn(sidebarClassName, 'hidden h-full shrink-0 md:block')}>
 				<LeftNav />
 			</aside>
@@ -68,11 +60,11 @@ export function AppShell({ analytics, highFiveCount, children }: AppShellProps) 
 			</dialog>
 
 			<div className="flex min-w-0 flex-1 flex-col gap-4 overflow-hidden">
-				<div className="bevel-button title-bar-gradient flex h-12 shrink-0 items-center gap-3 overflow-hidden px-3 md:hidden">
+				<div className="bevel-button title-bar-chrome flex h-12 shrink-0 items-center gap-3 overflow-hidden px-3 md:hidden">
 					<button
 						type="button"
 						onClick={() => setDrawerOpenedOnPathname(pathname)}
-						className="bevel-button bg-[#c0c0c0] px-2 py-1 font-mono text-base font-bold text-black"
+						className="bevel-button bg-win-face px-2 py-1 font-mono text-base font-bold text-black"
 						aria-label="Open navigation"
 					>
 						&#9776;
@@ -85,7 +77,7 @@ export function AppShell({ analytics, highFiveCount, children }: AppShellProps) 
 				</div>
 
 				<main
-					className={cn('bevel-inset flex-1 overflow-auto bg-[#d4d4d4]', !isFullscreen && 'p-8')}
+					className={cn('bevel-inset flex-1 overflow-auto bg-win-surface', !isFullscreen && 'p-8')}
 				>
 					{children}
 				</main>

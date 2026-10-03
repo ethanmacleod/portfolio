@@ -11,7 +11,7 @@ export function NotFoundPage() {
 			</p>
 			<Link
 				to="/"
-				className="bevel-button mt-4 self-start bg-[#c0c0c0] px-3 py-1 font-mono text-xs font-bold"
+				className="bevel-button mt-4 self-start bg-win-face px-3 py-1 font-mono text-xs font-bold"
 			>
 				BACK TO HOME
 			</Link>
@@ -37,7 +37,7 @@ export function ErrorPage({ error, reset }: ErrorComponentProps) {
 			<button
 				type="button"
 				onClick={reset}
-				className="bevel-button mt-4 self-start bg-[#c0c0c0] px-3 py-1 font-mono text-xs font-bold"
+				className="bevel-button mt-4 self-start bg-win-face px-3 py-1 font-mono text-xs font-bold"
 			>
 				TRY AGAIN
 			</button>
