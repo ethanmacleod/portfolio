@@ -1,70 +1,78 @@
 import { useState } from 'react';
-import { GitHubIcon } from '~/lib/components/icons';
-import { RetroDiv } from '~/lib/components/RetroDiv';
 import { SkillBlock } from '~/lib/components/SkillBlock';
+import { GitHubIcon } from '~/lib/components/icons';
+import { Pill } from '~/lib/components/ui/Badge';
+import { bevelButtonClassName } from '~/lib/components/ui/BevelButton';
+import { Window } from '~/lib/components/ui/Window';
 import type { Project, ProjectImage } from '~/lib/schema';
 import { assert, cn } from '~/lib/utils';
 
 export function ProjectCard({ project }: { project: Project }) {
 	return (
 		<div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-			<RetroDiv className="mb-3 shrink-0">
+			<Window className="mb-3 shrink-0">
 				<div className="flex items-center justify-between bg-gradient-to-r from-blue-600 to-purple-600 p-2">
 					<div className="flex items-center gap-3">
 						<h1 className="retro-text-shadow text-lg font-bold text-white">{project.title}</h1>
 						{project.featured && (
-							<span className="rounded bg-yellow-400 px-2 py-0.5 font-mono text-xs text-yellow-900">
+							<Pill shape="rounded" className="bg-yellow-400 font-normal text-yellow-900">
 								⭐ FEATURED
-							</span>
+							</Pill>
 						)}
 					</div>
 					<a
 						href={project.githubUrl}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="bevel-button flex items-center gap-2 bg-gray-700 px-3 py-1.5 transition-colors duration-200 hover:bg-gray-600"
+						className={bevelButtonClassName({
+							variant: 'dark',
+							size: 'medium',
+							className: 'flex items-center gap-2 font-normal'
+						})}
 						title="View on GitHub"
 					>
 						<GitHubIcon className="h-4 w-4 fill-white" />
 						<span className="font-mono text-xs text-white">See the codebase here</span>
 					</a>
 				</div>
-			</RetroDiv>
+			</Window>
 
 			<div className="flex min-h-0 flex-1 flex-col gap-4 lg:flex-row">
 				<div className="flex-1 overflow-hidden">
 					{project.images.length > 0 && (
-						<RetroDiv className="h-full shrink-0">
+						<Window className="h-full shrink-0">
 							<ProjectImageGallery images={project.images} />
-						</RetroDiv>
+						</Window>
 					)}
 				</div>
 
 				<div className="flex h-full flex-col gap-3 lg:w-96">
-					<RetroDiv className="flex-1 overflow-auto p-2">
+					<Window className="flex-1 overflow-auto p-2">
 						<h2 className="mb-2 text-center text-sm font-bold text-blue-700">Tech Stack</h2>
 						<div className="grid grid-cols-2 place-items-center gap-1">
 							{project.technologies.map((technology, index) => (
 								<SkillBlock key={technology.name} {...technology} waveIndex={index} />
 							))}
 						</div>
-					</RetroDiv>
+					</Window>
 
-					<RetroDiv className="flex-1 overflow-auto p-2">
+					<Window className="flex-1 overflow-auto p-2">
 						<h2 className="mb-2 text-sm font-bold text-blue-700">Description</h2>
 						<p className="mb-2 text-sm text-gray-700">{project.description}</p>
 						{project.longDescription && (
 							<p className="mb-2 text-xs text-gray-600">{project.longDescription}</p>
 						)}
-					</RetroDiv>
+					</Window>
 				</div>
 			</div>
 		</div>
 	);
 }
 
-const galleryArrowClassName =
-	'bevel-button absolute top-1/2 -translate-y-1/2 bg-white p-2 font-bold text-gray-700 transition-all duration-200';
+const galleryArrowClassName = bevelButtonClassName({
+	variant: 'white',
+	className: 'absolute top-1/2 -translate-y-1/2 p-2 text-window'
+});
 
 function ProjectImageGallery({ images }: { images: ProjectImage[] }) {
 	const [selectedIndex, setSelectedIndex] = useState(0);

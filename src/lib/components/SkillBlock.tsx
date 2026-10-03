@@ -1,5 +1,6 @@
 import { sumBy } from 'lodash-es';
 import { useState } from 'react';
+import { raisedClassName } from '~/lib/components/ui/Bevel';
 import type { Technology } from '~/lib/schema';
 import { cn } from '~/lib/utils';
 
@@ -33,7 +34,10 @@ export function SkillBlock({
 			style={{ '--scale': scale, '--wave-delay': waveIndex }}
 		>
 			<div
-				className="bevel-button relative flex h-12 w-32 items-center justify-center overflow-hidden p-2 text-center transition-all duration-200 hover:shadow-lg"
+				className={raisedClassName(
+					'none',
+					'relative flex h-12 w-32 items-center justify-center overflow-hidden p-2 text-center transition-all duration-200 hover:shadow-lg'
+				)}
 				style={{
 					background: `linear-gradient(135deg, ${brandColor}08, ${brandColor}15, #e5e7eb)`
 				}}

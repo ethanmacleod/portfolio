@@ -1,15 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { groupBy, sumBy } from 'lodash-es';
-import type { ReactNode } from 'react';
-import {
-	DriveRow,
-	NetworkRow,
-	NodeCard,
-	NodeRow,
-	StackCard,
-	WindowPanel
-} from '~/lib/components/HomelabCards';
-import { RetroDiv } from '~/lib/components/RetroDiv';
+import { DriveRow, NetworkRow, NodeCard, NodeRow, StackCard } from '~/lib/components/HomelabCards';
+import { StatusDot } from '~/lib/components/ui/Badge';
+import { Text } from '~/lib/components/ui/Text';
+import { PageHeader, TitledPanel, Window } from '~/lib/components/ui/Window';
 import {
 	extraDrives,
 	nasDrives,
@@ -49,56 +43,64 @@ function HomelabPage() {
 	return (
 		<div className="h-full overflow-auto">
 			<div className="flex flex-col gap-3">
-				<RetroDiv className="p-3">
-					<div className="flex items-center justify-between">
-						<div>
-							<h1 className="font-mono text-base font-bold text-blue-700">{'// HOMELAB.SH'}</h1>
-							<p className="mt-1 font-mono text-xs text-gray-600">
-								{optiplexNodes.length} node Docker Swarm &nbsp;·&nbsp; {totalRamGb}GB total RAM
-								&nbsp;·&nbsp; {runningStackCount} stacks running
-							</p>
-						</div>
+				<PageHeader
+					title="HOMELAB.SH"
+					description={
+						<>
+							{optiplexNodes.length} node Docker Swarm &nbsp;·&nbsp; {totalRamGb}GB total RAM
+							&nbsp;·&nbsp; {runningStackCount} stacks running
+						</>
+					}
+					aside={
 						<div className="flex items-center gap-1.5">
-							<span className="blink h-2 w-2 rounded-full bg-green-500" />
+							<StatusDot isBlinking className="bg-green-500" />
 							<span className="font-mono text-xs font-bold text-green-700">CLUSTER ONLINE</span>
 						</div>
-					</div>
-				</RetroDiv>
+					}
+				/>
 
 				<div className="flex flex-col gap-3 md:flex-row">
-					<RetroDiv className="flex-1 p-3">
-						<SectionHeading>[ OPTIPLEX CLUSTER - {optiplexNodes.length} NODES ]</SectionHeading>
+					<Window className="flex-1 p-3">
+						<Text variant="sectionLabel" className="mb-3">
+							[ OPTIPLEX CLUSTER - {optiplexNodes.length} NODES ]
+						</Text>
 						<div className="flex flex-col gap-1.5">
 							{optiplexNodes.map((node, index) => (
 								<NodeRow key={index} node={node} unit={index + 1} />
 							))}
 						</div>
-					</RetroDiv>
+					</Window>
 
-					<RetroDiv className="shrink-0 p-3 md:w-72">
-						<SectionHeading>[ RASPBERRY PI - {piNodes.length} NODES ]</SectionHeading>
+					<Window className="shrink-0 p-3 md:w-72">
+						<Text variant="sectionLabel" className="mb-3">
+							[ RASPBERRY PI - {piNodes.length} NODES ]
+						</Text>
 						<div className="flex flex-col gap-1.5">
 							{piNodes.map((node) => (
 								<NodeCard key={node.model} node={node} />
 							))}
 						</div>
-					</RetroDiv>
+					</Window>
 				</div>
 
 				<div className="flex flex-col gap-3 md:flex-row">
-					<RetroDiv className="flex-1 p-3">
-						<SectionHeading>[ NETWORKING & INFRASTRUCTURE ]</SectionHeading>
+					<Window className="flex-1 p-3">
+						<Text variant="sectionLabel" className="mb-3">
+							[ NETWORKING & INFRASTRUCTURE ]
+						</Text>
 						<div className="flex flex-col gap-1.5">
 							{networking.map((device) => (
 								<NetworkRow key={device.name} device={device} />
 							))}
 						</div>
-					</RetroDiv>
+					</Window>
 
-					<RetroDiv className="shrink-0 p-3 md:w-64">
-						<SectionHeading>[ STORAGE ]</SectionHeading>
+					<Window className="shrink-0 p-3 md:w-64">
+						<Text variant="sectionLabel" className="mb-3">
+							[ STORAGE ]
+						</Text>
 						<div className="flex flex-col gap-2">
-							<WindowPanel title={nasModel} variant="green">
+							<TitledPanel title={nasModel} variant="green">
 								<div className="flex flex-col gap-2 p-3">
 									{nasDrives.map((drive) => (
 										<DriveRow
@@ -108,12 +110,12 @@ function HomelabPage() {
 											barClassName="bg-win-navy"
 										/>
 									))}
-									<p className="border-t border-gray-400 pt-2 font-mono text-2xs text-gray-500">
+									<Text variant="meta" className="border-t border-gray-400 pt-2">
 										{nasNotes}
-									</p>
+									</Text>
 								</div>
-							</WindowPanel>
-							<WindowPanel title="ADDITIONAL DRIVES" variant="blue">
+							</TitledPanel>
+							<TitledPanel title="ADDITIONAL DRIVES" variant="blue">
 								<div className="flex flex-col gap-2 p-3">
 									{extraDrives.map((drive) => (
 										<DriveRow
@@ -124,13 +126,15 @@ function HomelabPage() {
 										/>
 									))}
 								</div>
-							</WindowPanel>
+							</TitledPanel>
 						</div>
-					</RetroDiv>
+					</Window>
 				</div>
 
-				<RetroDiv className="p-3">
-					<SectionHeading>[ HOSTED STACKS - {stacks.length} TOTAL ]</SectionHeading>
+				<Window className="p-3">
+					<Text variant="sectionLabel" className="mb-3">
+						[ HOSTED STACKS - {stacks.length} TOTAL ]
+					</Text>
 					<div className="flex flex-col gap-4">
 						{stackCategories.map((category) => (
 							<div key={category}>
@@ -149,12 +153,8 @@ function HomelabPage() {
 							</div>
 						))}
 					</div>
-				</RetroDiv>
+				</Window>
 			</div>
 		</div>
 	);
-}
-
-function SectionHeading({ children }: { children: ReactNode }) {
-	return <h2 className="mb-3 font-mono text-xs font-bold text-gray-600">{children}</h2>;
 }

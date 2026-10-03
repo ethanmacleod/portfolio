@@ -1,21 +1,26 @@
 import { Link, type ErrorComponentProps } from '@tanstack/react-router';
 import { useEffect } from 'react';
-import { RetroDiv } from '~/lib/components/RetroDiv';
+import { BevelButton, bevelButtonClassName } from '~/lib/components/ui/BevelButton';
+import { Text } from '~/lib/components/ui/Text';
+import { Window } from '~/lib/components/ui/Window';
 
 export function NotFoundPage() {
 	return (
-		<RetroDiv className="mx-auto max-w-lg p-4">
-			<h1 className="font-mono text-base font-bold text-blue-700">{'// 404.TXT'}</h1>
+		<Window className="mx-auto max-w-lg p-4">
+			<Text variant="pageTitle">{'// 404.TXT'}</Text>
 			<p className="mt-2 font-mono text-xs text-gray-700">
 				This page doesn't exist. It might be under construction, like the rest of the site.
 			</p>
 			<Link
 				to="/"
-				className="bevel-button mt-4 self-start bg-win-face px-3 py-1 font-mono text-xs font-bold"
+				className={bevelButtonClassName({
+					variant: 'face',
+					className: 'mt-4 self-start px-3 font-mono'
+				})}
 			>
 				BACK TO HOME
 			</Link>
-		</RetroDiv>
+		</Window>
 	);
 }
 
@@ -28,19 +33,17 @@ export function ErrorPage({ error, reset }: ErrorComponentProps) {
 	);
 
 	return (
-		<RetroDiv className="error-dialog mx-auto max-w-lg p-4">
-			<h1 className="font-mono text-base font-bold text-red-700">{'// FATAL_ERROR.EXE'}</h1>
+		<Window className="error-dialog mx-auto max-w-lg p-4">
+			<Text variant="pageTitle" className="text-red-700">
+				{'// FATAL_ERROR.EXE'}
+			</Text>
 			<p className="mt-2 font-mono text-xs text-gray-700">
 				Something on this page broke. Try again, and if it keeps happening let me know through the
 				contact page.
 			</p>
-			<button
-				type="button"
-				onClick={reset}
-				className="bevel-button mt-4 self-start bg-win-face px-3 py-1 font-mono text-xs font-bold"
-			>
+			<BevelButton variant="face" onClick={reset} className="mt-4 self-start px-3 font-mono">
 				TRY AGAIN
-			</button>
-		</RetroDiv>
+			</BevelButton>
+		</Window>
 	);
 }

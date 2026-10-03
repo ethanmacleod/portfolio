@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { z } from 'zod';
 import { ProjectCard } from '~/lib/components/ProjectCard';
-import { RetroDiv } from '~/lib/components/RetroDiv';
+import { bevelButtonClassName } from '~/lib/components/ui/BevelButton';
+import { Window } from '~/lib/components/ui/Window';
 import { projects } from '~/lib/config/projects';
 import { pageMeta } from '~/lib/site';
-import { assert, cn } from '~/lib/utils';
+import { assert } from '~/lib/utils';
 
 const projectsSearchSchema = z.object({
 	project: z.string().optional().catch(undefined)
@@ -25,10 +26,10 @@ export const Route = createFileRoute('/projects')({
 	component: ProjectsPage
 });
 
-const pagerButtonClassName =
-	'bevel-button bg-gray-200 px-2 py-0.5 text-xs transition-all duration-200 hover:bg-gray-300';
-
-const disabledPagerClassName = 'cursor-not-allowed opacity-50';
+const stepButtonClassName = bevelButtonClassName({
+	variant: 'light',
+	className: 'py-0.5 font-normal text-black'
+});
 
 function ProjectsPage() {
 	const { project: selectedProjectId } = Route.useSearch();
@@ -45,7 +46,7 @@ function ProjectsPage() {
 			<ProjectCard key={project.id} project={project} />
 
 			{projects.length > 1 && (
-				<RetroDiv className="mt-2 px-4 py-2">
+				<Window className="mt-2 px-4 py-2">
 					<div className="px-3 py-1">
 						<div className="flex items-center justify-between">
 							<Link
@@ -53,7 +54,7 @@ function ProjectsPage() {
 								search={{ project: previousProject?.id }}
 								disabled={isFirstProject}
 								aria-label="Previous project"
-								className={cn(pagerButtonClassName, isFirstProject && disabledPagerClassName)}
+								className={stepButtonClassName}
 							>
 								‹
 							</Link>
@@ -65,12 +66,9 @@ function ProjectsPage() {
 										to="/projects"
 										search={{ project: pagerProject.id }}
 										aria-label={pagerProject.title}
-										className={cn(
-											'bevel-button px-2 py-1 text-xs font-bold transition-all duration-200',
-											index === projectIndex
-												? 'bg-gradient-to-br from-blue-500 to-purple-600 text-white'
-												: 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-										)}
+										className={bevelButtonClassName({
+											variant: index === projectIndex ? 'selected' : 'light'
+										})}
 									>
 										{index + 1}
 									</Link>
@@ -82,7 +80,7 @@ function ProjectsPage() {
 								search={{ project: nextProject?.id }}
 								disabled={!nextProject}
 								aria-label="Next project"
-								className={cn(pagerButtonClassName, !nextProject && disabledPagerClassName)}
+								className={stepButtonClassName}
 							>
 								›
 							</Link>
@@ -91,7 +89,7 @@ function ProjectsPage() {
 							{projectIndex + 1}/{projects.length}
 						</div>
 					</div>
-				</RetroDiv>
+				</Window>
 			)}
 		</div>
 	);

@@ -1,8 +1,12 @@
 import { useForm, useStore } from '@tanstack/react-form';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState, type ReactNode } from 'react';
-import { Input, Textarea } from '~/lib/components/Input';
-import { RetroDiv } from '~/lib/components/RetroDiv';
+import { StatusDot } from '~/lib/components/ui/Badge';
+import { Inset } from '~/lib/components/ui/Bevel';
+import { BevelButton, bevelButtonClassName } from '~/lib/components/ui/BevelButton';
+import { Input, Textarea } from '~/lib/components/ui/Input';
+import { Text } from '~/lib/components/ui/Text';
+import { PageHeader, Window } from '~/lib/components/ui/Window';
 import { socials, status } from '~/lib/config/contact';
 import { sendContactMessage } from '~/lib/contact.functions';
 import { contactSchema } from '~/lib/schema';
@@ -47,40 +51,40 @@ function ContactPage() {
 	return (
 		<div className="flex h-full min-h-0 flex-col gap-4 md:flex-row">
 			<div className="flex min-w-0 flex-1 flex-col gap-3">
-				<RetroDiv className="shrink-0 p-3">
-					<h1 className="font-mono text-base font-bold text-blue-700">{'// CONTACT'}</h1>
-					<p className="mt-1 font-mono text-xs text-gray-600">
-						Fill out the form below and I'll get back to you.
-					</p>
-				</RetroDiv>
+				<PageHeader
+					title="CONTACT"
+					description="Fill out the form below and I'll get back to you."
+				/>
 
-				<RetroDiv className="flex-1 overflow-auto p-4">
+				<Window className="flex-1 overflow-auto p-4">
 					{submitState === 'sent' ? (
-						<div className="bevel-inset flex h-full flex-col items-center justify-center gap-3 bg-green-50 p-8">
+						<Inset
+							tone="success"
+							className="flex h-full flex-col items-center justify-center gap-3 p-8"
+						>
 							<span className="font-mono text-2xl">✓</span>
 							<p className="font-mono text-sm font-bold text-green-700">
 								MESSAGE SENT SUCCESSFULLY
 							</p>
-							<p className="font-mono text-xs text-gray-600">
-								I'll get back to you within ~24 hours.
-							</p>
-						</div>
+							<Text variant="description">I'll get back to you within ~24 hours.</Text>
+						</Inset>
 					) : (
 						<ContactForm submitState={submitState} onSubmitStateChange={setSubmitState} />
 					)}
-				</RetroDiv>
+				</Window>
 			</div>
 
 			<div className="flex w-full shrink-0 flex-col gap-3 md:w-72">
-				<RetroDiv className="shrink-0 p-3">
-					<h2 className="mb-2 font-mono text-xs font-bold text-gray-600">[ CURRENT STATUS ]</h2>
-					<div className="bevel-inset bg-black p-3">
+				<Window className="shrink-0 p-3">
+					<Text variant="sectionLabel" className="mb-2">
+						[ CURRENT STATUS ]
+					</Text>
+					<Inset tone="screen" className="p-3">
 						<div className="flex items-center gap-2">
-							<span
-								className={cn(
-									'blink h-2.5 w-2.5 shrink-0 rounded-full',
-									availabilityClassNames[status.state].dot
-								)}
+							<StatusDot
+								size="medium"
+								isBlinking
+								className={availabilityClassNames[status.state].dot}
 							/>
 							<span
 								className={cn(
@@ -96,11 +100,13 @@ function ContactPage() {
 							<StatusRow label="TIMEZONE" value={status.timezone} />
 							<StatusRow label="RESPONSE" value={status.response} />
 						</div>
-					</div>
-				</RetroDiv>
+					</Inset>
+				</Window>
 
-				<RetroDiv className="flex-1 p-3">
-					<h2 className="mb-2 font-mono text-xs font-bold text-gray-600">[ FIND ME ELSEWHERE ]</h2>
+				<Window className="flex-1 p-3">
+					<Text variant="sectionLabel" className="mb-2">
+						[ FIND ME ELSEWHERE ]
+					</Text>
 					<div className="flex flex-col gap-2">
 						{socials.map((social) => (
 							<a
@@ -108,7 +114,10 @@ function ContactPage() {
 								href={social.href}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="bevel-button flex items-center gap-3 bg-win-face px-3 py-2 transition-colors hover:bg-win-face-hover"
+								className={bevelButtonClassName({
+									variant: 'face',
+									className: 'flex items-center gap-3 px-3 py-2 font-normal'
+								})}
 							>
 								<span style={{ color: social.color }} className="shrink-0">
 									<social.Icon className="h-4 w-4" />
@@ -118,7 +127,7 @@ function ContactPage() {
 							</a>
 						))}
 					</div>
-				</RetroDiv>
+				</Window>
 			</div>
 		</div>
 	);
@@ -163,9 +172,9 @@ function ContactForm({ submitState, onSubmitStateChange }: ContactFormProps) {
 			}}
 		>
 			{submitState !== 'idle' && submitState !== 'sent' && (
-				<div className="bevel-inset bg-red-50 p-2" role="alert">
+				<Inset tone="danger" role="alert" className="p-2">
 					<p className="font-mono text-xs text-red-700">{submitErrorMessages[submitState]}</p>
-				</div>
+				</Inset>
 			)}
 
 			<div className="grid grid-cols-2 gap-3">
@@ -235,13 +244,15 @@ function ContactForm({ submitState, onSubmitStateChange }: ContactFormProps) {
 
 			<div className="flex items-center justify-between">
 				<span className="font-mono text-xs text-gray-500">* required fields</span>
-				<button
+				<BevelButton
 					type="submit"
-					disabled={isSubmitting}
-					className="bevel-button bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-2 font-mono text-xs font-bold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+					variant="primary"
+					size="large"
+					isPending={isSubmitting}
+					className="font-mono"
 				>
 					{isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
-				</button>
+				</BevelButton>
 			</div>
 		</form>
 	);
@@ -256,7 +267,7 @@ type FormFieldProps = {
 function FormField({ label, errorMessage, children }: FormFieldProps) {
 	return (
 		<label className="flex flex-col gap-1">
-			<span className="font-mono text-xs font-bold text-gray-700">{label}</span>
+			<Text variant="fieldLabel">{label}</Text>
 			{children}
 			{errorMessage && <span className="font-mono text-xs text-red-600">{errorMessage}</span>}
 		</label>

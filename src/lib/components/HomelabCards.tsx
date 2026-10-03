@@ -1,11 +1,9 @@
-import type { ReactNode } from 'react';
+import { Pill, StatusDot } from '~/lib/components/ui/Badge';
+import { Inset } from '~/lib/components/ui/Bevel';
+import { Text } from '~/lib/components/ui/Text';
+import { TitledPanel } from '~/lib/components/ui/Window';
 import type { Drive, NetworkDevice, Node, NodeStatus, PanelVariant, Stack } from '~/lib/types';
 import { cn } from '~/lib/utils';
-
-const panelTitleBarClassNames: Record<PanelVariant, string> = {
-	blue: 'title-bar-navy',
-	green: 'title-bar-forest'
-};
 
 const nodeStatusDotClassNames: Record<NodeStatus, string> = {
 	online: 'bg-green-500',
@@ -30,37 +28,14 @@ const stackServiceClassNames: Record<PanelVariant, string> = {
 	green: 'text-win-forest-dark'
 };
 
-function NodeStatusDot({ status }: { status: NodeStatus }) {
-	return <span className={cn('h-2 w-2 shrink-0 rounded-full', nodeStatusDotClassNames[status])} />;
-}
-
-type WindowPanelProps = {
-	title: string;
-	variant: PanelVariant;
-	titleAside?: ReactNode;
-	children: ReactNode;
-};
-
-export function WindowPanel({ title, variant, titleAside, children }: WindowPanelProps) {
-	return (
-		<div className="bevel-button bg-win-button">
-			<div className={cn('flex items-center gap-1.5 px-2 py-1', panelTitleBarClassNames[variant])}>
-				<p className="flex-1 truncate font-mono text-xs font-bold text-white">{title}</p>
-				{titleAside}
-			</div>
-			{children}
-		</div>
-	);
-}
-
 export function NodeRow({ node, unit }: { node: Node; unit: number }) {
 	return (
-		<div className="bevel-inset flex items-center gap-3 bg-white px-3 py-2">
+		<Inset tone="white" className="flex items-center gap-3 px-3 py-2">
 			<div className="flex w-44 shrink-0 items-center gap-2">
-				<NodeStatusDot status={node.status} />
+				<StatusDot className={nodeStatusDotClassNames[node.status]} />
 				<div>
 					<p className="font-mono text-xs font-bold text-win-navy">{node.model}</p>
-					<p className="font-mono text-2xs text-gray-500">{node.role}</p>
+					<Text variant="meta">{node.role}</Text>
 				</div>
 			</div>
 			<div className="h-8 w-px shrink-0 bg-gray-300" />
@@ -68,22 +43,24 @@ export function NodeRow({ node, unit }: { node: Node; unit: number }) {
 				<NodeSpecs node={node} valueClassName="text-xs" />
 			</div>
 			<span className="shrink-0 font-mono text-2xs text-gray-400">U{unit}</span>
-		</div>
+		</Inset>
 	);
 }
 
 export function NodeCard({ node }: { node: Node }) {
 	return (
-		<div className="bevel-inset bg-white px-3 py-2">
+		<Inset tone="white" className="px-3 py-2">
 			<div className="mb-2 flex items-center gap-2">
-				<NodeStatusDot status={node.status} />
+				<StatusDot className={nodeStatusDotClassNames[node.status]} />
 				<p className="font-mono text-xs font-bold text-win-forest">{node.model}</p>
 			</div>
-			<p className="mb-2 font-mono text-2xs text-gray-500">{node.role}</p>
+			<Text variant="meta" className="mb-2">
+				{node.role}
+			</Text>
 			<div className="grid grid-cols-2 gap-x-3 gap-y-1">
 				<NodeSpecs node={node} valueClassName="text-2xs" />
 			</div>
-		</div>
+		</Inset>
 	);
 }
 
@@ -97,7 +74,7 @@ function NodeSpecs({ node, valueClassName }: { node: Node; valueClassName: strin
 
 	return specs.map((spec) => (
 		<div key={spec.label}>
-			<p className="font-mono text-2xs text-gray-500">{spec.label}</p>
+			<Text variant="meta">{spec.label}</Text>
 			<p className={cn('font-mono text-gray-700', valueClassName)}>{spec.value}</p>
 		</div>
 	));
@@ -105,14 +82,18 @@ function NodeSpecs({ node, valueClassName }: { node: Node; valueClassName: strin
 
 export function NetworkRow({ device }: { device: NetworkDevice }) {
 	return (
-		<div className="bevel-inset flex items-center gap-2 bg-white px-3 py-2">
-			<span className="h-2 w-2 shrink-0 rounded-full bg-win-navy" />
+		<Inset tone="white" className="flex items-center gap-2 px-3 py-2">
+			<StatusDot className="bg-win-navy" />
 			<div className="flex flex-1 items-baseline gap-3">
 				<p className="w-36 shrink-0 font-mono text-2xs font-bold text-win-navy">{device.name}</p>
 				<p className="font-mono text-xs text-gray-700">{device.model}</p>
-				{device.notes && <p className="ml-auto font-mono text-2xs text-gray-500">{device.notes}</p>}
+				{device.notes && (
+					<Text variant="meta" className="ml-auto">
+						{device.notes}
+					</Text>
+				)}
 			</div>
-		</div>
+		</Inset>
 	);
 }
 
@@ -126,9 +107,9 @@ export function DriveRow({ drive, labelClassName, barClassName }: DriveRowProps)
 	return (
 		<div className="flex items-center gap-2">
 			<span className={cn('font-mono text-2xs text-gray-600', labelClassName)}>{drive.label}</span>
-			<div className="bevel-inset h-4 flex-1 overflow-hidden bg-win-track">
+			<Inset tone="track" className="h-4 flex-1 overflow-hidden">
 				<div className={cn('h-full w-full', barClassName)} />
-			</div>
+			</Inset>
 			<span className="w-32 font-mono text-2xs text-gray-700">
 				{drive.size} {drive.type}
 			</span>
@@ -138,39 +119,34 @@ export function DriveRow({ drive, labelClassName, barClassName }: DriveRowProps)
 
 export function StackCard({ stack, variant }: { stack: Stack; variant: PanelVariant }) {
 	return (
-		<WindowPanel
+		<TitledPanel
 			title={stack.name}
 			variant={variant}
 			titleAside={
-				<span
-					className={cn(
-						'shrink-0 px-1 py-px font-mono text-2xs leading-none font-bold text-white',
-						stackStatusClassNames[stack.status]
-					)}
-				>
+				<Pill shape="tag" className={cn('text-white', stackStatusClassNames[stack.status])}>
 					{stackStatusLabels[stack.status]}
-				</span>
+				</Pill>
 			}
 		>
 			<div className="p-2">
 				{stack.services.length > 0 ? (
 					<div className="flex flex-wrap gap-1">
 						{stack.services.map((service) => (
-							<span
+							<Pill
 								key={service}
-								className={cn(
-									'bevel-button bg-white px-2 py-1 font-mono text-2xs leading-none font-bold',
-									stackServiceClassNames[variant]
-								)}
+								shape="bevel"
+								className={cn('bg-white', stackServiceClassNames[variant])}
 							>
 								{service}
-							</span>
+							</Pill>
 						))}
 					</div>
 				) : (
-					<p className="font-mono text-2xs text-gray-500 italic">standby - no services</p>
+					<Text variant="meta" className="italic">
+						standby - no services
+					</Text>
 				)}
 			</div>
-		</WindowPanel>
+		</TitledPanel>
 	);
 }

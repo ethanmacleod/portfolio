@@ -4,10 +4,12 @@ import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react';
 import type { Analytics } from '~/lib/analytics.functions';
 import { Header } from '~/lib/components/nav/Header';
 import { LeftNav } from '~/lib/components/nav/LeftNav';
+import { insetClassName, raisedClassName } from '~/lib/components/ui/Bevel';
+import { bevelButtonClassName } from '~/lib/components/ui/BevelButton';
 import { useNow } from '~/lib/hooks/useNow';
 import { cn, mapNullish } from '~/lib/utils';
 
-const sidebarClassName = 'bevel-button w-[220px] overflow-y-auto bg-win-face p-3 text-black';
+const sidebarClassName = raisedClassName('face', 'w-[220px] overflow-y-auto p-3 text-black');
 
 type AppShellProps = {
 	analytics: Analytics;
@@ -60,11 +62,16 @@ export function AppShell({ analytics, highFiveCount, children }: AppShellProps) 
 			</dialog>
 
 			<div className="flex min-w-0 flex-1 flex-col gap-4 overflow-hidden">
-				<div className="bevel-button title-bar-chrome flex h-12 shrink-0 items-center gap-3 overflow-hidden px-3 md:hidden">
+				<div
+					className={raisedClassName(
+						'none',
+						'title-bar-chrome flex h-12 shrink-0 items-center gap-3 overflow-hidden px-3 md:hidden'
+					)}
+				>
 					<button
 						type="button"
 						onClick={() => setDrawerOpenedOnPathname(pathname)}
-						className="bevel-button bg-win-face px-2 py-1 font-mono text-base font-bold text-black"
+						className={bevelButtonClassName({ variant: 'face', className: 'font-mono text-base' })}
 						aria-label="Open navigation"
 					>
 						&#9776;
@@ -77,7 +84,7 @@ export function AppShell({ analytics, highFiveCount, children }: AppShellProps) 
 				</div>
 
 				<main
-					className={cn('bevel-inset flex-1 overflow-auto bg-win-surface', !isFullscreen && 'p-8')}
+					className={insetClassName('surface', cn('flex-1 overflow-auto', !isFullscreen && 'p-8'))}
 				>
 					{children}
 				</main>
@@ -105,7 +112,12 @@ function MarqueeFooter() {
 	];
 
 	return (
-		<footer className="bevel-button shrink-0 overflow-hidden bg-gradient-to-t from-gray-900 to-gray-700 py-2 text-white">
+		<footer
+			className={raisedClassName(
+				'none',
+				'shrink-0 overflow-hidden bg-gradient-to-t from-gray-900 to-gray-700 py-2 text-white'
+			)}
+		>
 			<div className="marquee-track">
 				{[...messages, ...messages].map((message, index) => {
 					const isLoopCopy = index >= messages.length;

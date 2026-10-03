@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { RetroDiv } from '~/lib/components/RetroDiv';
+import { PageHeader, Window } from '~/lib/components/ui/Window';
 import { sections } from '~/lib/config/uses';
 import { pageMeta } from '~/lib/site';
 import type { Section } from '~/lib/types';
@@ -21,12 +21,10 @@ export const Route = createFileRoute('/uses')({
 function UsesPage() {
 	return (
 		<div className="flex h-full min-h-0 flex-col gap-3">
-			<RetroDiv className="shrink-0 p-3">
-				<h1 className="font-mono text-base font-bold text-blue-700">{'// USES.TXT'}</h1>
-				<p className="mt-1 font-mono text-xs text-gray-600">
-					Hardware, software, and everything I couldn't put on the other pages.
-				</p>
-			</RetroDiv>
+			<PageHeader
+				title="USES.TXT"
+				description="Hardware, software, and everything I couldn't put on the other pages."
+			/>
 
 			<div className="min-h-0 flex-1 overflow-auto">
 				<div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -41,7 +39,7 @@ function UsesPage() {
 
 function UsesCard({ section }: { section: Section }) {
 	return (
-		<RetroDiv className="p-3">
+		<Window className="p-3">
 			<h2 className="mb-3 flex items-center gap-2 font-mono text-xs font-bold text-blue-700">
 				<section.Icon size={14} aria-hidden="true" />
 				{section.title}
@@ -59,6 +57,6 @@ function UsesCard({ section }: { section: Section }) {
 					</div>
 				))}
 			</div>
-		</RetroDiv>
+		</Window>
 	);
 }

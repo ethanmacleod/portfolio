@@ -2,8 +2,11 @@ import { useForm, useStore } from '@tanstack/react-form';
 import { Link, useRouter, useRouterState } from '@tanstack/react-router';
 import { isEqual } from 'lodash-es';
 import { useState } from 'react';
-import { Input } from '~/lib/components/Input';
-import { RetroDiv } from '~/lib/components/RetroDiv';
+import { insetClassName, Raised, raisedClassName } from '~/lib/components/ui/Bevel';
+import { Inset } from '~/lib/components/ui/Bevel';
+import { BevelButton, bevelButtonClassName } from '~/lib/components/ui/BevelButton';
+import { Input } from '~/lib/components/ui/Input';
+import { Window } from '~/lib/components/ui/Window';
 import {
 	addGuestbookEntry,
 	type GuestbookEntry,
@@ -53,7 +56,7 @@ export type GuestbookLoadState =
 
 export function Guestbook({ guestbook }: { guestbook: GuestbookLoadState }) {
 	return (
-		<RetroDiv>
+		<Window>
 			<table className="-ml-[2px] w-[calc(100%+4px)] table-auto border-collapse bg-yellow-100">
 				<thead>
 					<tr>
@@ -73,7 +76,7 @@ export function Guestbook({ guestbook }: { guestbook: GuestbookLoadState }) {
 							<th
 								key={column.label}
 								className={cn(
-									'bevel-button bg-purple-200 p-2 font-bold text-purple-800',
+									raisedClassName('none', 'bg-purple-200 p-2 font-bold text-purple-800'),
 									column.width
 								)}
 							>
@@ -94,7 +97,7 @@ export function Guestbook({ guestbook }: { guestbook: GuestbookLoadState }) {
 					</tbody>
 				)}
 			</table>
-		</RetroDiv>
+		</Window>
 	);
 }
 
@@ -165,23 +168,22 @@ function GuestbookPageLink({ page, disabled, children }: GuestbookPageLinkProps)
 			search={{ page }}
 			disabled={disabled}
 			resetScroll={false}
-			className={cn(
-				'bevel-button bg-white px-2 py-1 text-xs font-bold',
-				disabled && 'cursor-not-allowed opacity-50'
-			)}
+			className={bevelButtonClassName({ variant: 'white', className: 'text-black' })}
 		>
 			{children}
 		</Link>
 	);
 }
 
+const entryCellClassName = insetClassName('note', 'p-2 text-sm');
+
 function GuestbookEntryRow({ entry }: { entry: GuestbookEntry }) {
 	return (
 		<tr className="border-b border-gray-200">
-			<td className="bevel-inset bg-yellow-50 p-2 text-sm font-semibold">{entry.name}</td>
-			<td className="bevel-inset bg-yellow-50 p-2 text-sm">{formatNzDay(entry.createdAt)}</td>
-			<td className="bevel-inset bg-yellow-50 p-2 text-sm">{entry.location || '-'}</td>
-			<td className="bevel-inset bg-yellow-50 p-2 text-sm">{entry.message}</td>
+			<td className={insetClassName('note', 'p-2 text-sm font-semibold')}>{entry.name}</td>
+			<td className={entryCellClassName}>{formatNzDay(entry.createdAt)}</td>
+			<td className={entryCellClassName}>{entry.location || '-'}</td>
+			<td className={entryCellClassName}>{entry.message}</td>
 		</tr>
 	);
 }
@@ -221,7 +223,7 @@ function GuestbookForm() {
 	const errorCode = currentSubmitError ?? getValidationErrorCode(values, hasAttemptedSubmit);
 
 	return (
-		<div className="bevel-button inline-block bg-gray-200 p-3">
+		<Raised tone="light" className="inline-block p-3">
 			<form
 				className="flex flex-wrap items-center gap-2"
 				onSubmit={(event) => {
@@ -276,20 +278,21 @@ function GuestbookForm() {
 						</label>
 					)}
 				</form.Field>
-				<button
+				<BevelButton
 					type="submit"
-					disabled={isSubmitting}
-					className="bevel-button bg-blue-500 px-3 py-1 text-sm font-bold text-white disabled:cursor-not-allowed disabled:opacity-50"
+					variant="submit"
+					isPending={isSubmitting}
+					className="px-3 text-sm"
 				>
 					{isSubmitting ? 'Signing...' : 'Sign!'}
-				</button>
+				</BevelButton>
 			</form>
 			{errorCode && (
-				<div className="bevel-inset mt-3 border-2 p-3 text-center text-sm" role="alert">
+				<Inset tone="none" role="alert" className="mt-3 p-3 text-center text-sm">
 					{guestbookErrorMessages[errorCode]}
-				</div>
+				</Inset>
 			)}
-		</div>
+		</Raised>
 	);
 }
 

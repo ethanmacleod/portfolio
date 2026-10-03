@@ -1,8 +1,11 @@
 import { Link } from '@tanstack/react-router';
+import { raisedClassName } from '~/lib/components/ui/Bevel';
 import { socials } from '~/lib/config/contact';
 
-const navButtonClassName =
-	'bevel-button block h-[40px] bg-win-button transition-all duration-200 hover:shadow-lg hover:brightness-110';
+const navButtonClassName = raisedClassName(
+	'button',
+	'block h-[40px] transition-all duration-200 hover:shadow-lg hover:brightness-110'
+);
 
 const gifNavLinks = [
 	{ to: '/projects', gifName: 'projects', label: 'Projects' },
@@ -54,7 +57,10 @@ export function LeftNav() {
 				{socials.map((social) => (
 					<li
 						key={social.label}
-						className="bevel-button bg-win-button transition-all duration-150 hover:bg-win-button-hover"
+						className={raisedClassName(
+							'button',
+							'transition-all duration-150 hover:bg-win-button-hover'
+						)}
 					>
 						<a
 							href={social.href}

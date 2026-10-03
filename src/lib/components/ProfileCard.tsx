@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import { intervalToDuration } from 'date-fns';
-import { RetroDiv } from '~/lib/components/RetroDiv';
+import { Inset, Raised } from '~/lib/components/ui/Bevel';
+import { Window } from '~/lib/components/ui/Window';
 import { useNow } from '~/lib/hooks/useNow';
 import { cn, mapNullish } from '~/lib/utils';
 
@@ -36,7 +37,7 @@ function AgeCounter() {
 
 export function ProfileCard() {
 	return (
-		<RetroDiv>
+		<Window>
 			<table className="w-full table-auto border-collapse">
 				<thead>
 					<tr>
@@ -101,7 +102,7 @@ export function ProfileCard() {
 					</tr>
 					<tr>
 						<td colSpan={3} className="bg-white p-3">
-							<div className="bevel-inset bg-gray-50 p-3">
+							<Inset tone="paper" className="p-3">
 								<p className="mb-2">
 									<strong className="text-purple-700">Welcome to my website!</strong>
 								</p>
@@ -135,7 +136,10 @@ export function ProfileCard() {
 									clients, they all look vaguely similar. At some point making bold creative
 									decisions will affect UX, so they get thrown out the door.
 								</p>
-								<div className="bevel-button my-4 border-4 bg-gradient-to-br from-yellow-200 to-orange-300 p-4">
+								<Raised
+									tone="none"
+									className="my-4 border-4 bg-gradient-to-br from-yellow-200 to-orange-300 p-4"
+								>
 									<p className="mb-2 text-center font-bold text-purple-800">
 										Does this show my competency at web development? Absolutely not.
 									</p>
@@ -146,15 +150,15 @@ export function ProfileCard() {
 									<p className="text-center font-bold text-purple-800">
 										But this is my website so here we are.
 									</p>
-								</div>
+								</Raised>
 								<p className="text-center">
 									<span className="blink font-bold text-red-600">★ Thanks for visiting! ★</span>
 								</p>
-							</div>
+							</Inset>
 						</td>
 					</tr>
 				</tbody>
 			</table>
-		</RetroDiv>
+		</Window>
 	);
 }

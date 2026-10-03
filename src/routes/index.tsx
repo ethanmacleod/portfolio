@@ -2,8 +2,9 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 import { Guestbook, type GuestbookLoadState } from '~/lib/components/Guestbook';
 import { ProfileCard } from '~/lib/components/ProfileCard';
-import { RetroDiv } from '~/lib/components/RetroDiv';
 import { SkillBlock } from '~/lib/components/SkillBlock';
+import { Inset } from '~/lib/components/ui/Bevel';
+import { Window } from '~/lib/components/ui/Window';
 import { skills } from '~/lib/config/skills';
 import { getGuestbookPage } from '~/lib/guestbook.functions';
 import { pageMeta } from '~/lib/site';
@@ -55,15 +56,15 @@ function HomePage() {
 	return (
 		<div className="space-y-6">
 			<ProfileCard />
-			<RetroDiv>
-				<div className="bevel-inset bg-gray-50 p-1">
+			<Window>
+				<Inset tone="paper" className="p-1">
 					<div className="flex flex-wrap justify-center gap-1">
 						{skills.map((skill, index) => (
 							<SkillBlock key={skill.name} {...skill} waveIndex={index} />
 						))}
 					</div>
-				</div>
-			</RetroDiv>
+				</Inset>
+			</Window>
 			<Guestbook guestbook={guestbook} />
 		</div>
 	);
