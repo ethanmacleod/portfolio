@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 import { Guestbook, type GuestbookLoadState } from '~/lib/components/Guestbook';
 import { ProfileCard } from '~/lib/components/ProfileCard';
@@ -29,15 +29,25 @@ export const Route = createFileRoute('/')({
 	validateSearch: homeSearchSchema,
 	loaderDeps: ({ search }) => ({ page: search.page ?? 1 }),
 	loader: async ({ deps: { page } }): Promise<GuestbookLoadState> => {
-		try {
-			return { status: 'loaded', page: await getGuestbookPage({ data: { page } }) };
-		} catch (error) {
-			console.error('guestbook: failed to load entries', error);
-			return { status: 'failed' };
-		}
+		const guestbookPage = await loadGuestbookPage(page);
+		if (!guestbookPage) return { status: 'failed' };
+
+		const lastPage = Math.max(1, guestbookPage.totalPages);
+		if (page > lastPage) throw redirect({ to: '/', search: { page: lastPage } });
+
+		return { status: 'loaded', guestbookPage };
 	},
 	component: HomePage
 });
+
+async function loadGuestbookPage(page: number) {
+	try {
+		return await getGuestbookPage({ data: { page } });
+	} catch (error) {
+		console.error('guestbook: failed to load entries', error);
+		return null;
+	}
+}
 
 function HomePage() {
 	const guestbook = Route.useLoaderData();
@@ -45,11 +55,11 @@ function HomePage() {
 	return (
 		<div className="space-y-6">
 			<ProfileCard />
-			<RetroDiv className="mb-6">
+			<RetroDiv>
 				<div className="bevel-inset bg-gray-50 p-1">
 					<div className="flex flex-wrap justify-center gap-1">
 						{skills.map((skill, index) => (
-							<SkillBlock key={skill.name} {...skill} index={index} />
+							<SkillBlock key={skill.name} {...skill} waveIndex={index} />
 						))}
 					</div>
 				</div>

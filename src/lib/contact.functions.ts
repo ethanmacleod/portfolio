@@ -45,7 +45,7 @@ export const sendContactMessage = createServerFn({ method: 'POST' })
 			subject: `[Portfolio] ${subject || `Message from ${name}`}`,
 			text: `From: ${name} <${email}>\n\n${message}`
 		});
-		console.log(`contact: message sent from ${email}`);
+		console.log('contact: message sent');
 
 		return { result: 'sent' } as const;
 	});

@@ -16,14 +16,10 @@ export const projects: Project[] = [
 		images: [
 			{
 				url: '/project-screenshots/1/aws-terraform-architecture.avif',
-				alt: 'AWS infrastructure diagram',
-				caption: 'Automated AWS infrastructure deployment architecture'
+				alt: 'AWS infrastructure diagram'
 			}
 		],
-		status: 'completed',
-		featured: false,
-		startDate: '2023-03',
-		endDate: '2023-05'
+		featured: false
 	},
 	{
 		id: 'micro-grid-simulator',
@@ -37,7 +33,7 @@ export const projects: Project[] = [
 		githubUrl: 'https://github.com/ethanmacleod/micro-grid-simulator',
 		technologies: [
 			{ name: 'REACT', icon: 'react.avif', brandColor: '#00D8FF' },
-			{ name: 'DJANGO', icon: 'django.avif', brandColor: '#10B981' },
+			{ name: 'DJANGO', icon: 'django.avif', brandColor: '#10B981', hasWhiteBackground: true },
 			{ name: 'TS', icon: 'typescript.avif', brandColor: '#007ACC' },
 			{ name: 'PSQL', icon: 'postgres.avif', brandColor: '#4A90E2' },
 			{ name: 'DOCKER', icon: 'docker.avif', brandColor: '#2496ED' }
@@ -45,28 +41,22 @@ export const projects: Project[] = [
 		images: [
 			{
 				url: '/project-screenshots/2/1.avif',
-				alt: 'Micro-grid simulation dashboard',
-				caption: 'Micro grid simulator accordion dash'
+				alt: 'Micro-grid simulation dashboard'
 			},
 			{
 				url: '/project-screenshots/2/2.avif',
-				alt: 'Micro-grid simulation dashboard single item',
-				caption: 'Micro grid simulator single item'
+				alt: 'Micro-grid simulation dashboard single item'
 			},
 			{
 				url: '/project-screenshots/2/3.avif',
-				alt: 'Micro-grid simulation dashboard collapsed',
-				caption: 'Micro grid simulator collapsed view'
+				alt: 'Micro-grid simulation dashboard collapsed'
 			},
 			{
 				url: '/project-screenshots/2/4.avif',
-				alt: 'Micro-grid simulation dashboard projects',
-				caption: 'Micro grid simulator projects view'
+				alt: 'Micro-grid simulation dashboard projects'
 			}
 		],
-		status: 'active',
-		featured: false,
-		startDate: '2024-02'
+		featured: false
 	},
 	{
 		id: 'flashd-mobile-app',
@@ -83,9 +73,7 @@ export const projects: Project[] = [
 			{ name: 'MOBILE', brandColor: '#6B7280' }
 		],
 		images: [],
-		status: 'active',
-		featured: false,
-		startDate: '2024-06'
+		featured: false
 	},
 	{
 		id: 'pi-services-homelab',
@@ -105,22 +93,17 @@ export const projects: Project[] = [
 		images: [
 			{
 				url: '/project-screenshots/4/1.avif',
-				alt: 'Home page view',
-				caption: 'Home page view'
+				alt: 'Home page view'
 			},
 			{
 				url: '/project-screenshots/4/2.avif',
-				alt: 'Portainer dash',
-				caption: 'Portainer dash'
+				alt: 'Portainer dash'
 			},
 			{
 				url: '/project-screenshots/4/3.avif',
-				alt: 'Grafana dash',
-				caption: 'Grafana dash'
+				alt: 'Grafana dash'
 			}
 		],
-		status: 'active',
-		featured: true,
-		startDate: '2024-03'
+		featured: true
 	}
 ];

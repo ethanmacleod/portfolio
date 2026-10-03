@@ -2,7 +2,7 @@ import { Link } from '@tanstack/react-router';
 import { intervalToDuration } from 'date-fns';
 import { RetroDiv } from '~/lib/components/RetroDiv';
 import { useNow } from '~/lib/hooks/useNow';
-import { cn } from '~/lib/utils';
+import { cn, mapNullish } from '~/lib/utils';
 
 const birthDate = new Date('2003-01-29T02:16:00+13:00');
 
@@ -17,15 +17,16 @@ const ageParts = [
 
 function AgeCounter() {
 	const now = useNow(1000);
-	if (!now) return null;
-
-	const age = intervalToDuration({ start: birthDate, end: now });
+	const age = mapNullish(now, (date) => intervalToDuration({ start: birthDate, end: date }));
 
 	return (
 		<>
 			{ageParts.map((part, index) => (
 				<span key={part.unit}>
-					<span className={cn('font-bold', part.className)}>{age[part.unit] ?? 0}</span> {part.unit}
+					<span className={cn('font-bold', part.className)}>
+						{mapNullish(age, (duration) => duration[part.unit] ?? 0) ?? '--'}
+					</span>{' '}
+					{part.unit}
 					{index === ageParts.length - 1 ? ' old!' : ', '}
 				</span>
 			))}
@@ -35,7 +36,7 @@ function AgeCounter() {
 
 export function ProfileCard() {
 	return (
-		<RetroDiv className="mb-6">
+		<RetroDiv>
 			<table className="w-full table-auto border-collapse">
 				<thead>
 					<tr>

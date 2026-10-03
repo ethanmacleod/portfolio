@@ -1,12 +1,13 @@
-import type { Node, Drive, NetworkDevice, Stack } from '~/lib/types';
-import type { PanelVariant } from '~/lib/components/HomelabCards';
+import type { Drive, NetworkDevice, Node, PanelVariant, Stack } from '~/lib/types';
+import { uniq } from 'lodash-es';
 
 export const optiplexNodes: Node[] = [
 	{
 		model: 'OptiPlex 7060 Micro',
 		role: 'Swarm Manager',
 		cpu: 'Intel Core i7-8700',
-		ram: '16GB DDR4',
+		ramGb: 16,
+		ramType: 'DDR4',
 		storage: '512GB NVMe',
 		os: 'Ubuntu Server',
 		status: 'online'
@@ -15,7 +16,8 @@ export const optiplexNodes: Node[] = [
 		model: 'OptiPlex 7050 Micro',
 		role: 'Swarm Worker',
 		cpu: 'Intel Core i5-7500',
-		ram: '16GB DDR4',
+		ramGb: 16,
+		ramType: 'DDR4',
 		storage: '256GB SSD',
 		os: 'Ubuntu Server',
 		status: 'online'
@@ -24,7 +26,8 @@ export const optiplexNodes: Node[] = [
 		model: 'OptiPlex 7050 Micro',
 		role: 'Swarm Worker',
 		cpu: 'Intel Core i5-7500',
-		ram: '16GB DDR4',
+		ramGb: 16,
+		ramType: 'DDR4',
 		storage: '256GB SSD',
 		os: 'Ubuntu Server',
 		status: 'online'
@@ -33,7 +36,8 @@ export const optiplexNodes: Node[] = [
 		model: 'OptiPlex 7070 Micro',
 		role: 'Swarm Worker',
 		cpu: 'Intel Core i7-9700',
-		ram: '16GB DDR4',
+		ramGb: 16,
+		ramType: 'DDR4',
 		storage: '256GB NVMe',
 		os: 'Ubuntu Server',
 		status: 'online'
@@ -42,7 +46,8 @@ export const optiplexNodes: Node[] = [
 		model: 'OptiPlex 7070 Micro',
 		role: 'Swarm Worker',
 		cpu: 'Intel Core i7-9700',
-		ram: '16GB DDR4',
+		ramGb: 16,
+		ramType: 'DDR4',
 		storage: '256GB NVMe',
 		os: 'Ubuntu Server',
 		status: 'online'
@@ -54,7 +59,8 @@ export const piNodes: Node[] = [
 		model: 'Raspberry Pi 5',
 		role: 'DNS / Network Services',
 		cpu: 'Cortex-A76 @ 2.4GHz',
-		ram: '8GB LPDDR4X',
+		ramGb: 8,
+		ramType: 'LPDDR4X',
 		storage: '256GB microSD',
 		os: 'Raspberry Pi OS',
 		status: 'online'
@@ -63,7 +69,8 @@ export const piNodes: Node[] = [
 		model: 'Raspberry Pi 4B',
 		role: 'Media / Utility Services',
 		cpu: 'Cortex-A72 @ 1.8GHz',
-		ram: '8GB LPDDR4',
+		ramGb: 8,
+		ramType: 'LPDDR4',
 		storage: '256GB microSD',
 		os: 'Raspberry Pi OS',
 		status: 'online'
@@ -92,6 +99,18 @@ export const networking: NetworkDevice[] = [
 	{ name: 'Access Points (x5)', model: 'Unifi U6 Pro', notes: 'WiFi 6, ceiling mounted' },
 	{ name: 'Rack', model: '10" Free Standing Tower', notes: 'Desktop form factor' }
 ];
+
+export const stackCategoryVariants = {
+	Media: 'green',
+	Monitoring: 'blue',
+	Networking: 'blue',
+	Tools: 'blue',
+	Automation: 'green',
+	Personal: 'green',
+	AI: 'blue'
+} as const satisfies Record<string, PanelVariant>;
+
+export type StackCategory = keyof typeof stackCategoryVariants;
 
 export const stacks: Stack[] = [
 	{
@@ -203,14 +222,4 @@ export const stacks: Stack[] = [
 	}
 ];
 
-export const stackCategories = [...new Set(stacks.map((stack) => stack.category))];
-
-export const categoryVariant: Record<string, PanelVariant> = {
-	Media: 'green',
-	Monitoring: 'blue',
-	Networking: 'blue',
-	Tools: 'blue',
-	Automation: 'green',
-	Personal: 'green',
-	AI: 'blue'
-};
+export const stackCategories = uniq(stacks.map((stack) => stack.category));

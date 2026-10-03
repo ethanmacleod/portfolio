@@ -42,16 +42,16 @@ export function ProjectCard({ project }: { project: Project }) {
 
 				<div className="flex h-full flex-col gap-3 lg:w-96">
 					<RetroDiv className="flex-1 overflow-auto p-2">
-						<h3 className="mb-2 text-center text-sm font-bold text-blue-700">Tech Stack</h3>
+						<h2 className="mb-2 text-center text-sm font-bold text-blue-700">Tech Stack</h2>
 						<div className="grid grid-cols-2 place-items-center gap-1">
 							{project.technologies.map((technology, index) => (
-								<SkillBlock key={technology.name} {...technology} index={index} />
+								<SkillBlock key={technology.name} {...technology} waveIndex={index} />
 							))}
 						</div>
 					</RetroDiv>
 
 					<RetroDiv className="flex-1 overflow-auto p-2">
-						<h3 className="mb-2 text-sm font-bold text-blue-700">Description</h3>
+						<h2 className="mb-2 text-sm font-bold text-blue-700">Description</h2>
 						<p className="mb-2 text-sm text-gray-700">{project.description}</p>
 						{project.longDescription && (
 							<p className="mb-2 text-xs text-gray-600">{project.longDescription}</p>

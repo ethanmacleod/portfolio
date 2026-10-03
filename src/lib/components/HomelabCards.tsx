@@ -1,8 +1,6 @@
 import type { ReactNode } from 'react';
-import type { Drive, NetworkDevice, Node, NodeStatus, Stack } from '~/lib/types';
+import type { Drive, NetworkDevice, Node, NodeStatus, PanelVariant, Stack } from '~/lib/types';
 import { cn } from '~/lib/utils';
-
-export type PanelVariant = 'blue' | 'green';
 
 const panelTitleGradients: Record<PanelVariant, string> = {
 	blue: 'linear-gradient(to right, #000080, #1084d0)',
@@ -95,7 +93,7 @@ export function NodeCard({ node }: { node: Node }) {
 function NodeSpecs({ node, valueClassName }: { node: Node; valueClassName: string }) {
 	const specs = [
 		{ label: 'CPU', value: node.cpu },
-		{ label: 'RAM', value: node.ram },
+		{ label: 'RAM', value: `${node.ramGb}GB ${node.ramType}` },
 		{ label: 'STORAGE', value: node.storage },
 		{ label: 'OS', value: node.os }
 	];

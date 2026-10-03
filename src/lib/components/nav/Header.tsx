@@ -1,23 +1,20 @@
 import type { ReactNode } from 'react';
-import type { trackVisitAndGetAnalytics } from '~/lib/analytics.functions';
+import type { Analytics } from '~/lib/analytics.functions';
 import { DynamicHeader } from '~/lib/components/nav/DynamicHeader';
 import { HighFiveCounter } from '~/lib/components/nav/HighFiveCounter';
 import { LiveClock } from '~/lib/components/nav/LiveClock';
 import { formatNumber, formatOrdinal } from '~/lib/utils';
 
 type HeaderProps = {
-	analytics: Awaited<ReturnType<typeof trackVisitAndGetAnalytics>>;
+	analytics: Analytics;
 	highFiveCount: number;
 };
 
 export function Header({ analytics, highFiveCount }: HeaderProps) {
 	return (
-		<header
-			className="bevel-button box-border flex h-20 shrink-0 gap-1 overflow-hidden p-1 pr-2"
-			style={{ background: 'linear-gradient(180deg, #dce2e8 0%, #8e96a0 100%)' }}
-		>
+		<header className="bevel-button title-bar-gradient box-border flex h-20 shrink-0 gap-1 overflow-hidden p-1 pr-2">
 			<div className="box-border grid h-full w-[45%] shrink-0 grid-cols-3 gap-3 p-3">
-				<HeaderWidget videoSrc="/gifs/globe.webm" videoLabel="Globe Icon">
+				<HeaderWidget videoSrc="/gifs/globe.webm">
 					<span className="text-blue-700">
 						You are the{' '}
 						<span className="blink font-bold text-orange-700">
@@ -26,7 +23,7 @@ export function Header({ analytics, highFiveCount }: HeaderProps) {
 						visitor!
 					</span>
 				</HeaderWidget>
-				<HeaderWidget videoSrc="/gifs/skull.webm" videoLabel="Warning Icon">
+				<HeaderWidget videoSrc="/gifs/skull.webm">
 					<span className="text-red-700">
 						<span className="font-bold text-red-600">{formatNumber(analytics.badActors)}</span>{' '}
 						bots/scrapers
@@ -58,7 +55,7 @@ export function Header({ analytics, highFiveCount }: HeaderProps) {
 						loop
 						muted
 						playsInline
-						aria-label="Under Construction"
+						aria-hidden="true"
 						src="/gifs/under_construction.webm"
 						className="h-full w-full object-fill"
 					/>
@@ -74,11 +71,10 @@ export function Header({ analytics, highFiveCount }: HeaderProps) {
 
 type HeaderWidgetProps = {
 	videoSrc: string;
-	videoLabel: string;
 	children: ReactNode;
 };
 
-function HeaderWidget({ videoSrc, videoLabel, children }: HeaderWidgetProps) {
+function HeaderWidget({ videoSrc, children }: HeaderWidgetProps) {
 	return (
 		<div className="bevel-inset flex h-full items-center gap-2 bg-white px-2">
 			<video
@@ -86,7 +82,7 @@ function HeaderWidget({ videoSrc, videoLabel, children }: HeaderWidgetProps) {
 				loop
 				muted
 				playsInline
-				aria-label={videoLabel}
+				aria-hidden="true"
 				src={videoSrc}
 				className="h-5 w-5 shrink-0"
 			/>

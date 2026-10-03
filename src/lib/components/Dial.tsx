@@ -1,9 +1,11 @@
 import { clamp, range } from 'lodash-es';
 import { useId, type PointerEvent } from 'react';
+import { decimalPlacesForStep } from '~/lib/utils';
 
 const activeArcDegrees = 270;
 const snapToStartAboveDegrees = 315;
 const tickCount = 28;
+const floatingPointTolerance = 1e-9;
 
 type DialProps = {
 	label: string;
@@ -16,12 +18,14 @@ type DialProps = {
 
 export function Dial({ label, value, min, max, step = 1, onChange }: DialProps) {
 	const inputId = useId();
-	const decimalPlaces = Math.max(0, -Math.floor(Math.log10(step)));
+	const decimalPlaces = decimalPlacesForStep(step);
 	const rotationDegrees = ((value - min) / (max - min)) * activeArcDegrees;
 
+	const maxOnStep = min + Math.floor((max - min) / step + floatingPointTolerance) * step;
+
 	function snapToStep(rawValue: number) {
-		const steppedValue = Math.round(rawValue / step) * step;
-		return Number(clamp(steppedValue, min, max).toFixed(decimalPlaces));
+		const steppedValue = min + Math.round((rawValue - min) / step) * step;
+		return Number(clamp(steppedValue, min, maxOnStep).toFixed(decimalPlaces));
 	}
 
 	function valueFromPointer(event: PointerEvent<HTMLDivElement>) {
@@ -53,7 +57,7 @@ export function Dial({ label, value, min, max, step = 1, onChange }: DialProps) 
 
 	return (
 		<div className="flex flex-col items-center">
-			<div className="mb-2 font-mono text-sm text-green-300 drop-shadow-[0_0_4px_rgba(0,255,0,0.7)]">
+			<div className="mb-2 font-mono text-sm text-green-300 drop-shadow-[0_0_4px_hsl(120_100%_50%/0.7)]">
 				{value.toFixed(decimalPlaces)}
 			</div>
 
@@ -105,7 +109,7 @@ export function Dial({ label, value, min, max, step = 1, onChange }: DialProps) 
 				</div>
 				<label
 					htmlFor={inputId}
-					className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-8 text-center font-mono text-xs text-green-400 drop-shadow-[0_0_3px_rgba(0,255,0,0.6)]"
+					className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-8 text-center font-mono text-xs text-green-400 drop-shadow-[0_0_3px_hsl(120_100%_50%/0.6)]"
 				>
 					{label}
 				</label>

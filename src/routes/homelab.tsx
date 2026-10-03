@@ -11,7 +11,6 @@ import {
 } from '~/lib/components/HomelabCards';
 import { RetroDiv } from '~/lib/components/RetroDiv';
 import {
-	categoryVariant,
 	extraDrives,
 	nasDrives,
 	nasModel,
@@ -20,11 +19,12 @@ import {
 	optiplexNodes,
 	piNodes,
 	stackCategories,
+	stackCategoryVariants,
 	stacks
 } from '~/lib/config/homelab';
 import { pageMeta } from '~/lib/site';
 
-const totalRamGb = sumBy([...optiplexNodes, ...piNodes], (node) => Number.parseInt(node.ram, 10));
+const totalRamGb = sumBy([...optiplexNodes, ...piNodes], (node) => node.ramGb);
 const runningStackCount = stacks.filter((stack) => stack.status === 'online').length;
 const stacksByCategory = groupBy(stacks, (stack) => stack.category);
 
@@ -142,7 +142,7 @@ function HomelabPage() {
 										<StackCard
 											key={stack.name}
 											stack={stack}
-											variant={categoryVariant[category] ?? 'blue'}
+											variant={stackCategoryVariants[category]}
 										/>
 									))}
 								</div>

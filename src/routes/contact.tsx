@@ -3,7 +3,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useState, type ReactNode } from 'react';
 import { Input, Textarea } from '~/lib/components/Input';
 import { RetroDiv } from '~/lib/components/RetroDiv';
-import { socials, status, statusColors, statusDotClasses } from '~/lib/config/contact';
+import { socials, status, statusColors } from '~/lib/config/contact';
 import { sendContactMessage } from '~/lib/contact.functions';
 import { contactSchema } from '~/lib/schema';
 import { pageMeta } from '~/lib/site';
@@ -70,10 +70,8 @@ function ContactPage() {
 					<div className="bevel-inset bg-black p-3">
 						<div className="flex items-center gap-2">
 							<span
-								className={cn(
-									'blink h-2.5 w-2.5 shrink-0 rounded-full',
-									statusDotClasses[status.state]
-								)}
+								className="blink h-2.5 w-2.5 shrink-0 rounded-full"
+								style={{ backgroundColor: statusColors[status.state] }}
 							/>
 							<span
 								className="neon-glow font-mono text-sm font-bold"

@@ -1,6 +1,6 @@
-import type { Skill } from '~/lib/types';
+import type { Technology } from '~/lib/schema';
 
-export const skills: Skill[] = [
+export const skills: Technology[] = [
 	{ name: 'SVELTE', icon: 'svelte.avif', brandColor: '#FF5722' },
 	{ name: 'REACT', icon: 'react.avif', brandColor: '#00D8FF' },
 	{ name: 'TS', icon: 'typescript.avif', brandColor: '#007ACC' },
@@ -11,8 +11,8 @@ export const skills: Skill[] = [
 	{ name: 'TERRAFORM', icon: 'terraform.avif', brandColor: '#7C3AED' },
 	{ name: 'GIT', icon: 'git.avif', brandColor: '#F97316' },
 	{ name: 'FLOWBITE', icon: 'flowbite.avif', brandColor: '#3B82F6' },
-	{ name: 'DJANGO', icon: 'django.avif', brandColor: '#10B981' },
-	{ name: 'SQL', icon: 'sql.avif', brandColor: '#06B6D4' },
+	{ name: 'DJANGO', icon: 'django.avif', brandColor: '#10B981', hasWhiteBackground: true },
+	{ name: 'SQL', icon: 'sql.avif', brandColor: '#06B6D4', hasWhiteBackground: true },
 	{ name: 'FIGMA', icon: 'figma.avif', brandColor: '#F472B6' },
 	{ name: 'LATEX', icon: 'latex.avif', brandColor: '#008080' },
 	{ name: 'NODEJS', icon: 'nodejs.avif', brandColor: '#68C944' },

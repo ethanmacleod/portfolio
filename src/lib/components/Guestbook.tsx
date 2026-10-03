@@ -1,5 +1,6 @@
 import { useForm, useStore } from '@tanstack/react-form';
 import { Link, useRouter, useRouterState } from '@tanstack/react-router';
+import { isEqual } from 'lodash-es';
 import { useState } from 'react';
 import { Input } from '~/lib/components/Input';
 import { RetroDiv } from '~/lib/components/RetroDiv';
@@ -14,6 +15,8 @@ import { cn, formatNumber, formatNzDay } from '~/lib/utils';
 const guestbookErrorMessages = {
 	RATE_LIMIT: 'Too many messages... perhaps an email might get your point across better?',
 	SUBMIT_FAILED: 'Something broke while signing the guestbook. Give it another go in a minute.',
+	REQUIRED_NAME: 'Gotta tell me who you are first',
+	REQUIRED_MESSAGE: 'You signed the guestbook but forgot to write anything',
 	TOO_LONG_NAME: 'Thats not your name buddy',
 	TOO_LONG_MESSAGE: 'What are you writing? An essay? Pls stop',
 	TOO_LONG_LOCATION: 'Are you by chance welsh?',
@@ -26,6 +29,8 @@ const guestbookErrorMessages = {
 
 type GuestbookErrorCode = keyof typeof guestbookErrorMessages;
 type SubmitErrorCode = Extract<GuestbookErrorCode, 'RATE_LIMIT' | 'SUBMIT_FAILED'>;
+
+const requiredFieldErrorCodes: GuestbookErrorCode[] = ['REQUIRED_NAME', 'REQUIRED_MESSAGE'];
 
 function isGuestbookErrorCode(value: string): value is GuestbookErrorCode {
 	return Object.hasOwn(guestbookErrorMessages, value);
@@ -42,7 +47,9 @@ const emptyGuestbookForm = { name: '', location: '', message: '' };
 
 type GuestbookFormValues = typeof emptyGuestbookForm;
 
-export type GuestbookLoadState = { status: 'loaded'; page: GuestbookPage } | { status: 'failed' };
+export type GuestbookLoadState =
+	| { status: 'loaded'; guestbookPage: GuestbookPage }
+	| { status: 'failed' };
 
 export function Guestbook({ guestbook }: { guestbook: GuestbookLoadState }) {
 	return (
@@ -76,7 +83,7 @@ export function Guestbook({ guestbook }: { guestbook: GuestbookLoadState }) {
 					</tr>
 				</thead>
 				{guestbook.status === 'loaded' ? (
-					<GuestbookEntries page={guestbook.page} />
+					<GuestbookEntries guestbookPage={guestbook.guestbookPage} />
 				) : (
 					<tbody>
 						<tr>
@@ -91,24 +98,23 @@ export function Guestbook({ guestbook }: { guestbook: GuestbookLoadState }) {
 	);
 }
 
-function GuestbookEntries({ page }: { page: GuestbookPage }) {
+function GuestbookEntries({ guestbookPage }: { guestbookPage: GuestbookPage }) {
+	const { entries, currentPage, totalCount, totalPages } = guestbookPage;
 	const isLoadingPage = useRouterState({ select: (state) => state.isLoading });
-	const hasPreviousPage = page.page > 1;
-	const hasNextPage = page.page < page.totalPages;
+	const hasPreviousPage = currentPage > 1;
+	const hasNextPage = currentPage < totalPages;
 
 	return (
 		<>
 			<tbody className={cn(isLoadingPage && 'opacity-50')}>
-				{page.entries.length === 0 ? (
+				{entries.length === 0 ? (
 					<tr>
 						<td colSpan={4} className="p-4 text-center text-gray-500">
-							{page.totalCount === 0
-								? 'No entries yet. Be the first to sign!'
-								: 'No entries on this page.'}
+							No entries yet. Be the first to sign!
 						</td>
 					</tr>
 				) : (
-					page.entries.map((entry) => <GuestbookEntryRow key={entry.id} entry={entry} />)
+					entries.map((entry) => <GuestbookEntryRow key={entry.id} entry={entry} />)
 				)}
 			</tbody>
 			<tfoot>
@@ -116,8 +122,8 @@ function GuestbookEntries({ page }: { page: GuestbookPage }) {
 					<td colSpan={4} className="bg-gradient-to-r from-purple-300 to-pink-300 p-2">
 						<div className="flex items-center justify-between">
 							<span className="text-sm font-bold text-purple-800">
-								Total Entries: {formatNumber(page.totalCount)}
-								{page.entries.length > 0 && (
+								Total Entries: {formatNumber(totalCount)}
+								{entries.length > 0 && (
 									<>
 										{' '}
 										| <span className="blink">New!</span>
@@ -125,15 +131,15 @@ function GuestbookEntries({ page }: { page: GuestbookPage }) {
 								)}
 							</span>
 
-							{page.totalPages > 1 && (
+							{totalPages > 1 && (
 								<div className="flex items-center gap-2">
-									<GuestbookPageLink page={page.page - 1} disabled={!hasPreviousPage}>
+									<GuestbookPageLink page={currentPage - 1} disabled={!hasPreviousPage}>
 										‹ Prev
 									</GuestbookPageLink>
 									<span className="px-2 text-xs font-bold text-purple-800">
-										{page.page} / {page.totalPages}
+										{currentPage} / {totalPages}
 									</span>
-									<GuestbookPageLink page={page.page + 1} disabled={!hasNextPage}>
+									<GuestbookPageLink page={currentPage + 1} disabled={!hasNextPage}>
 										Next ›
 									</GuestbookPageLink>
 								</div>
@@ -182,7 +188,10 @@ function GuestbookEntryRow({ entry }: { entry: GuestbookEntry }) {
 
 function GuestbookForm() {
 	const router = useRouter();
-	const [submitError, setSubmitError] = useState<SubmitErrorCode | null>(null);
+	const [submitError, setSubmitError] = useState<{
+		code: SubmitErrorCode;
+		values: GuestbookFormValues;
+	} | null>(null);
 
 	const form = useForm({
 		defaultValues: emptyGuestbookForm,
@@ -192,22 +201,24 @@ function GuestbookForm() {
 			try {
 				const response = await addGuestbookEntry({ data: value });
 				if (response.result === 'rateLimited') {
-					setSubmitError('RATE_LIMIT');
+					setSubmitError({ code: 'RATE_LIMIT', values: value });
 					return;
 				}
 				formApi.reset();
 				await router.invalidate({ filter: (match) => match.routeId === '/' });
 			} catch (error) {
 				console.error('guestbook: failed to add entry', error);
-				setSubmitError('SUBMIT_FAILED');
+				setSubmitError({ code: 'SUBMIT_FAILED', values: value });
 			}
 		}
 	});
 
 	const values = useStore(form.store, (state) => state.values);
 	const isSubmitting = useStore(form.store, (state) => state.isSubmitting);
-	const validationErrorCode = getValidationErrorCode(values);
-	const errorCode = submitError ?? validationErrorCode;
+	const hasAttemptedSubmit = useStore(form.store, (state) => state.submissionAttempts > 0);
+	const currentSubmitError =
+		submitError && isEqual(submitError.values, values) ? submitError.code : null;
+	const errorCode = currentSubmitError ?? getValidationErrorCode(values, hasAttemptedSubmit);
 
 	return (
 		<div className="bevel-button inline-block bg-gray-200 p-3">
@@ -282,8 +293,13 @@ function GuestbookForm() {
 	);
 }
 
-function getValidationErrorCode(values: GuestbookFormValues) {
+function getValidationErrorCode(values: GuestbookFormValues, hasAttemptedSubmit: boolean) {
 	const result = guestbookSchema.safeParse(values);
 	if (result.success) return null;
-	return result.error.issues.map((issue) => issue.message).find(isGuestbookErrorCode) ?? null;
+	return (
+		result.error.issues
+			.map((issue) => issue.message)
+			.filter(isGuestbookErrorCode)
+			.find((code) => hasAttemptedSubmit || !requiredFieldErrorCodes.includes(code)) ?? null
+	);
 }

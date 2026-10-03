@@ -1,11 +1,6 @@
 import type { LucideIcon } from 'lucide-react';
 import type { ComponentType } from 'react';
-
-export interface Skill {
-	name: string;
-	icon: string;
-	brandColor: string;
-}
+import type { StackCategory } from '~/lib/config/homelab';
 
 export interface SpecItem {
 	label: string;
@@ -20,11 +15,14 @@ export interface Section {
 
 export type NodeStatus = 'online' | 'offline' | 'standby';
 
+export type PanelVariant = 'blue' | 'green';
+
 export interface Node {
 	model: string;
 	role: string;
 	cpu: string;
-	ram: string;
+	ramGb: number;
+	ramType: string;
 	storage: string;
 	os: string;
 	status: NodeStatus;
@@ -44,7 +42,7 @@ export interface NetworkDevice {
 
 export interface Stack {
 	name: string;
-	category: string;
+	category: StackCategory;
 	status: NodeStatus;
 	services: string[];
 }

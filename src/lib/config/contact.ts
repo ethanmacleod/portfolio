@@ -41,9 +41,3 @@ export const statusColors: Record<StatusConfig['state'], string> = {
 	busy: '#eab308',
 	away: '#ef4444'
 };
-
-export const statusDotClasses: Record<StatusConfig['state'], string> = {
-	open: 'bg-green-500',
-	busy: 'bg-yellow-500',
-	away: 'bg-red-500'
-};

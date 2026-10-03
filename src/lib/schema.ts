@@ -5,13 +5,13 @@ export const guestbookSchema = z.object({
 	name: z
 		.string()
 		.trim()
-		.min(1, 'Name is required')
+		.min(1, 'REQUIRED_NAME')
 		.max(100, 'TOO_LONG_NAME')
 		.refine((text) => !containsSwearWords(text), { message: 'SWEAR_WORDS_NAME' }),
 	message: z
 		.string()
 		.trim()
-		.min(1, 'Message is required')
+		.min(1, 'REQUIRED_MESSAGE')
 		.max(500, 'TOO_LONG_MESSAGE')
 		.refine((text) => !containsSwearWords(text), { message: 'SWEAR_WORDS_MESSAGE' }),
 	location: z
@@ -24,12 +24,12 @@ export const guestbookSchema = z.object({
 export const technologySchema = z.object({
 	name: z.string(),
 	icon: z.string().optional(),
-	brandColor: z.string().optional()
+	brandColor: z.string().optional(),
+	hasWhiteBackground: z.boolean().optional()
 });
 
 export const projectImageSchema = z.object({
 	url: z.string(),
-	caption: z.string().optional(),
 	alt: z.string()
 });
 
@@ -41,21 +41,17 @@ export const projectSchema = z.object({
 	githubUrl: z.string(),
 	technologies: z.array(technologySchema),
 	images: z.array(projectImageSchema),
-	status: z.enum(['active', 'completed', 'archived']),
-	featured: z.boolean().optional(),
-	demoUrl: z.string().optional(),
-	startDate: z.string().optional(),
-	endDate: z.string().optional()
+	featured: z.boolean().optional()
 });
 
 export const contactSchema = z.object({
-	name: z.string().trim().min(1, 'Name is required').max(100, 'Name is too long'),
+	name: z.string().trim().min(1, 'REQUIRED_NAME').max(100, 'Name is too long'),
 	email: z.string().trim().email('Invalid email address').max(200, 'Email is too long'),
 	subject: z.string().trim().max(200, 'Subject is too long'),
 	message: z
 		.string()
 		.trim()
-		.min(1, 'Message is required')
+		.min(1, 'REQUIRED_MESSAGE')
 		.max(5000, 'Message is too long (max 5000 characters)')
 });
 

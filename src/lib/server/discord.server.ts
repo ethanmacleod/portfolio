@@ -1,5 +1,7 @@
 import type { Guestbook } from '@prisma/client';
 
+const discordTimeoutMs = 3000;
+
 export async function notifyDiscordOfGuestbookEntry(entry: Guestbook) {
 	const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
 	if (!webhookUrl) return;
@@ -7,6 +9,7 @@ export async function notifyDiscordOfGuestbookEntry(entry: Guestbook) {
 	const response = await fetch(webhookUrl, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
+		signal: AbortSignal.timeout(discordTimeoutMs),
 		body: JSON.stringify({
 			embeds: [
 				{

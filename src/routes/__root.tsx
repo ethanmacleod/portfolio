@@ -1,7 +1,9 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router';
 import { Analytics } from '@vercel/analytics/react';
+import type { ReactNode } from 'react';
 import appCss from '~/app.css?url';
 import { trackVisitAndGetAnalytics } from '~/lib/analytics.functions';
+import { ErrorPage, NotFoundPage } from '~/lib/components/ErrorPages';
 import { AppShell } from '~/lib/components/nav/AppShell';
 import { SparkleCursor } from '~/lib/components/SparkleCursor';
 import { getHighFiveCount } from '~/lib/highFive.functions';
@@ -64,12 +66,13 @@ export const Route = createRootRoute({
 			]
 		};
 	},
-	component: RootDocument
+	shellComponent: RootDocument,
+	component: RootLayout,
+	errorComponent: ErrorPage,
+	notFoundComponent: NotFoundPage
 });
 
-function RootDocument() {
-	const { analytics, highFiveCount } = Route.useLoaderData();
-
+function RootDocument({ children }: { children: ReactNode }) {
 	return (
 		<html lang="en">
 			<head>
@@ -77,12 +80,20 @@ function RootDocument() {
 			</head>
 			<body className="bg-[url('/background.webp')] bg-repeat">
 				<SparkleCursor />
-				<AppShell analytics={analytics} highFiveCount={highFiveCount}>
-					<Outlet />
-				</AppShell>
+				{children}
 				<Analytics />
 				<Scripts />
 			</body>
 		</html>
+	);
+}
+
+function RootLayout() {
+	const { analytics, highFiveCount } = Route.useLoaderData();
+
+	return (
+		<AppShell analytics={analytics} highFiveCount={highFiveCount}>
+			<Outlet />
+		</AppShell>
 	);
 }

@@ -28,7 +28,7 @@ const ordinalSuffixes: Record<Intl.LDMLPluralRule, string> = {
 };
 
 export function formatOrdinal(value: number) {
-	return `${value}${ordinalSuffixes[ordinalRules.select(value)]}`;
+	return `${formatNumber(value)}${ordinalSuffixes[ordinalRules.select(value)]}`;
 }
 
 export function mapNullish<Value, Result>(
@@ -38,6 +38,10 @@ export function mapNullish<Value, Result>(
 	if (value === null) return null;
 	if (value === undefined) return undefined;
 	return transform(value);
+}
+
+export function decimalPlacesForStep(step: number) {
+	return Math.max(0, -Math.floor(Math.log10(step)));
 }
 
 const nzTimeZone = tz('Pacific/Auckland');

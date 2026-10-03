@@ -1,19 +1,21 @@
 import { sumBy } from 'lodash-es';
 import { useState } from 'react';
+import type { Technology } from '~/lib/schema';
 import { cn } from '~/lib/utils';
 
 type ImageState = 'loading' | 'loaded' | 'failed';
 
-const imagesNeedingWhiteBackgroundFix = ['DJANGO', 'SQL'];
-
-type SkillBlockProps = {
-	name: string;
-	icon?: string;
-	brandColor?: string;
-	index: number;
+type SkillBlockProps = Technology & {
+	waveIndex: number;
 };
 
-export function SkillBlock({ name, icon, brandColor = '#9333ea', index }: SkillBlockProps) {
+export function SkillBlock({
+	name,
+	icon,
+	brandColor = '#9333ea',
+	hasWhiteBackground,
+	waveIndex
+}: SkillBlockProps) {
 	const [imageState, setImageState] = useState<ImageState>('loading');
 
 	const nameCharCodeSum = sumBy([...name], (character) => character.charCodeAt(0));
@@ -28,7 +30,7 @@ export function SkillBlock({ name, icon, brandColor = '#9333ea', index }: SkillB
 	return (
 		<div
 			className="skill-block transition-transform duration-200 ease-in-out hover:-translate-y-0.5"
-			style={{ '--scale': scale, '--wave-delay': index }}
+			style={{ '--scale': scale, '--wave-delay': waveIndex }}
 		>
 			<div
 				className="bevel-button relative flex h-12 w-32 items-center justify-center overflow-hidden p-2 text-center transition-all duration-200 hover:shadow-lg"
@@ -51,7 +53,7 @@ export function SkillBlock({ name, icon, brandColor = '#9333ea', index }: SkillB
 						className={cn(
 							'relative z-10 h-full w-full object-contain',
 							imageState === 'loading' && 'hidden',
-							imagesNeedingWhiteBackgroundFix.includes(name) && 'skill-block-white-background-fix'
+							hasWhiteBackground && 'skill-block-white-background-fix'
 						)}
 						onLoad={() => setImageState('loaded')}
 						onError={() => setImageState('failed')}

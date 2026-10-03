@@ -158,15 +158,15 @@
 	background:
 		repeating-linear-gradient(
 			0deg,
-			rgba(0, 255, 0, 0.03),
-			rgba(0, 255, 0, 0.03) 1px,
+			hsl(120 100% 50% / 0.03),
+			hsl(120 100% 50% / 0.03) 1px,
 			transparent 1px,
 			transparent 2px
 		),
 		repeating-linear-gradient(
 			90deg,
-			rgba(255, 0, 0, 0.03),
-			rgba(255, 0, 0, 0.03) 1px,
+			hsl(0 100% 50% / 0.03),
+			hsl(0 100% 50% / 0.03) 1px,
 			transparent 1px,
 			transparent 3px
 		);
@@ -364,4 +364,8 @@
 	3% {
 		transform: scale(var(--scale)) translateY(-4px);
 	}
+}
+
+.title-bar-gradient {
+	background: linear-gradient(180deg, #dce2e8 0%, #8e96a0 100%);
 }

@@ -23,7 +23,7 @@ export const getGuestbookPage = createServerFn()
 
 		return {
 			entries,
-			page,
+			currentPage: page,
 			totalCount,
 			totalPages: Math.ceil(totalCount / guestbookPageSize)
 		};

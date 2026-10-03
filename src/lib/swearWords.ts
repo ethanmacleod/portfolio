@@ -1,3 +1,5 @@
+import { escapeRegExp } from 'lodash-es';
+
 // From: https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words/blob/master/en
 export const swearWords = [
 	'2g1c',
@@ -406,7 +408,7 @@ export const swearWords = [
 ];
 
 const swearWordPattern = new RegExp(
-	`(?<![\\p{L}\\p{N}])(?:${swearWords.map((word) => RegExp.escape(word)).join('|')})(?![\\p{L}\\p{N}])`,
+	`(?<![\\p{L}\\p{N}])(?:${swearWords.map((word) => escapeRegExp(word)).join('|')})(?![\\p{L}\\p{N}])`,
 	'iu'
 );
 

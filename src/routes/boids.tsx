@@ -10,7 +10,7 @@ import {
 } from '~/lib/boids/simulation';
 import { Dial } from '~/lib/components/Dial';
 import { pageMeta } from '~/lib/site';
-import { assert } from '~/lib/utils';
+import { assert, decimalPlacesForStep } from '~/lib/utils';
 
 export const Route = createFileRoute('/boids')({
 	staticData: {
@@ -66,13 +66,15 @@ const operationGuide = [
 	'Use sliders for behavior tuning'
 ];
 
-function canvasBounds(canvas: HTMLCanvasElement): Bounds {
-	return { width: canvas.width, height: canvas.height };
+function measureCanvas(canvas: HTMLCanvasElement): Bounds {
+	const canvasRect = canvas.getBoundingClientRect();
+	return { width: canvasRect.width, height: canvasRect.height };
 }
 
 function BoidsPage() {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const boidsRef = useRef<Boid[]>([]);
+	const boundsRef = useRef<Bounds>({ width: 0, height: 0 });
 	const [settings, setSettings] = useState(initialSettings);
 	const settingsRef = useRef(settings);
 	const [fps, setFps] = useState(60);
@@ -85,20 +87,34 @@ function BoidsPage() {
 	);
 
 	useEffect(function runSimulation() {
-		const canvas = canvasRef.current;
-		assert(canvas, 'boids: canvas is not mounted');
+		const mountedCanvas = canvasRef.current;
+		assert(mountedCanvas, 'boids: canvas is not mounted');
+		const canvas: HTMLCanvasElement = mountedCanvas;
 		const possibleContext = canvas.getContext('2d');
 		assert(possibleContext, 'boids: 2D canvas context is unavailable');
 		const context: CanvasRenderingContext2D = possibleContext;
 
-		const canvasRect = canvas.getBoundingClientRect();
-		canvas.width = canvasRect.width;
-		canvas.height = canvasRect.height;
-		const bounds = canvasBounds(canvas);
+		let pendingBounds: Bounds | null = measureCanvas(canvas);
+		const resizeObserver = new ResizeObserver(() => {
+			pendingBounds = measureCanvas(canvas);
+		});
+		resizeObserver.observe(canvas);
+
+		function applyPendingResize() {
+			if (!pendingBounds) return;
+			const pixelRatio = window.devicePixelRatio;
+			canvas.width = Math.round(pendingBounds.width * pixelRatio);
+			canvas.height = Math.round(pendingBounds.height * pixelRatio);
+			context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+			boundsRef.current = pendingBounds;
+			pendingBounds = null;
+		}
+
+		applyPendingResize();
 		boidsRef.current = resizeFlock(
 			[],
 			settingsRef.current.boidCount,
-			bounds,
+			boundsRef.current,
 			settingsRef.current.maxSpeed
 		);
 
@@ -107,8 +123,9 @@ function BoidsPage() {
 		let framesInSample = 0;
 
 		function renderFrame(now: number) {
-			stepFlock(boidsRef.current, settingsRef.current, bounds);
-			drawFlock(context, boidsRef.current, bounds);
+			applyPendingResize();
+			stepFlock(boidsRef.current, settingsRef.current, boundsRef.current);
+			drawFlock(context, boidsRef.current, boundsRef.current);
 
 			framesInSample++;
 			const sampleDuration = now - fpsSampleStart;
@@ -121,7 +138,10 @@ function BoidsPage() {
 		}
 
 		animationFrame = requestAnimationFrame(renderFrame);
-		return () => cancelAnimationFrame(animationFrame);
+		return () => {
+			cancelAnimationFrame(animationFrame);
+			resizeObserver.disconnect();
+		};
 	}, []);
 
 	function updateSetting<Key extends keyof BoidSettings>(key: Key, value: BoidSettings[Key]) {
@@ -129,12 +149,10 @@ function BoidsPage() {
 	}
 
 	function updateBoidCount(boidCount: number) {
-		const canvas = canvasRef.current;
-		assert(canvas, 'boids: canvas is not mounted');
 		boidsRef.current = resizeFlock(
 			boidsRef.current,
 			boidCount,
-			canvasBounds(canvas),
+			boundsRef.current,
 			settings.maxSpeed
 		);
 		updateSetting('boidCount', boidCount);
@@ -201,7 +219,7 @@ function BoidsPage() {
 								onChange={(event) => updateSetting(slider.key, event.target.valueAsNumber)}
 							/>
 							<div className="boids-value-display">
-								{settings[slider.key].toFixed(slider.step < 1 ? 1 : 0)}
+								{settings[slider.key].toFixed(decimalPlacesForStep(slider.step))}
 							</div>
 						</div>
 					</div>
