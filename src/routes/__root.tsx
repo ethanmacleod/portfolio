@@ -1,9 +1,12 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router';
 import { Analytics } from '@vercel/analytics/react';
 import appCss from '~/app.css?url';
+import { trackVisitAndGetAnalytics } from '~/lib/analytics.functions';
 import { siteUrl } from '~/lib/site';
 
 export const Route = createRootRoute({
+	loader: () => trackVisitAndGetAnalytics(),
+	shouldReload: false,
 	head: ({ matches }) => {
 		const pageUrl = `${siteUrl}${matches.at(-1)?.pathname ?? '/'}`;
 		return {

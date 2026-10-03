@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { containsSwearWords } from '$lib/swearWords.js';
+import { containsSwearWords } from '~/lib/swearWords';
 
 export const guestbookSchema = z.object({
 	name: z
@@ -20,19 +20,6 @@ export const guestbookSchema = z.object({
 		.max(100, 'TOO_LONG_LOCATION')
 		.refine((text) => !text || !containsSwearWords(text), { message: 'SWEAR_WORDS_LOCATION' })
 		.optional()
-});
-
-export const guestbookEntrySchema = z.object({
-	id: z.number(),
-	name: z.string(),
-	message: z.string(),
-	location: z.string().optional(),
-	createdAt: z.date()
-});
-
-export const analyticsSchema = z.object({
-	totalViews: z.number(),
-	badActors: z.number()
 });
 
 export const technologySchema = z.object({
@@ -62,15 +49,6 @@ export const projectSchema = z.object({
 	endDate: z.string().optional()
 });
 
-export const paginationInfoSchema = z.object({
-	page: z.number(),
-	limit: z.number(),
-	totalCount: z.number(),
-	totalPages: z.number(),
-	hasNext: z.boolean(),
-	hasPrev: z.boolean()
-});
-
 export const contactSchema = z.object({
 	name: z.string().trim().min(1, 'Name is required').max(100, 'Name is too long'),
 	email: z.string().trim().email('Invalid email address').max(200, 'Email is too long'),
@@ -82,10 +60,6 @@ export const contactSchema = z.object({
 		.max(5000, 'Message is too long (max 5000 characters)')
 });
 
-export type ContactForm = z.infer<typeof contactSchema>;
-export type GuestbookEntry = z.infer<typeof guestbookEntrySchema>;
-export type Analytics = z.infer<typeof analyticsSchema>;
 export type Technology = z.infer<typeof technologySchema>;
 export type ProjectImage = z.infer<typeof projectImageSchema>;
 export type Project = z.infer<typeof projectSchema>;
-export type PaginationInfo = z.infer<typeof paginationInfoSchema>;
