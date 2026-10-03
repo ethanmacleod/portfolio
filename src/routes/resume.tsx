@@ -5,6 +5,13 @@ import { pageMeta } from '~/lib/site';
 const resumePath = '/resume.pdf';
 
 export const Route = createFileRoute('/resume')({
+	staticData: {
+		heading: {
+			title: 'My Resume',
+			subtitle: 'Always keen for some feedback, chuck it in the guestbook!'
+		},
+		sitemap: { priority: 0.8, changefreq: 'monthly' }
+	},
 	head: () => ({
 		meta: pageMeta('Resume - Ethan MacLeod', 'My resume and professional background')
 	}),

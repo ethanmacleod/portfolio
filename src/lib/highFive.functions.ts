@@ -5,7 +5,12 @@ import { getCount, increment } from '~/lib/server/redis.server';
 const highFiveCountKey = 'highfives:count';
 
 export const getHighFiveCount = createServerFn().handler(async () => {
-	return await getCount(highFiveCountKey);
+	try {
+		return await getCount(highFiveCountKey);
+	} catch (error) {
+		console.error('highfive: Redis is unavailable, showing a zero count', error);
+		return 0;
+	}
 });
 
 export const giveHighFive = createServerFn({ method: 'POST' }).handler(async () => {
@@ -17,5 +22,5 @@ export const giveHighFive = createServerFn({ method: 'POST' }).handler(async () 
 	if (rateLimit.isLimited) return { result: 'rateLimited' } as const;
 
 	const count = await increment(highFiveCountKey);
-	return { result: 'counted', count, remaining: rateLimit.remaining } as const;
+	return { result: 'counted', count } as const;
 });

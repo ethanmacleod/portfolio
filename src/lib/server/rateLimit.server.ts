@@ -15,8 +15,5 @@ export async function consumeIpRateLimit({ scope, maxRequests, windowSeconds }: 
 	const requestCount = await client.incr(key);
 	await client.expire(key, windowSeconds, 'NX');
 
-	return {
-		isLimited: requestCount > maxRequests,
-		remaining: Math.max(0, maxRequests - requestCount)
-	};
+	return { isLimited: requestCount > maxRequests };
 }

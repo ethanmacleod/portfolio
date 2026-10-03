@@ -1,4 +1,4 @@
-import { useLocation } from '@tanstack/react-router';
+import { useLocation, useMatches } from '@tanstack/react-router';
 import { format } from 'date-fns';
 import { Fragment, useState, type ReactNode } from 'react';
 import type { trackVisitAndGetAnalytics } from '~/lib/analytics.functions';
@@ -6,8 +6,6 @@ import { Header } from '~/lib/components/nav/Header';
 import { LeftNav } from '~/lib/components/nav/LeftNav';
 import { useNow } from '~/lib/hooks/useNow';
 import { cn, mapNullish } from '~/lib/utils';
-
-const fullscreenPathnames = ['/boids'];
 
 const checkerboardBackground = {
 	backgroundColor: '#005050',
@@ -29,6 +27,9 @@ export function AppShell({ analytics, highFiveCount, children }: AppShellProps) 
 	const pathname = useLocation({ select: (location) => location.pathname });
 	const [drawerOpenedOnPathname, setDrawerOpenedOnPathname] = useState<string | null>(null);
 	const isDrawerOpen = drawerOpenedOnPathname === pathname;
+	const isFullscreen = useMatches({
+		select: (matches) => matches.some((match) => match.staticData.isFullscreen)
+	});
 
 	return (
 		<div className="flex h-screen gap-4 p-2 font-serif" style={checkerboardBackground}>
@@ -70,10 +71,7 @@ export function AppShell({ analytics, highFiveCount, children }: AppShellProps) 
 				</div>
 
 				<main
-					className={cn(
-						'bevel-inset flex-1 overflow-auto bg-[#d4d4d4]',
-						!fullscreenPathnames.includes(pathname) && 'p-8'
-					)}
+					className={cn('bevel-inset flex-1 overflow-auto bg-[#d4d4d4]', !isFullscreen && 'p-8')}
 				>
 					{children}
 				</main>

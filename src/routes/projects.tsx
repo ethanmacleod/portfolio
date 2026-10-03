@@ -7,6 +7,13 @@ import { pageMeta } from '~/lib/site';
 import { assert, cn } from '~/lib/utils';
 
 export const Route = createFileRoute('/projects')({
+	staticData: {
+		heading: {
+			title: 'Check Out My Projects!',
+			subtitle: "I've made some pretty cool stuff... besides this website"
+		},
+		sitemap: { priority: 0.9, changefreq: 'weekly' }
+	},
 	head: () => ({
 		meta: pageMeta('Projects - Ethan MacLeod', 'Explore my latest projects and development work')
 	}),

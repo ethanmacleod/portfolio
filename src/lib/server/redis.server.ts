@@ -2,20 +2,38 @@ import { createClient } from 'redis';
 
 type RedisClient = ReturnType<typeof createClient>;
 
-let redisClient: RedisClient | null = null;
+const maxReconnectAttempts = 2;
 
-export async function getRedisClient(): Promise<RedisClient> {
-	if (!redisClient) {
-		redisClient = createClient({ url: process.env.REDIS_URL });
+let redisClientPromise: Promise<RedisClient> | null = null;
 
-		redisClient.on('error', (error: unknown) => {
-			console.error('redis: client error', error);
-		});
+async function connectRedisClient() {
+	const client = createClient({
+		url: process.env.REDIS_URL,
+		disableOfflineQueue: true,
+		socket: {
+			connectTimeout: 2000,
+			reconnectStrategy: (attempt, cause) => (attempt >= maxReconnectAttempts ? cause : 250)
+		}
+	});
 
-		await redisClient.connect();
-		console.log('redis: client connected');
-	}
-	return redisClient;
+	client.on('error', (error: unknown) => {
+		console.error('redis: client error', error);
+	});
+	client.on('end', () => {
+		redisClientPromise = null;
+	});
+
+	await client.connect();
+	console.log('redis: client connected');
+	return client;
+}
+
+export function getRedisClient(): Promise<RedisClient> {
+	redisClientPromise ??= connectRedisClient().catch((error: unknown) => {
+		redisClientPromise = null;
+		throw error;
+	});
+	return redisClientPromise;
 }
 
 export async function increment(key: string): Promise<number> {

@@ -5,6 +5,13 @@ import { pageMeta } from '~/lib/site';
 import type { Section } from '~/lib/types';
 
 export const Route = createFileRoute('/uses')({
+	staticData: {
+		heading: {
+			title: 'My Stack & Setup',
+			subtitle: 'Just some misc stats about me :)'
+		},
+		sitemap: { priority: 0.7, changefreq: 'monthly' }
+	},
 	head: () => ({
 		meta: pageMeta('Uses - Ethan MacLeod', 'What I use - hardware, software, and more')
 	}),

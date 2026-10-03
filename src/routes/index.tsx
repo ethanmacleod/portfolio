@@ -3,6 +3,13 @@ import { RetroDiv } from '~/lib/components/RetroDiv';
 import { pageMeta } from '~/lib/site';
 
 export const Route = createFileRoute('/')({
+	staticData: {
+		heading: {
+			title: 'Welcome to My Website!',
+			subtitle: 'Get to know a little bit about me and sign my guestbook :)'
+		},
+		sitemap: { priority: 1.0, changefreq: 'weekly' }
+	},
 	head: () => ({
 		meta: pageMeta(
 			'Ethan MacLeod - Software Developer',

@@ -29,6 +29,13 @@ const runningStackCount = stacks.filter((stack) => stack.status === 'online').le
 const stacksByCategory = groupBy(stacks, (stack) => stack.category);
 
 export const Route = createFileRoute('/homelab')({
+	staticData: {
+		heading: {
+			title: 'My Homelab',
+			subtitle: 'About $20/month of maintenance that sits in my livingroom'
+		},
+		sitemap: { priority: 0.7, changefreq: 'monthly' }
+	},
 	head: () => ({
 		meta: pageMeta(
 			'Homelab - Ethan MacLeod',
