@@ -1,38 +1,27 @@
-# sv
+# ethanmacleod.com
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+My personal website, built to look like a personal homepage from the early 2000s.
 
-## Creating a project
+Built with TanStack Start (React), Tailwind 4 and Prisma on Postgres, with Redis for counters and rate limits. It deploys to Vercel through Nitro.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Setup
 
-```bash
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
+```sh
+npm install
+cp .env.example .env
 ```
 
-## Developing
+Fill in `.env`. The guestbook needs `DATABASE_URL` and `DIRECT_URL`, the visitor and high-five counters need `REDIS_URL`, and the contact form needs the `SMTP_*` values.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Scripts
 
-```bash
-npm run dev
+| Script              | What it does                                        |
+| ------------------- | --------------------------------------------------- |
+| `npm run dev`       | Starts the Vite dev server                          |
+| `npm run build`     | Generates the Prisma client and builds to `.output` |
+| `npm run start`     | Serves the built app from `.output`                 |
+| `npm run typecheck` | Type checks with tsgo                               |
+| `npm run lint`      | Lints with oxlint                                   |
+| `npm run format`    | Formats with oxfmt                                  |
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+A lefthook pre-commit hook runs oxfmt on staged files, so you shouldn't need `npm run format` by hand.
