@@ -1,7 +1,6 @@
 @import 'tailwindcss';
 @import './lib/styles/effects.css';
-
-@source not '../legacy-svelte';
+@import './lib/styles/boids.css';
 
 body {
 	font-family: 'Verdana', 'Geneva', sans-serif;

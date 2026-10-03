@@ -16,5 +16,5 @@
 			{ "ignoreElements": ["audio", "canvas", "embed", "input", "textarea", "tr", "td", "video"] }
 		]
 	},
-	"ignorePatterns": ["legacy-svelte/**", "src/routeTree.gen.ts"]
+	"ignorePatterns": ["src/routeTree.gen.ts"]
 }

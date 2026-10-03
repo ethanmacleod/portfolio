@@ -7,10 +7,5 @@
 	"sortTailwindcss": {
 		"stylesheet": "./src/app.css"
 	},
-	"ignorePatterns": [
-		"legacy-svelte/**",
-		"src/routeTree.gen.ts",
-		"prisma/migrations/**",
-		"package-lock.json"
-	]
+	"ignorePatterns": ["src/routeTree.gen.ts", "prisma/migrations/**", "package-lock.json"]
 }

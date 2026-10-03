@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/react';
 import appCss from '~/app.css?url';
 import { trackVisitAndGetAnalytics } from '~/lib/analytics.functions';
 import { AppShell } from '~/lib/components/nav/AppShell';
+import { SparkleCursor } from '~/lib/components/SparkleCursor';
 import { getHighFiveCount } from '~/lib/highFive.functions';
 import { siteUrl } from '~/lib/site';
 
@@ -75,6 +76,7 @@ function RootDocument() {
 				<HeadContent />
 			</head>
 			<body className="bg-[url('/background.webp')] bg-repeat">
+				<SparkleCursor />
 				<AppShell analytics={analytics} highFiveCount={highFiveCount}>
 					<Outlet />
 				</AppShell>
