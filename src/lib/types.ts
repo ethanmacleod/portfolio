@@ -13,8 +13,6 @@ export interface Section {
 	items: SpecItem[];
 }
 
-export type NodeStatus = 'online' | 'offline' | 'standby';
-
 export type PanelVariant = 'blue' | 'green';
 
 export interface Node {
@@ -25,7 +23,6 @@ export interface Node {
 	ramType: string;
 	storage: string;
 	os: string;
-	status: NodeStatus;
 }
 
 export interface Drive {
@@ -43,7 +40,6 @@ export interface NetworkDevice {
 export interface Stack {
 	name: string;
 	category: StackCategory;
-	status: NodeStatus;
 	services: string[];
 }
 

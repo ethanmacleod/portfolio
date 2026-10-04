@@ -1,9 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { Monitor } from 'lucide-react';
 import { UsesCard } from '~/lib/components/UsesCard';
 import { CardGrid, PageStack, ScrollArea } from '~/lib/components/ui/Layout';
-import { PageHeader } from '~/lib/components/ui/Window';
+import { TitleBarHeader } from '~/lib/components/ui/Window';
 import { sections } from '~/lib/config/uses';
 import { pageMeta } from '~/lib/site';
+import { plural } from '~/lib/utils';
 
 export const Route = createFileRoute('/uses')({
 	staticData: {
@@ -14,7 +16,7 @@ export const Route = createFileRoute('/uses')({
 		sitemap: { priority: 0.7, changefreq: 'monthly' }
 	},
 	head: () => ({
-		meta: pageMeta('Uses - Ethan MacLeod', 'What I use - hardware, software, and more')
+		meta: pageMeta('Setup - Ethan MacLeod', 'The hardware and software I use day to day')
 	}),
 	component: UsesPage
 });
@@ -22,9 +24,13 @@ export const Route = createFileRoute('/uses')({
 function UsesPage() {
 	return (
 		<PageStack fillsHeight>
-			<PageHeader
-				title="USES.TXT"
-				description="Hardware, software, and everything I couldn't put on the other pages."
+			<TitleBarHeader
+				title="Setup"
+				Icon={Monitor}
+				statusFields={[
+					plural('section', sections.length),
+					'The computers, peripherals and tools I use day to day'
+				]}
 			/>
 			<ScrollArea>
 				<CardGrid>

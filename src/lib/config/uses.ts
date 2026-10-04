@@ -69,7 +69,7 @@ export const sections: Section[] = [
 		items: [
 			{ label: 'Location', value: 'New Zealand' },
 			{ label: 'Camera', value: 'Canon EOS 650' },
-			{ label: 'Currently reading', value: 'The Pragmatic Programmer, Database Internals, ' },
+			{ label: 'Currently reading', value: 'The Pragmatic Programmer, Database Internals' },
 			{ label: 'Music', value: "SOAD, Guns N' Roses, Alice in Chains" }
 		]
 	}

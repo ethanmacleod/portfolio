@@ -7,10 +7,10 @@ import { Window } from '~/lib/components/ui/Window';
 export function NotFoundPage() {
 	return (
 		<Window className="mx-auto max-w-lg p-4">
-			<Text variant="pageTitle">{'// 404.TXT'}</Text>
-			<p className="mt-2 font-mono text-xs text-gray-700">
+			<Text variant="pageTitle">Page not found</Text>
+			<Text variant="value" className="mt-2">
 				This page doesn't exist. It might be under construction, like the rest of the site.
-			</p>
+			</Text>
 			<Link
 				to="/"
 				className={bevelButtonClassName({
@@ -35,12 +35,12 @@ export function ErrorPage({ error, reset }: ErrorComponentProps) {
 	return (
 		<Window className="error-dialog mx-auto max-w-lg p-4">
 			<Text variant="pageTitle" className="text-red-700">
-				{'// FATAL_ERROR.EXE'}
+				Error
 			</Text>
-			<p className="mt-2 font-mono text-xs text-gray-700">
+			<Text variant="value" className="mt-2">
 				Something on this page broke. Try again, and if it keeps happening let me know through the
 				contact page.
-			</p>
+			</Text>
 			<BevelButton variant="face" onClick={reset} className="mt-4 self-start px-3 font-mono">
 				TRY AGAIN
 			</BevelButton>

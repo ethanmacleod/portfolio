@@ -53,20 +53,6 @@ export function SplitLayout({
 	);
 }
 
-const gridGaps = {
-	tight: 'gap-1.5',
-	normal: 'gap-3'
-} as const;
-
-type CardGridProps = {
-	gap?: keyof typeof gridGaps;
-	children: ReactNode;
-};
-
-export function CardGrid({ gap = 'normal', children }: CardGridProps) {
-	return (
-		<div className={cn('grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3', gridGaps[gap])}>
-			{children}
-		</div>
-	);
+export function CardGrid({ children }: { children: ReactNode }) {
+	return <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">{children}</div>;
 }

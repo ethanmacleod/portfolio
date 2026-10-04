@@ -22,7 +22,7 @@ function ResumePage() {
 	return (
 		<PageStack fillsHeight>
 			<PageHeader
-				title="RESUME.PDF"
+				title="Resume"
 				description="Ethan MacLeod - Software Developer"
 				aside={<ResumeDownloadLink />}
 			/>

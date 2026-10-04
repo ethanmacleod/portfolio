@@ -25,6 +25,10 @@ export function formatNumber(value: number) {
 	return numberFormat.format(value);
 }
 
+export function plural(word: string, count: number) {
+	return `${formatNumber(count)} ${word}${count === 1 ? '' : 's'}`;
+}
+
 const ordinalRules = new Intl.PluralRules('en-NZ', { type: 'ordinal' });
 const ordinalSuffixes: Record<Intl.LDMLPluralRule, string> = {
 	zero: 'th',

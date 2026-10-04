@@ -4,53 +4,48 @@ import { uniq } from 'lodash-es';
 export const optiplexNodes: Node[] = [
 	{
 		model: 'OptiPlex 7060 Micro',
-		role: 'Swarm Manager',
+		role: 'k3s Server',
 		cpu: 'Intel Core i7-8700',
 		ramGb: 16,
 		ramType: 'DDR4',
 		storage: '512GB NVMe',
-		os: 'Ubuntu Server',
-		status: 'online'
+		os: 'Ubuntu Server'
 	},
 	{
 		model: 'OptiPlex 7050 Micro',
-		role: 'Swarm Worker',
+		role: 'k3s Server',
 		cpu: 'Intel Core i5-7500',
 		ramGb: 16,
 		ramType: 'DDR4',
 		storage: '256GB SSD',
-		os: 'Ubuntu Server',
-		status: 'online'
+		os: 'Ubuntu Server'
 	},
 	{
 		model: 'OptiPlex 7050 Micro',
-		role: 'Swarm Worker',
+		role: 'k3s Server',
 		cpu: 'Intel Core i5-7500',
 		ramGb: 16,
 		ramType: 'DDR4',
 		storage: '256GB SSD',
-		os: 'Ubuntu Server',
-		status: 'online'
+		os: 'Ubuntu Server'
 	},
 	{
 		model: 'OptiPlex 7070 Micro',
-		role: 'Swarm Worker',
+		role: 'k3s Agent',
 		cpu: 'Intel Core i7-9700',
 		ramGb: 16,
 		ramType: 'DDR4',
 		storage: '256GB NVMe',
-		os: 'Ubuntu Server',
-		status: 'online'
+		os: 'Ubuntu Server'
 	},
 	{
 		model: 'OptiPlex 7070 Micro',
-		role: 'Swarm Worker',
+		role: 'k3s Agent',
 		cpu: 'Intel Core i7-9700',
 		ramGb: 16,
 		ramType: 'DDR4',
 		storage: '256GB NVMe',
-		os: 'Ubuntu Server',
-		status: 'online'
+		os: 'Ubuntu Server'
 	}
 ];
 
@@ -62,8 +57,7 @@ export const piNodes: Node[] = [
 		ramGb: 8,
 		ramType: 'LPDDR4X',
 		storage: '256GB microSD',
-		os: 'Raspberry Pi OS',
-		status: 'online'
+		os: 'Raspberry Pi OS'
 	},
 	{
 		model: 'Raspberry Pi 4B',
@@ -72,8 +66,7 @@ export const piNodes: Node[] = [
 		ramGb: 8,
 		ramType: 'LPDDR4',
 		storage: '256GB microSD',
-		os: 'Raspberry Pi OS',
-		status: 'online'
+		os: 'Raspberry Pi OS'
 	}
 ];
 
@@ -102,12 +95,9 @@ export const networking: NetworkDevice[] = [
 
 export const stackCategoryVariants = {
 	Media: 'green',
-	Monitoring: 'blue',
-	Networking: 'blue',
+	Infrastructure: 'blue',
 	Tools: 'blue',
-	Automation: 'green',
-	Personal: 'green',
-	AI: 'blue'
+	Personal: 'green'
 } as const satisfies Record<string, PanelVariant>;
 
 export type StackCategory = keyof typeof stackCategoryVariants;
@@ -116,109 +106,77 @@ export const stacks: Stack[] = [
 	{
 		name: 'Media',
 		category: 'Media',
-		status: 'online',
 		services: [
 			'Plex',
 			'Sonarr',
 			'Radarr',
-			'Lidarr',
 			'Bazarr',
 			'Prowlarr',
 			'Jackett',
 			'SABnzbd',
 			'qBittorrent',
 			'Seerr',
-			'Tautulli',
-			'Dispatcharr',
-			'Gluetun VPN'
+			'Tautulli'
 		]
-	},
-	{
-		name: 'Audiobooks',
-		category: 'Media',
-		status: 'online',
-		services: ['Audiobookshelf', 'AudiobookRequest', 'qBittorrent']
 	},
 	{
 		name: 'Books',
 		category: 'Media',
-		status: 'online',
-		services: ['Calibre-Web Automated', 'Book Downloader']
+		services: ['Calibre-Web Automated', 'Shelfmark', 'qBittorrent', 'SABnzbd']
 	},
 	{
-		name: 'Encoding',
+		name: 'Audiobooks',
 		category: 'Media',
-		status: 'online',
-		services: ['Tdarr (QSV)', 'Tdarr Node']
+		services: ['Audiobookshelf']
 	},
 	{
-		name: 'Videos',
-		category: 'Media',
-		status: 'standby',
-		services: []
-	},
-	{
-		name: 'Monitoring',
-		category: 'Monitoring',
-		status: 'online',
-		services: ['Grafana', 'Prometheus', 'Node Exporter', 'Scanopy']
+		name: 'Cluster',
+		category: 'Infrastructure',
+		services: [
+			'Argo CD',
+			'Traefik',
+			'MetalLB',
+			'kube-vip',
+			'Longhorn',
+			'cert-manager',
+			'Cloudflare Tunnel',
+			'Headlamp'
+		]
 	},
 	{
 		name: 'Networking',
-		category: 'Networking',
-		status: 'online',
-		services: ['Nginx Proxy Manager', 'Pi-hole', 'Cloudflared']
+		category: 'Infrastructure',
+		services: ['Pi-hole', 'Tailscale']
 	},
 	{
-		name: 'Documentation',
-		category: 'Tools',
-		status: 'online',
-		services: ['BookStack', 'Snipe-IT', 'Glance', 'Homarr']
-	},
-	{
-		name: 'Tooling',
-		category: 'Tools',
-		status: 'online',
-		services: ['Tandoor Recipes', 'Actual Budget', 'Stirling PDF']
+		name: 'Monitoring',
+		category: 'Infrastructure',
+		services: ['Prometheus', 'Grafana', 'Alertmanager', 'Loki', 'Alloy']
 	},
 	{
 		name: 'Dev',
 		category: 'Tools',
-		status: 'online',
-		services: [
-			'Infisical',
-			'MinIO',
-			'Mailpit',
-			'RedisInsight',
-			'Postgres',
-			'Redis',
-			'MongoDB',
-			'SQL Server'
-		]
+		services: ['Postgres', 'Redis', 'MongoDB', 'SQL Server', 'MinIO', 'Mailpit']
+	},
+	{
+		name: 'Documentation',
+		category: 'Tools',
+		services: ['Homepage', 'Glance', 'InvenTree']
 	},
 	{
 		name: 'Automation',
-		category: 'Automation',
-		status: 'online',
+		category: 'Tools',
 		services: ['n8n']
-	},
-	{
-		name: 'Personal',
-		category: 'Personal',
-		status: 'online',
-		services: ['Habitica']
 	},
 	{
 		name: 'Business',
 		category: 'Personal',
-		status: 'online',
-		services: ['Invoice Ninja']
+		services: ['Invoice Ninja', 'Actual Budget']
 	},
 	{
-		name: 'LLM',
-		category: 'AI',
-		status: 'standby',
-		services: []
+		name: 'Allsky',
+		category: 'Personal',
+		services: ['indi-allsky', 'Mosquitto', 'mqtt2prometheus']
 	}
 ];
 

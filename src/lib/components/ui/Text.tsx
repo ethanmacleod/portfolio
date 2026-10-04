@@ -3,6 +3,8 @@ import { cn } from '~/lib/utils';
 
 const textVariants = {
 	pageTitle: { element: 'h1', className: 'font-mono text-base font-bold text-blue-700' },
+	cardTitle: { element: 'h2', className: 'font-mono text-xs font-bold text-blue-700' },
+	value: { element: 'p', className: 'font-mono text-xs text-gray-700' },
 	sectionLabel: { element: 'h2', className: 'font-mono text-xs font-bold text-gray-600' },
 	description: { element: 'p', className: 'font-mono text-xs text-gray-600' },
 	meta: { element: 'p', className: 'font-mono text-2xs text-gray-500' },
