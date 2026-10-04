@@ -63,7 +63,7 @@ export function ProfileCard() {
 								<tbody>
 									<tr>
 										<td className="w-20 py-1 font-bold text-blue-700">Name:</td>
-										<td>Ethan David Francis MacLeod</td>
+										<td>Ethan MacLeod</td>
 									</tr>
 									<tr className="bg-gray-50">
 										<td className="py-1 font-bold text-blue-700">Age:</td>
@@ -77,7 +77,7 @@ export function ProfileCard() {
 									</tr>
 									<tr className="bg-gray-50">
 										<td className="py-1 font-bold text-blue-700">Email:</td>
-										<td className="text-blue-600 underline">ethandavidfrancis@gmail.com</td>
+										<td className="text-blue-600 underline">contact@ethanmacleod.com</td>
 									</tr>
 									<tr>
 										<td className="py-1 font-bold text-blue-700">Interests:</td>

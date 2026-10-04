@@ -74,36 +74,5 @@ export const projects: Project[] = [
 		],
 		images: [],
 		featured: false
-	},
-	{
-		id: 'pi-services-homelab',
-		title: 'Raspberry Pi Home Server Infrastructure',
-		description:
-			'A containerized home server infrastructure spanning two Raspberry Pi devices for monitoring, media management, and utility services.',
-		longDescription:
-			'Comprehensive home server solution built with Docker Compose across two Raspberry Pi devices. Features system monitoring with Prometheus and Grafana, media streaming with Plex, file management, and remote device control. Includes modular service stacks, Wake-on-LAN API, torrent management, and customizable dashboards for complete home infrastructure management.',
-		githubUrl: 'https://github.com/ethanmacleod/pi-services',
-		technologies: [
-			{ name: 'DOCKER', icon: 'docker.avif', brandColor: '#2496ED' },
-			{ name: 'PYTHON', icon: 'python.avif', brandColor: '#3B82F6' },
-			{ name: 'GRAFANA', brandColor: '#F46800' },
-			{ name: 'PSQL', icon: 'postgres.avif', brandColor: '#4A90E2' },
-			{ name: 'RASPBERRY', brandColor: '#C51A4A' }
-		],
-		images: [
-			{
-				url: '/project-screenshots/4/1.avif',
-				alt: 'Home page view'
-			},
-			{
-				url: '/project-screenshots/4/2.avif',
-				alt: 'Portainer dash'
-			},
-			{
-				url: '/project-screenshots/4/3.avif',
-				alt: 'Grafana dash'
-			}
-		],
-		featured: true
 	}
 ];
