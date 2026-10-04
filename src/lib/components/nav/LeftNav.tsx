@@ -10,7 +10,6 @@ const navButtonClassName = raisedClassName(
 const gifNavLinks = [
 	{ to: '/projects', gifName: 'projects', label: 'Projects' },
 	{ to: '/contact', gifName: 'contact-me', label: 'Contact Me' },
-	{ to: '/resume', gifName: 'resume', label: 'Resume' },
 	{ to: '/uses', gifName: 'uses', label: 'Uses' },
 	{ to: '/homelab', gifName: 'homelab', label: 'Homelab' },
 	{ to: '/boids', gifName: 'boids', label: 'Boids' }
