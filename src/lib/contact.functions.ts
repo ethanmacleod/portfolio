@@ -3,6 +3,9 @@ import nodemailer from 'nodemailer';
 import { z } from 'zod';
 import { contactSchema } from '~/lib/schema';
 import { consumeIpRateLimit } from '~/lib/server/rateLimit.server';
+import { siteUrl } from '~/lib/site';
+
+const ownEmailSuffix = `@${new URL(siteUrl).hostname}`;
 
 const smtpEnvSchema = z.object({
 	SMTP_HOST: z.string().min(1),
@@ -15,7 +18,13 @@ const smtpEnvSchema = z.object({
 
 export const sendContactMessage = createServerFn({ method: 'POST' })
 	.inputValidator(contactSchema)
-	.handler(async ({ data: { name, email, subject, message } }) => {
+	.handler(async ({ data: { name, email, subject, message, website } }) => {
+		const isSpam = website !== '' || email.toLowerCase().endsWith(ownEmailSuffix);
+		if (isSpam) {
+			console.log('contact: dropped likely spam');
+			return { result: 'sent' } as const;
+		}
+
 		const smtpEnv = smtpEnvSchema.safeParse(process.env);
 		if (!smtpEnv.success) {
 			console.error('contact: SMTP is not configured', z.flattenError(smtpEnv.error).fieldErrors);

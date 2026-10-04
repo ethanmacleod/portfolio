@@ -20,27 +20,3 @@ export function Pill({ shape, className, children }: PillProps) {
 		</span>
 	);
 }
-
-const statusDotSizes = {
-	small: 'h-2 w-2',
-	medium: 'h-2.5 w-2.5'
-} as const;
-
-type StatusDotProps = {
-	size?: keyof typeof statusDotSizes;
-	isBlinking?: boolean;
-	className: string;
-};
-
-export function StatusDot({ size = 'small', isBlinking = false, className }: StatusDotProps) {
-	return (
-		<span
-			className={cn(
-				'shrink-0 rounded-full',
-				statusDotSizes[size],
-				isBlinking && 'blink',
-				className
-			)}
-		/>
-	);
-}

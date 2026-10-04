@@ -34,10 +34,6 @@
 	--color-desktop-dark: #003d3d;
 	--color-phosphor: #00ff41;
 
-	--color-availability-open: #22c55e;
-	--color-availability-busy: #eab308;
-	--color-availability-away: #ef4444;
-
 	--drop-shadow-glow-strong: 0 0 4px hsl(120 100% 50% / 0.7);
 	--drop-shadow-glow-soft: 0 0 3px hsl(120 100% 50% / 0.6);
 }

@@ -1,15 +1,13 @@
 import { useForm, useStore } from '@tanstack/react-form';
 import { useState, type ReactNode } from 'react';
-import { StatusDot } from '~/lib/components/ui/Badge';
 import { Inset } from '~/lib/components/ui/Bevel';
 import { BevelButton, bevelButtonClassName } from '~/lib/components/ui/BevelButton';
 import { Input, Textarea } from '~/lib/components/ui/Input';
 import { Text } from '~/lib/components/ui/Text';
 import { SectionWindow, Window } from '~/lib/components/ui/Window';
-import { socials, status } from '~/lib/config/contact';
+import { availability, socials } from '~/lib/config/contact';
 import { sendContactMessage } from '~/lib/contact.functions';
 import { contactSchema } from '~/lib/schema';
-import type { StatusConfig } from '~/lib/types';
 import { cn } from '~/lib/utils';
 
 const submitErrorMessages = {
@@ -18,12 +16,6 @@ const submitErrorMessages = {
 	failed:
 		'Something went wrong sending your message. Please try again or reach out via social links.'
 } as const;
-
-const availabilityClassNames: Record<StatusConfig['state'], { dot: string; label: string }> = {
-	open: { dot: 'bg-availability-open', label: 'text-availability-open' },
-	busy: { dot: 'bg-availability-busy', label: 'text-availability-busy' },
-	away: { dot: 'bg-availability-away', label: 'text-availability-away' }
-};
 
 type SubmitState = 'idle' | 'sent' | keyof typeof submitErrorMessages;
 
@@ -53,28 +45,10 @@ export function ContactFormWindow() {
 export function ContactStatusPanel() {
 	return (
 		<SectionWindow label="Current status">
-			<Inset tone="screen" className="p-3">
-				<div className="flex items-center gap-2">
-					<StatusDot
-						size="medium"
-						isBlinking
-						className={availabilityClassNames[status.state].dot}
-					/>
-					<span
-						className={cn(
-							'neon-glow font-mono text-sm font-bold',
-							availabilityClassNames[status.state].label
-						)}
-					>
-						{status.label}
-					</span>
-				</div>
-				<p className="mt-2 font-mono text-xs text-gray-400">{status.detail}</p>
-				<div className="mt-3 flex flex-col gap-1 border-t border-gray-700 pt-2">
-					<StatusRow label="TIMEZONE" value={status.timezone} />
-					<StatusRow label="RESPONSE" value={status.response} />
-				</div>
-			</Inset>
+			<div className="flex flex-col gap-2">
+				<Text variant="value">{availability}</Text>
+				<Text variant="value">I'm in New Zealand and usually reply within a day.</Text>
+			</div>
 		</SectionWindow>
 	);
 }
@@ -106,15 +80,6 @@ export function ContactSocialLinks() {
 	);
 }
 
-function StatusRow({ label, value }: { label: string; value: string }) {
-	return (
-		<div className="flex justify-between">
-			<span className="font-mono text-xs text-gray-500">{label}</span>
-			<span className="font-mono text-xs text-green-400">{value}</span>
-		</div>
-	);
-}
-
 type ContactFormProps = {
 	submitState: SubmitState;
 	onSubmitStateChange: (submitState: SubmitState) => void;
@@ -122,7 +87,7 @@ type ContactFormProps = {
 
 function ContactForm({ submitState, onSubmitStateChange }: ContactFormProps) {
 	const form = useForm({
-		defaultValues: { name: '', email: '', subject: '', message: '' },
+		defaultValues: { name: '', email: '', subject: '', message: '', website: '' },
 		validators: { onSubmit: contactSchema },
 		onSubmit: async ({ value }) => {
 			try {
@@ -212,6 +177,21 @@ function ContactForm({ submitState, onSubmitStateChange }: ContactFormProps) {
 							onBlur={field.handleBlur}
 						/>
 					</FormField>
+				)}
+			</form.Field>
+
+			<form.Field name="website">
+				{(field) => (
+					<div aria-hidden="true" className="absolute -left-[9999px]">
+						<Input
+							type="text"
+							name="website"
+							tabIndex={-1}
+							autoComplete="off"
+							value={field.state.value}
+							onChange={field.handleChange}
+						/>
+					</div>
 				)}
 			</form.Field>
 

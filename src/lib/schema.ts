@@ -52,7 +52,8 @@ export const contactSchema = z.object({
 		.string()
 		.trim()
 		.min(1, 'REQUIRED_MESSAGE')
-		.max(5000, 'Message is too long (max 5000 characters)')
+		.max(5000, 'Message is too long (max 5000 characters)'),
+	website: z.string()
 });
 
 export type Technology = z.infer<typeof technologySchema>;

@@ -49,11 +49,3 @@ export interface Social {
 	Icon: ComponentType<{ className?: string }>;
 	color: string;
 }
-
-export interface StatusConfig {
-	state: 'open' | 'busy' | 'away';
-	label: string;
-	detail: string;
-	timezone: string;
-	response: string;
-}

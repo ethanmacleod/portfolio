@@ -1,5 +1,5 @@
 import { DiscordIcon, GitHubIcon, InstagramIcon, LinkedInIcon } from '~/lib/components/icons';
-import type { Social, StatusConfig } from '~/lib/types';
+import type { Social } from '~/lib/types';
 
 export const socials: Social[] = [
 	{
@@ -28,10 +28,4 @@ export const socials: Social[] = [
 	}
 ];
 
-export const status: StatusConfig = {
-	state: 'open',
-	label: 'OPEN FOR WORK',
-	detail: 'Available for freelance & contract work',
-	timezone: 'NZT (UTC+12)',
-	response: '~24 hours'
-};
+export const availability = 'Taking on freelance and contract work.';
