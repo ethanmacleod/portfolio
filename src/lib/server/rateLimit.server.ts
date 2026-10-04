@@ -7,8 +7,12 @@ type RateLimit = {
 	windowSeconds: number;
 };
 
+export function getClientIp() {
+	return getRequestIP({ xForwardedFor: process.env.VERCEL === '1' });
+}
+
 export async function consumeIpRateLimit({ scope, maxRequests, windowSeconds }: RateLimit) {
-	const clientIp = getRequestIP({ xForwardedFor: true }) ?? 'unknown';
+	const clientIp = getClientIp() ?? 'unknown';
 	const key = `ratelimit:${scope}:${clientIp}`;
 	try {
 		const client = await getRedisClient();
@@ -16,7 +20,7 @@ export async function consumeIpRateLimit({ scope, maxRequests, windowSeconds }: 
 		await client.expire(key, windowSeconds, 'NX');
 		return { isLimited: requestCount > maxRequests };
 	} catch (error) {
-		console.error(`ratelimit: Redis is unavailable, letting the ${scope} request through`, error);
-		return { isLimited: false };
+		console.error(`ratelimit: Redis is unavailable, blocking the ${scope} request`, error);
+		return { isLimited: true };
 	}
 }

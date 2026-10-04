@@ -1,10 +1,10 @@
 import { createServerFn } from '@tanstack/react-start';
-import { getRequestHeader, getRequestIP } from '@tanstack/react-start/server';
+import { getRequestHeader } from '@tanstack/react-start/server';
 import { z } from 'zod';
 import { guestbookSchema } from '~/lib/schema';
 import { notifyDiscordOfGuestbookEntry } from '~/lib/server/discord.server';
 import { prisma } from '~/lib/server/prisma.server';
-import { consumeIpRateLimit } from '~/lib/server/rateLimit.server';
+import { consumeIpRateLimit, getClientIp } from '~/lib/server/rateLimit.server';
 
 const guestbookPageSize = 10;
 
@@ -46,7 +46,7 @@ export const addGuestbookEntry = createServerFn({ method: 'POST' })
 			data: {
 				...data,
 				location: data.location || null,
-				ipAddress: getRequestIP({ xForwardedFor: true }),
+				ipAddress: getClientIp(),
 				userAgent: getRequestHeader('user-agent')
 			}
 		});
