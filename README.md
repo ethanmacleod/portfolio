@@ -24,8 +24,6 @@ Fill in `.env`. The guestbook needs `DATABASE_URL` and `DIRECT_URL`, the visitor
 | `npm run lint`      | Lints with oxlint                                   |
 | `npm run format`    | Formats with oxfmt                                  |
 
-A lefthook pre-commit hook runs oxfmt on staged files, so you shouldn't need `npm run format` by hand.
-
 ## Credits
 
 - The cursor sparkle trail is adapted from [Tinkerbell Magic Sparkle](http://www.mf2fm.com/rv) by mf2fm web-design (2005-13).

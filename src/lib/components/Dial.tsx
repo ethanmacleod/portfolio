@@ -57,7 +57,7 @@ export function Dial({ label, value, min, max, step = 1, onChange }: DialProps) 
 
 	return (
 		<div className="flex flex-col items-center">
-			<div className="mb-2 font-mono text-sm text-green-300 drop-shadow-[0_0_4px_hsl(120_100%_50%/0.7)]">
+			<div className="mb-2 font-mono text-sm text-green-300 drop-shadow-glow-strong">
 				{value.toFixed(decimalPlaces)}
 			</div>
 
@@ -69,7 +69,9 @@ export function Dial({ label, value, min, max, step = 1, onChange }: DialProps) 
 						<div
 							key={tickIndex}
 							className="absolute top-1/2 left-1/2 origin-center"
-							style={{ transform: `rotate(${percent * activeArcDegrees}deg) translateY(-52px)` }}
+							style={{
+								transform: `rotate(${percent * activeArcDegrees}deg) translateY(-52px)`
+							}}
 						>
 							<div
 								className="w-[2px] rounded-full"
@@ -109,7 +111,7 @@ export function Dial({ label, value, min, max, step = 1, onChange }: DialProps) 
 				</div>
 				<label
 					htmlFor={inputId}
-					className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-8 text-center font-mono text-xs text-green-400 drop-shadow-[0_0_3px_hsl(120_100%_50%/0.6)]"
+					className="absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-8 text-center font-mono text-xs text-green-400 drop-shadow-glow-soft"
 				>
 					{label}
 				</label>

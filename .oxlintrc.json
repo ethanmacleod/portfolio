@@ -1,5 +1,6 @@
 {
 	"$schema": "./node_modules/oxlint/configuration_schema.json",
+	"jsPlugins": ["./lint/designSystem.ts"],
 	"plugins": ["eslint", "typescript", "unicorn", "oxc", "react", "import", "jsx-a11y"],
 	"rules": {
 		"react/rules-of-hooks": "error",
@@ -11,10 +12,24 @@
 			"warn",
 			{ "controlComponents": ["Input", "Textarea"] }
 		],
+		"design-system/no-arbitrary-colour": "error",
+		"design-system/no-arbitrary-font-size": "error",
+		"design-system/no-raw-bevel": "error",
+		"design-system/use-text-variant": "error",
+		"design-system/no-static-colour-style": "error",
 		"jsx-a11y/control-has-associated-label": [
 			"warn",
 			{ "ignoreElements": ["audio", "canvas", "embed", "input", "textarea", "tr", "td", "video"] }
 		]
 	},
-	"ignorePatterns": ["src/routeTree.gen.ts", "src/generated/**"]
+	"ignorePatterns": ["src/routeTree.gen.ts", "src/generated/**"],
+	"overrides": [
+		{
+			"files": ["src/lib/components/ui/**"],
+			"rules": {
+				"design-system/no-raw-bevel": "off",
+				"design-system/use-text-variant": "off"
+			}
+		}
+	]
 }
