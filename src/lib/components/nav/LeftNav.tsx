@@ -22,7 +22,9 @@ export function LeftNav() {
 				<li className={navButtonClassName}>
 					<Link to="/" aria-label="Home" className="block h-full w-full">
 						<img
-							src="https://images.cooltext.com/5732587.gif"
+							src="/gifs/home-page.gif"
+							width={419}
+							height={101}
 							className="block h-full w-full object-contain"
 							alt="Home Page"
 						/>

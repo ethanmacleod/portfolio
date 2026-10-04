@@ -55,6 +55,8 @@ export function ProfileCard() {
 							<img
 								src="/me.avif"
 								alt="Ethan MacLeod"
+								width={210}
+								height={268}
 								className="h-full w-full border-r-2 border-b-2 border-gray-600 bg-gray-300 object-fill"
 							/>
 						</td>
@@ -96,6 +98,8 @@ export function ProfileCard() {
 							<img
 								src="/me2-thumb.avif"
 								alt="Ethan MacLeod"
+								width={210}
+								height={263}
 								className="h-full w-full border-r-2 border-b-2 border-gray-600 object-fill"
 							/>
 						</td>
