@@ -2,10 +2,10 @@ import { useForm, useStore } from '@tanstack/react-form';
 import { Link, useRouter, useRouterState } from '@tanstack/react-router';
 import { isEqual } from 'lodash-es';
 import { useState } from 'react';
-import { insetClassName, Raised, raisedClassName } from '~/lib/components/ui/Bevel';
-import { Inset } from '~/lib/components/ui/Bevel';
-import { BevelButton, bevelButtonClassName } from '~/lib/components/ui/BevelButton';
+import { Inset, insetClassName, Raised, raisedClassName } from '~/lib/components/ui/Bevel';
+import { BevelButton } from '~/lib/components/ui/BevelButton';
 import { Input } from '~/lib/components/ui/Input';
+import { Pager } from '~/lib/components/ui/Pager';
 import { Window } from '~/lib/components/ui/Window';
 import {
 	addGuestbookEntry,
@@ -104,8 +104,6 @@ export function Guestbook({ guestbook }: { guestbook: GuestbookLoadState }) {
 function GuestbookEntries({ guestbookPage }: { guestbookPage: GuestbookPage }) {
 	const { entries, currentPage, totalCount, totalPages } = guestbookPage;
 	const isLoadingPage = useRouterState({ select: (state) => state.isLoading });
-	const hasPreviousPage = currentPage > 1;
-	const hasNextPage = currentPage < totalPages;
 
 	return (
 		<>
@@ -135,43 +133,29 @@ function GuestbookEntries({ guestbookPage }: { guestbookPage: GuestbookPage }) {
 							</span>
 
 							{totalPages > 1 && (
-								<div className="flex items-center gap-2">
-									<GuestbookPageLink page={currentPage - 1} disabled={!hasPreviousPage}>
-										‹ Prev
-									</GuestbookPageLink>
-									<span className="px-2 text-xs font-bold text-purple-800">
-										{currentPage} / {totalPages}
-									</span>
-									<GuestbookPageLink page={currentPage + 1} disabled={!hasNextPage}>
-										Next ›
-									</GuestbookPageLink>
-								</div>
+								<Pager
+									currentPage={currentPage}
+									totalPages={totalPages}
+									layout="compact"
+									renderLink={(link) => (
+										<Link
+											to="/"
+											search={{ page: link.page }}
+											disabled={link.disabled}
+											resetScroll={false}
+											aria-label={link.ariaLabel}
+											className={link.className}
+										>
+											{link.children}
+										</Link>
+									)}
+								/>
 							)}
 						</div>
 					</td>
 				</tr>
 			</tfoot>
 		</>
-	);
-}
-
-type GuestbookPageLinkProps = {
-	page: number;
-	disabled: boolean;
-	children: string;
-};
-
-function GuestbookPageLink({ page, disabled, children }: GuestbookPageLinkProps) {
-	return (
-		<Link
-			to="/"
-			search={{ page }}
-			disabled={disabled}
-			resetScroll={false}
-			className={bevelButtonClassName({ variant: 'white', className: 'text-black' })}
-		>
-			{children}
-		</Link>
 	);
 }
 

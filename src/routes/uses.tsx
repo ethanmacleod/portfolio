@@ -1,8 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { PageHeader, Window } from '~/lib/components/ui/Window';
+import { UsesCard } from '~/lib/components/UsesCard';
+import { CardGrid, PageStack, ScrollArea } from '~/lib/components/ui/Layout';
+import { PageHeader } from '~/lib/components/ui/Window';
 import { sections } from '~/lib/config/uses';
 import { pageMeta } from '~/lib/site';
-import type { Section } from '~/lib/types';
 
 export const Route = createFileRoute('/uses')({
 	staticData: {
@@ -20,43 +21,18 @@ export const Route = createFileRoute('/uses')({
 
 function UsesPage() {
 	return (
-		<div className="flex h-full min-h-0 flex-col gap-3">
+		<PageStack fillsHeight>
 			<PageHeader
 				title="USES.TXT"
 				description="Hardware, software, and everything I couldn't put on the other pages."
 			/>
-
-			<div className="min-h-0 flex-1 overflow-auto">
-				<div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+			<ScrollArea>
+				<CardGrid>
 					{sections.map((section) => (
 						<UsesCard key={section.title} section={section} />
 					))}
-				</div>
-			</div>
-		</div>
-	);
-}
-
-function UsesCard({ section }: { section: Section }) {
-	return (
-		<Window className="p-3">
-			<h2 className="mb-3 flex items-center gap-2 font-mono text-xs font-bold text-blue-700">
-				<section.Icon size={14} aria-hidden="true" />
-				{section.title}
-			</h2>
-			<div className="flex flex-col gap-1">
-				{section.items.map((item) => (
-					<div
-						key={item.label}
-						className="flex gap-2 border-b border-gray-200 pb-1 last:border-0 last:pb-0"
-					>
-						<span className="w-28 shrink-0 font-mono text-xs font-bold text-gray-500">
-							{item.label}
-						</span>
-						<span className="min-w-0 font-mono text-xs text-gray-800">{item.value}</span>
-					</div>
-				))}
-			</div>
-		</Window>
+				</CardGrid>
+			</ScrollArea>
+		</PageStack>
 	);
 }

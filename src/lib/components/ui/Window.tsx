@@ -66,3 +66,20 @@ export function TitledPanel({ title, variant, titleAside, children }: TitledPane
 		</div>
 	);
 }
+
+type SectionWindowProps = {
+	label: ReactNode;
+	grows?: boolean;
+	children: ReactNode;
+};
+
+export function SectionWindow({ label, grows = false, children }: SectionWindowProps) {
+	return (
+		<Window className={cn('p-3', grows ? 'flex-1' : 'shrink-0')}>
+			<Text variant="sectionLabel" className="mb-3">
+				[ {label} ]
+			</Text>
+			{children}
+		</Window>
+	);
+}

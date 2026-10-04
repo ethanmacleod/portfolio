@@ -1,6 +1,8 @@
 import { sumBy } from 'lodash-es';
 import { useState } from 'react';
-import { raisedClassName } from '~/lib/components/ui/Bevel';
+import { Inset, raisedClassName } from '~/lib/components/ui/Bevel';
+import { Window } from '~/lib/components/ui/Window';
+import { skills } from '~/lib/config/skills';
 import type { Technology } from '~/lib/schema';
 import { cn } from '~/lib/utils';
 
@@ -68,5 +70,19 @@ export function SkillBlock({
 				)}
 			</div>
 		</div>
+	);
+}
+
+export function SkillsGrid() {
+	return (
+		<Window>
+			<Inset tone="paper" className="p-1">
+				<div className="flex flex-wrap justify-center gap-1">
+					{skills.map((skill, index) => (
+						<SkillBlock key={skill.name} {...skill} waveIndex={index} />
+					))}
+				</div>
+			</Inset>
+		</Window>
 	);
 }

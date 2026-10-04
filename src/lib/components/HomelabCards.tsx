@@ -1,7 +1,22 @@
+import { groupBy } from 'lodash-es';
+import type { ReactNode } from 'react';
 import { Pill, StatusDot } from '~/lib/components/ui/Badge';
 import { Inset } from '~/lib/components/ui/Bevel';
+import { CardGrid } from '~/lib/components/ui/Layout';
 import { Text } from '~/lib/components/ui/Text';
-import { TitledPanel } from '~/lib/components/ui/Window';
+import { SectionWindow, TitledPanel } from '~/lib/components/ui/Window';
+import {
+	extraDrives,
+	nasDrives,
+	nasModel,
+	nasNotes,
+	networking,
+	optiplexNodes,
+	piNodes,
+	stackCategories,
+	stackCategoryVariants,
+	stacks
+} from '~/lib/config/homelab';
 import type { Drive, NetworkDevice, Node, NodeStatus, PanelVariant, Stack } from '~/lib/types';
 import { cn } from '~/lib/utils';
 
@@ -28,7 +43,7 @@ const stackServiceClassNames: Record<PanelVariant, string> = {
 	green: 'text-win-forest-dark'
 };
 
-export function NodeRow({ node, unit }: { node: Node; unit: number }) {
+function NodeRow({ node, unit }: { node: Node; unit: number }) {
 	return (
 		<Inset tone="white" className="flex items-center gap-3 px-3 py-2">
 			<div className="flex w-44 shrink-0 items-center gap-2">
@@ -47,7 +62,7 @@ export function NodeRow({ node, unit }: { node: Node; unit: number }) {
 	);
 }
 
-export function NodeCard({ node }: { node: Node }) {
+function NodeCard({ node }: { node: Node }) {
 	return (
 		<Inset tone="white" className="px-3 py-2">
 			<div className="mb-2 flex items-center gap-2">
@@ -80,7 +95,7 @@ function NodeSpecs({ node, valueClassName }: { node: Node; valueClassName: strin
 	));
 }
 
-export function NetworkRow({ device }: { device: NetworkDevice }) {
+function NetworkRow({ device }: { device: NetworkDevice }) {
 	return (
 		<Inset tone="white" className="flex items-center gap-2 px-3 py-2">
 			<StatusDot className="bg-win-navy" />
@@ -103,7 +118,7 @@ type DriveRowProps = {
 	barClassName: string;
 };
 
-export function DriveRow({ drive, labelClassName, barClassName }: DriveRowProps) {
+function DriveRow({ drive, labelClassName, barClassName }: DriveRowProps) {
 	return (
 		<div className="flex items-center gap-2">
 			<span className={cn('font-mono text-2xs text-gray-600', labelClassName)}>{drive.label}</span>
@@ -117,7 +132,7 @@ export function DriveRow({ drive, labelClassName, barClassName }: DriveRowProps)
 	);
 }
 
-export function StackCard({ stack, variant }: { stack: Stack; variant: PanelVariant }) {
+function StackCard({ stack, variant }: { stack: Stack; variant: PanelVariant }) {
 	return (
 		<TitledPanel
 			title={stack.name}
@@ -148,5 +163,117 @@ export function StackCard({ stack, variant }: { stack: Stack; variant: PanelVari
 				)}
 			</div>
 		</TitledPanel>
+	);
+}
+
+function RowList({ children }: { children: ReactNode }) {
+	return <div className="flex flex-col gap-1.5">{children}</div>;
+}
+
+export function ClusterSection() {
+	return (
+		<SectionWindow label={`OPTIPLEX CLUSTER - ${optiplexNodes.length} NODES`} grows>
+			<RowList>
+				{optiplexNodes.map((node, index) => (
+					<NodeRow key={index} node={node} unit={index + 1} />
+				))}
+			</RowList>
+		</SectionWindow>
+	);
+}
+
+export function PiSection() {
+	return (
+		<SectionWindow label={`RASPBERRY PI - ${piNodes.length} NODES`} grows>
+			<RowList>
+				{piNodes.map((node) => (
+					<NodeCard key={node.model} node={node} />
+				))}
+			</RowList>
+		</SectionWindow>
+	);
+}
+
+export function NetworkSection() {
+	return (
+		<SectionWindow label="NETWORKING & INFRASTRUCTURE" grows>
+			<RowList>
+				{networking.map((device) => (
+					<NetworkRow key={device.name} device={device} />
+				))}
+			</RowList>
+		</SectionWindow>
+	);
+}
+
+export function StorageSection() {
+	return (
+		<SectionWindow label="STORAGE" grows>
+			<div className="flex flex-col gap-2">
+				<TitledPanel title={nasModel} variant="green">
+					<div className="flex flex-col gap-2 p-3">
+						{nasDrives.map((drive) => (
+							<DriveRow
+								key={drive.label}
+								drive={drive}
+								labelClassName="w-10"
+								barClassName="bg-win-navy"
+							/>
+						))}
+						<Text variant="meta" className="border-t border-gray-400 pt-2">
+							{nasNotes}
+						</Text>
+					</div>
+				</TitledPanel>
+				<TitledPanel title="ADDITIONAL DRIVES" variant="blue">
+					<div className="flex flex-col gap-2 p-3">
+						{extraDrives.map((drive) => (
+							<DriveRow
+								key={drive.label}
+								drive={drive}
+								labelClassName="w-4"
+								barClassName="bg-win-forest"
+							/>
+						))}
+					</div>
+				</TitledPanel>
+			</div>
+		</SectionWindow>
+	);
+}
+
+const stacksByCategory = groupBy(stacks, (stack) => stack.category);
+
+export function HostedStacksSection() {
+	return (
+		<SectionWindow label={`HOSTED STACKS - ${stacks.length} TOTAL`}>
+			<div className="flex flex-col gap-4">
+				{stackCategories.map((category) => (
+					<div key={category}>
+						<p className="mb-1.5 font-mono text-2xs font-bold tracking-widest text-blue-700 uppercase">
+							{category}
+						</p>
+						<CardGrid gap="tight">
+							{(stacksByCategory[category] ?? []).map((stack) => (
+								<StackCard
+									key={stack.name}
+									stack={stack}
+									variant={stackCategoryVariants[category]}
+								/>
+							))}
+						</CardGrid>
+					</div>
+				))}
+			</div>
+		</SectionWindow>
+	);
+}
+
+export function ClusterStatus() {
+	return (
+		<div className="flex items-center gap-1.5">
+			<StatusDot isBlinking className="bg-green-500" />
+			<span className="font-mono text-xs font-bold text-green-700">CLUSTER ONLINE</span>
+		</div>
 	);
 }

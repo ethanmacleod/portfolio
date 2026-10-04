@@ -34,6 +34,18 @@ export type BoidSettings = {
 	cohesionWeight: number;
 };
 
+export const initialBoidSettings: BoidSettings = {
+	maxSpeed: 2,
+	maxForce: 0.03,
+	boidCount: 100,
+	separationRadius: 25,
+	alignmentRadius: 50,
+	cohesionRadius: 50,
+	separationWeight: 1.5,
+	alignmentWeight: 1,
+	cohesionWeight: 1
+};
+
 const zeroVector: Vector = { x: 0, y: 0 };
 
 function addVectors(first: Vector, second: Vector): Vector {

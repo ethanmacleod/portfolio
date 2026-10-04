@@ -30,6 +30,12 @@
 				"design-system/no-raw-bevel": "off",
 				"design-system/use-text-variant": "off"
 			}
+		},
+		{
+			"files": ["src/routes/**"],
+			"rules": {
+				"design-system/no-intrinsic-elements": "error"
+			}
 		}
 	]
 }

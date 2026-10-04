@@ -106,6 +106,26 @@ const plugin = {
 				});
 			}
 		}),
+		'no-intrinsic-elements': {
+			create(context: RuleContext) {
+				return {
+					JSXOpeningElement(node: unknown) {
+						if (!isRecord(node) || !isRecord(node.name)) return;
+						const { name } = node.name;
+						if (
+							node.name.type === 'JSXIdentifier' &&
+							typeof name === 'string' &&
+							/^[a-z]/.test(name)
+						) {
+							context.report({
+								node,
+								message: `Plain <${name}> in a route file. Move the markup into a component in src/lib/components.`
+							});
+						}
+					}
+				};
+			}
+		},
 		'no-static-colour-style': {
 			create(context: RuleContext) {
 				return {

@@ -1,9 +1,12 @@
+import { Link } from '@tanstack/react-router';
 import { useState } from 'react';
 import { SkillBlock } from '~/lib/components/SkillBlock';
 import { GitHubIcon } from '~/lib/components/icons';
 import { Pill } from '~/lib/components/ui/Badge';
 import { bevelButtonClassName } from '~/lib/components/ui/BevelButton';
+import { Pager } from '~/lib/components/ui/Pager';
 import { Window } from '~/lib/components/ui/Window';
+import { projects } from '~/lib/config/projects';
 import type { Project, ProjectImage } from '~/lib/schema';
 import { assert, cn } from '~/lib/utils';
 
@@ -135,5 +138,29 @@ function ProjectImageGallery({ images }: { images: ProjectImage[] }) {
 				</div>
 			)}
 		</div>
+	);
+}
+
+export function ProjectPager({ currentPage }: { currentPage: number }) {
+	return (
+		<Window className="px-4 py-2">
+			<Pager
+				currentPage={currentPage}
+				totalPages={projects.length}
+				layout="numbered"
+				pageLabel={(page) => projects.at(page - 1)?.title ?? `Project ${page}`}
+				renderLink={(link) => (
+					<Link
+						to="/projects"
+						search={{ project: projects.at(link.page - 1)?.id }}
+						disabled={link.disabled}
+						aria-label={link.ariaLabel}
+						className={link.className}
+					>
+						{link.children}
+					</Link>
+				)}
+			/>
+		</Window>
 	);
 }

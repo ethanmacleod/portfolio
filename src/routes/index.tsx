@@ -2,10 +2,8 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 import { z } from 'zod';
 import { Guestbook, type GuestbookLoadState } from '~/lib/components/Guestbook';
 import { ProfileCard } from '~/lib/components/ProfileCard';
-import { SkillBlock } from '~/lib/components/SkillBlock';
-import { Inset } from '~/lib/components/ui/Bevel';
-import { Window } from '~/lib/components/ui/Window';
-import { skills } from '~/lib/config/skills';
+import { SkillsGrid } from '~/lib/components/SkillBlock';
+import { PageStack } from '~/lib/components/ui/Layout';
 import { getGuestbookPage } from '~/lib/guestbook.functions';
 import { pageMeta } from '~/lib/site';
 
@@ -54,18 +52,10 @@ function HomePage() {
 	const guestbook = Route.useLoaderData();
 
 	return (
-		<div className="space-y-6">
+		<PageStack gap="loose">
 			<ProfileCard />
-			<Window>
-				<Inset tone="paper" className="p-1">
-					<div className="flex flex-wrap justify-center gap-1">
-						{skills.map((skill, index) => (
-							<SkillBlock key={skill.name} {...skill} waveIndex={index} />
-						))}
-					</div>
-				</Inset>
-			</Window>
+			<SkillsGrid />
 			<Guestbook guestbook={guestbook} />
-		</div>
+		</PageStack>
 	);
 }
