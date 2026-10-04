@@ -40,10 +40,6 @@ export const projects: Project[] = [
 		],
 		images: [
 			{
-				url: '/project-screenshots/2/1.avif',
-				alt: 'Micro-grid simulation dashboard'
-			},
-			{
 				url: '/project-screenshots/2/2.avif',
 				alt: 'Micro-grid simulation dashboard single item'
 			},
