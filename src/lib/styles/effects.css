@@ -1,19 +1,19 @@
 .bevel-button {
 	border-width: 3px;
 	border-style: solid;
-	border-top-color: #e5e7eb;
-	border-right-color: #6b7280;
-	border-bottom-color: #6b7280;
-	border-left-color: #d1d5db;
+	border-top-color: var(--color-bevel-light);
+	border-right-color: var(--color-bevel-dark);
+	border-bottom-color: var(--color-bevel-dark);
+	border-left-color: var(--color-bevel-light-edge);
 }
 
 .bevel-inset {
 	border-width: 2px;
 	border-style: solid;
-	border-top-color: #6b7280;
-	border-right-color: #e5e7eb;
-	border-bottom-color: #e5e7eb;
-	border-left-color: #9ca3af;
+	border-top-color: var(--color-bevel-dark);
+	border-right-color: var(--color-bevel-light);
+	border-bottom-color: var(--color-bevel-light);
+	border-left-color: var(--color-bevel-dark-edge);
 }
 
 ::-webkit-scrollbar {
@@ -22,34 +22,34 @@
 }
 
 ::-webkit-scrollbar-track {
-	background: #c0c0c0;
+	background: var(--color-win-face);
 	box-shadow:
-		inset 1px 1px 0 #808080,
-		inset -1px -1px 0 #ffffff;
+		inset 1px 1px 0 var(--color-win-shadow),
+		inset -1px -1px 0 var(--color-white);
 }
 
 ::-webkit-scrollbar-thumb {
-	background: #c0c0c0;
+	background: var(--color-win-face);
 	box-shadow:
-		inset 1px 1px 0 #ffffff,
-		inset -1px -1px 0 #808080,
-		inset 2px 2px 0 #dfdfdf,
-		inset -2px -2px 0 #404040;
+		inset 1px 1px 0 var(--color-white),
+		inset -1px -1px 0 var(--color-win-shadow),
+		inset 2px 2px 0 var(--color-win-highlight),
+		inset -2px -2px 0 var(--color-win-dark-shadow);
 }
 
 ::-webkit-scrollbar-thumb:active {
 	box-shadow:
-		inset 1px 1px 0 #808080,
-		inset -1px -1px 0 #ffffff;
+		inset 1px 1px 0 var(--color-win-shadow),
+		inset -1px -1px 0 var(--color-white);
 }
 
 ::-webkit-scrollbar-button:single-button {
-	background: #c0c0c0;
+	background: var(--color-win-face);
 	box-shadow:
-		inset 1px 1px 0 #ffffff,
-		inset -1px -1px 0 #808080,
-		inset 2px 2px 0 #dfdfdf,
-		inset -2px -2px 0 #404040;
+		inset 1px 1px 0 var(--color-white),
+		inset -1px -1px 0 var(--color-win-shadow),
+		inset 2px 2px 0 var(--color-win-highlight),
+		inset -2px -2px 0 var(--color-win-dark-shadow);
 	display: block;
 	width: 16px;
 	height: 16px;
@@ -57,8 +57,8 @@
 
 ::-webkit-scrollbar-button:single-button:active {
 	box-shadow:
-		inset 1px 1px 0 #808080,
-		inset -1px -1px 0 #ffffff;
+		inset 1px 1px 0 var(--color-win-shadow),
+		inset -1px -1px 0 var(--color-white);
 }
 
 ::-webkit-scrollbar-button:single-button:vertical:decrement {
@@ -158,15 +158,15 @@
 	background:
 		repeating-linear-gradient(
 			0deg,
-			rgba(0, 255, 0, 0.03),
-			rgba(0, 255, 0, 0.03) 1px,
+			hsl(120 100% 50% / 0.03),
+			hsl(120 100% 50% / 0.03) 1px,
 			transparent 1px,
 			transparent 2px
 		),
 		repeating-linear-gradient(
 			90deg,
-			rgba(255, 0, 0, 0.03),
-			rgba(255, 0, 0, 0.03) 1px,
+			hsl(0 100% 50% / 0.03),
+			hsl(0 100% 50% / 0.03) 1px,
 			transparent 1px,
 			transparent 3px
 		);
@@ -321,4 +321,78 @@
 	100% {
 		opacity: 0.98;
 	}
+}
+
+.skill-block {
+	transform-origin: center;
+	animation: skill-wave-bounce 8s ease-in-out infinite;
+	animation-delay: calc(var(--wave-delay) * 0.4s);
+}
+
+.skill-block:hover {
+	animation: none;
+	transform: scale(calc(var(--scale) * 1.05));
+	transition: transform 0.2s ease-in-out;
+}
+
+.skill-block-stripe {
+	animation: skill-stripe-slide 2.5s linear infinite;
+}
+
+.skill-block-white-background-fix {
+	mix-blend-mode: multiply;
+	filter: contrast(1.2) brightness(1.1);
+}
+
+@keyframes skill-stripe-slide {
+	0% {
+		transform: translateX(-120px);
+	}
+	70%,
+	100% {
+		transform: translateX(160px);
+	}
+}
+
+@keyframes skill-wave-bounce {
+	0%,
+	6%,
+	90%,
+	100% {
+		transform: scale(var(--scale)) translateY(0px);
+	}
+	3% {
+		transform: scale(var(--scale)) translateY(-4px);
+	}
+}
+
+.title-bar-chrome {
+	background: linear-gradient(
+		180deg,
+		var(--color-win-chrome-light) 0%,
+		var(--color-win-chrome-dark) 100%
+	);
+}
+
+.title-bar-navy {
+	background: linear-gradient(to right, var(--color-win-navy), var(--color-win-title-blue));
+}
+
+.title-bar-forest {
+	background: linear-gradient(to right, var(--color-win-forest), var(--color-win-forest-light));
+}
+
+.desktop-checkerboard {
+	background-color: var(--color-desktop);
+	background-image:
+		linear-gradient(45deg, var(--color-desktop-dark) 25%, transparent 25%),
+		linear-gradient(-45deg, var(--color-desktop-dark) 25%, transparent 25%),
+		linear-gradient(45deg, transparent 75%, var(--color-desktop-dark) 75%),
+		linear-gradient(-45deg, transparent 75%, var(--color-desktop-dark) 75%);
+	background-size: 8px 8px;
+	background-position:
+		0 0,
+		0 4px,
+		4px -4px,
+		-4px 0px;
 }

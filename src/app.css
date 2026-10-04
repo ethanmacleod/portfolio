@@ -1,15 +1,50 @@
 @import 'tailwindcss';
 @import './lib/styles/effects.css';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import './lib/styles/boids.css';
 
-@layer components {
-	.comic-font {
-		font-family: 'Comic Neue', 'Comic Sans MS', cursive;
-	}
+@theme {
+	--font-window: 'Verdana', 'Geneva', sans-serif;
+
+	--text-2xs: 10px;
+	--text-window: 13px;
+
+	--color-win-face: #c0c0c0;
+	--color-win-face-hover: #d0d0d0;
+	--color-win-button: #d4d0c8;
+	--color-win-button-hover: #e4e0d8;
+	--color-win-surface: #d4d4d4;
+	--color-win-track: #c0bdb5;
+	--color-win-highlight: #dfdfdf;
+	--color-win-shadow: #808080;
+	--color-win-dark-shadow: #404040;
+	--color-win-chrome-light: #dce2e8;
+	--color-win-chrome-dark: #8e96a0;
+	--color-win-navy: #000080;
+	--color-win-title-blue: #1084d0;
+	--color-win-forest: #006400;
+	--color-win-forest-light: #228b22;
+	--color-win-forest-dark: #005000;
+
+	--color-bevel-light: #e5e7eb;
+	--color-bevel-light-edge: #d1d5db;
+	--color-bevel-dark: #6b7280;
+	--color-bevel-dark-edge: #9ca3af;
+
+	--color-desktop: #005050;
+	--color-desktop-dark: #003d3d;
+	--color-phosphor: #00ff41;
+
+	--drop-shadow-glow-strong: 0 0 4px hsl(120 100% 50% / 0.7);
+	--drop-shadow-glow-soft: 0 0 3px hsl(120 100% 50% / 0.6);
 }
 
 body {
-	font-family: 'Verdana', 'Geneva', sans-serif;
+	font-family: var(--font-window);
+}
+
+@layer base {
+	button:not(:disabled),
+	[role='button']:not([aria-disabled='true']) {
+		cursor: pointer;
+	}
 }

@@ -1,9 +1,9 @@
-import type { Section } from '$lib/types';
-import { Monitor, Laptop, Keyboard, Terminal, Package, Sparkles } from 'lucide-svelte';
+import type { Section } from '~/lib/types';
+import { Monitor, Laptop, Keyboard, Terminal, Package, Sparkles } from 'lucide-react';
 
 export const sections: Section[] = [
 	{
-		title: 'DESKTOP PC',
+		title: 'Desktop PC',
 		Icon: Monitor,
 		items: [
 			{ label: 'CPU', value: 'AMD Ryzen 5 3600' },
@@ -15,7 +15,7 @@ export const sections: Section[] = [
 		]
 	},
 	{
-		title: 'LAPTOP',
+		title: 'Laptop',
 		Icon: Laptop,
 		items: [
 			{ label: 'Model', value: 'Lenovo ThinkPad T15 Gen 2i' },
@@ -28,7 +28,7 @@ export const sections: Section[] = [
 		]
 	},
 	{
-		title: 'PERIPHERALS',
+		title: 'Peripherals',
 		Icon: Keyboard,
 		items: [
 			{ label: 'Monitor 1', value: 'MSI Optix G27C4 27" Curved 165Hz' },
@@ -41,7 +41,7 @@ export const sections: Section[] = [
 		]
 	},
 	{
-		title: 'DEV STACK',
+		title: 'Dev stack',
 		Icon: Terminal,
 		items: [
 			{ label: 'Languages', value: 'TypeScript, Python, C++' },
@@ -53,7 +53,7 @@ export const sections: Section[] = [
 		]
 	},
 	{
-		title: 'SOFTWARE',
+		title: 'Software',
 		Icon: Package,
 		items: [
 			{ label: 'Terminal', value: 'Bash' },
@@ -64,12 +64,12 @@ export const sections: Section[] = [
 		]
 	},
 	{
-		title: 'MISC',
+		title: 'Misc',
 		Icon: Sparkles,
 		items: [
 			{ label: 'Location', value: 'New Zealand' },
 			{ label: 'Camera', value: 'Canon EOS 650' },
-			{ label: 'Currently reading', value: 'The Pragmatic Programmer, Database Internals, ' },
+			{ label: 'Currently reading', value: 'The Pragmatic Programmer, Database Internals' },
 			{ label: 'Music', value: "SOAD, Guns N' Roses, Alice in Chains" }
 		]
 	}

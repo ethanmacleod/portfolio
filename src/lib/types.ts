@@ -1,11 +1,6 @@
-import type { Component, ComponentType, SvelteComponent } from 'svelte';
-import type { IconProps } from 'lucide-svelte';
-
-export interface Skill {
-	name: string;
-	icon: string;
-	brandColor: string;
-}
+import type { LucideIcon } from 'lucide-react';
+import type { ComponentType } from 'react';
+import type { StackCategory } from '~/lib/config/homelab';
 
 export interface SpecItem {
 	label: string;
@@ -14,20 +9,20 @@ export interface SpecItem {
 
 export interface Section {
 	title: string;
-	Icon: ComponentType<SvelteComponent<IconProps>>;
+	Icon: LucideIcon;
 	items: SpecItem[];
 }
 
-export type NodeStatus = 'online' | 'offline' | 'standby';
+export type PanelVariant = 'blue' | 'green';
 
 export interface Node {
 	model: string;
 	role: string;
 	cpu: string;
-	ram: string;
+	ramGb: number;
+	ramType: string;
 	storage: string;
 	os: string;
-	status: NodeStatus;
 }
 
 export interface Drive {
@@ -44,22 +39,13 @@ export interface NetworkDevice {
 
 export interface Stack {
 	name: string;
-	category: string;
-	status: NodeStatus;
+	category: StackCategory;
 	services: string[];
 }
 
 export interface Social {
 	href: string;
 	label: string;
-	Icon: Component<{ className?: string }>;
+	Icon: ComponentType<{ className?: string }>;
 	color: string;
-}
-
-export interface StatusConfig {
-	state: 'open' | 'busy' | 'away';
-	label: string;
-	detail: string;
-	timezone: string;
-	response: string;
 }

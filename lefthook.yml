@@ -1,0 +1,6 @@
+pre-commit:
+  jobs:
+    - name: format
+      glob: '*.{js,ts,tsx,json,jsonc,css,md,yml,yaml}'
+      run: npx oxfmt --no-error-on-unmatched-pattern {staged_files}
+      stage_fixed: true
