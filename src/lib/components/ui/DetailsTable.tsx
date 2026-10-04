@@ -13,7 +13,7 @@ type DetailsTableProps<Row> = {
 
 export function DetailsTable<Row>({ columns, rows }: DetailsTableProps<Row>) {
 	return (
-		<div className={insetClassName('white', 'overflow-x-auto')}>
+		<div className={insetClassName('white', 'flex-1 overflow-x-auto')}>
 			<table className="w-full border-separate border-spacing-0 font-mono text-xs">
 				<thead>
 					<tr>
@@ -31,7 +31,10 @@ export function DetailsTable<Row>({ columns, rows }: DetailsTableProps<Row>) {
 					{rows.map((row, rowIndex) => (
 						<tr key={rowIndex}>
 							{columns.map((column) => (
-								<td key={column.label} className="px-2 py-1 whitespace-nowrap text-gray-800">
+								<td
+									key={column.label}
+									className="border-r border-b border-gray-300 px-2 py-1 align-top text-gray-800 first:whitespace-nowrap first:text-win-navy"
+								>
 									{column.value(row)}
 								</td>
 							))}

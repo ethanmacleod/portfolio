@@ -79,16 +79,15 @@ const titleBarClassNames: Record<PanelVariant, string> = {
 type TitledPanelProps = {
 	title: string;
 	variant: PanelVariant;
-	titleAside?: ReactNode;
+	grows?: boolean;
 	children: ReactNode;
 };
 
-export function TitledPanel({ title, variant, titleAside, children }: TitledPanelProps) {
+export function TitledPanel({ title, variant, grows = false, children }: TitledPanelProps) {
 	return (
-		<div className="bevel-button bg-win-button">
+		<div className={cn('bevel-button bg-win-button', grows && 'flex-1')}>
 			<div className={cn('flex items-center gap-1.5 px-2 py-1', titleBarClassNames[variant])}>
 				<p className="flex-1 truncate font-mono text-xs font-bold text-white">{title}</p>
-				{titleAside}
 			</div>
 			{children}
 		</div>
@@ -104,10 +103,14 @@ type SectionWindowProps = {
 export function SectionWindow({ label, grows = false, children }: SectionWindowProps) {
 	return (
 		<Window className={cn('p-3', grows ? 'flex-1' : 'shrink-0')}>
-			<Text variant="sectionLabel" className="mb-3">
-				[ {label} ]
-			</Text>
-			{children}
+			<fieldset className="flex min-w-0 flex-1 flex-col border-2 [border-style:groove] border-gray-300 px-3 pt-1 pb-3">
+				<legend className="px-1">
+					<Text variant="sectionLabel" as="span">
+						{label}
+					</Text>
+				</legend>
+				{children}
+			</fieldset>
 		</Window>
 	);
 }

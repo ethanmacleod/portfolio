@@ -25,34 +25,25 @@ export function ScrollArea({ children }: { children: ReactNode }) {
 	return <div className="min-h-0 flex-1 overflow-auto">{children}</div>;
 }
 
-const asideWidths = {
-	narrow: 'md:w-64',
-	wide: 'md:w-72'
-} as const;
-
 type SplitLayoutProps = {
 	aside: ReactNode;
-	asideWidth: keyof typeof asideWidths;
 	fillsHeight?: boolean;
 	children: ReactNode;
 };
 
-export function SplitLayout({
-	aside,
-	asideWidth,
-	fillsHeight = false,
-	children
-}: SplitLayoutProps) {
+export function SplitLayout({ aside, fillsHeight = false, children }: SplitLayoutProps) {
 	return (
 		<div className={cn('flex flex-col gap-3 md:flex-row', fillsHeight && 'h-full min-h-0')}>
 			<div className="flex min-w-0 flex-1 flex-col gap-3">{children}</div>
-			<div className={cn('flex w-full shrink-0 flex-col gap-3', asideWidths[asideWidth])}>
-				{aside}
-			</div>
+			<div className="flex w-full shrink-0 flex-col gap-3 md:w-72">{aside}</div>
 		</div>
 	);
 }
 
 export function CardGrid({ children }: { children: ReactNode }) {
-	return <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">{children}</div>;
+	return (
+		<div className="grid min-h-full auto-rows-fr grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
+			{children}
+		</div>
+	);
 }

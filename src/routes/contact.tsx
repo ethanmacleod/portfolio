@@ -25,7 +25,6 @@ export const Route = createFileRoute('/contact')({
 function ContactPage() {
 	return (
 		<SplitLayout
-			asideWidth="wide"
 			fillsHeight
 			aside={
 				<>

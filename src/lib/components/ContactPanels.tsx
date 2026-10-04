@@ -52,7 +52,7 @@ export function ContactFormWindow() {
 
 export function ContactStatusPanel() {
 	return (
-		<SectionWindow label="CURRENT STATUS">
+		<SectionWindow label="Current status">
 			<Inset tone="screen" className="p-3">
 				<div className="flex items-center gap-2">
 					<StatusDot
@@ -81,7 +81,7 @@ export function ContactStatusPanel() {
 
 export function ContactSocialLinks() {
 	return (
-		<SectionWindow label="FIND ME ELSEWHERE" grows>
+		<SectionWindow label="Find me elsewhere" grows>
 			<div className="flex flex-col gap-2">
 				{socials.map((social) => (
 					<a

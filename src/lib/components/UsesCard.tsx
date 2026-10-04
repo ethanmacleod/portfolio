@@ -1,29 +1,24 @@
-import { Text } from '~/lib/components/ui/Text';
-import { Window } from '~/lib/components/ui/Window';
-import type { Section } from '~/lib/types';
+import { DetailsTable } from '~/lib/components/ui/DetailsTable';
+import { SectionWindow } from '~/lib/components/ui/Window';
+import type { Section, SpecItem } from '~/lib/types';
+
+const specColumns: { label: string; value: (item: SpecItem) => string }[] = [
+	{ label: 'Name', value: (item) => item.label },
+	{ label: 'Value', value: (item) => item.value }
+];
 
 export function UsesCard({ section }: { section: Section }) {
 	return (
-		<Window className="p-3">
-			<Text variant="cardTitle" className="mb-3 flex items-center gap-2">
-				<section.Icon size={14} aria-hidden="true" />
-				{section.title}
-			</Text>
-			<div className="flex flex-col gap-1">
-				{section.items.map((item) => (
-					<div
-						key={item.label}
-						className="flex gap-2 border-b border-gray-200 pb-1 last:border-0 last:pb-0"
-					>
-						<Text variant="fieldLabel" className="w-28 shrink-0">
-							{item.label}
-						</Text>
-						<Text variant="value" as="span" className="min-w-0">
-							{item.value}
-						</Text>
-					</div>
-				))}
-			</div>
-		</Window>
+		<SectionWindow
+			label={
+				<span className="flex items-center gap-1.5">
+					<section.Icon size={12} aria-hidden="true" />
+					{section.title}
+				</span>
+			}
+			grows
+		>
+			<DetailsTable columns={specColumns} rows={section.items} />
+		</SectionWindow>
 	);
 }

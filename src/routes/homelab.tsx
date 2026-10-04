@@ -45,7 +45,7 @@ function HomelabPage() {
 				]}
 			/>
 			<NodesSection />
-			<SplitLayout asideWidth="narrow" aside={<StorageSection />}>
+			<SplitLayout aside={<StorageSection />}>
 				<NetworkSection />
 			</SplitLayout>
 			<HostedStacksSection />

@@ -78,13 +78,6 @@ export const nasDrives: Drive[] = [
 	{ label: 'Bay 2', size: '16TB', type: 'Seagate Exos X' }
 ];
 
-export const extraDrives: Drive[] = [
-	{ label: '1', size: '4TB', type: 'Seagate IronWolf' },
-	{ label: '2', size: '4TB', type: 'Seagate IronWolf' },
-	{ label: '3', size: '4TB', type: 'Seagate IronWolf' },
-	{ label: '4', size: '4TB', type: 'Seagate IronWolf' }
-];
-
 export const networking: NetworkDevice[] = [
 	{ name: 'Router', model: 'Ubiquiti UCG-Ultra', notes: '2.5GbE WAN · 4x 1GbE LAN' },
 	{ name: 'Core Switch', model: 'MikroTik 10" Managed', notes: 'Core managed switch' },

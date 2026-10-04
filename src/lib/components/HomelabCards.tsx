@@ -5,7 +5,6 @@ import { DetailsTable } from '~/lib/components/ui/DetailsTable';
 import { Text } from '~/lib/components/ui/Text';
 import { SectionWindow, TitledPanel } from '~/lib/components/ui/Window';
 import {
-	extraDrives,
 	nasDrives,
 	nasModel,
 	nasNotes,
@@ -41,18 +40,12 @@ const networkColumns: { label: string; value: (device: NetworkDevice) => string 
 	{ label: 'Notes', value: (device) => device.notes }
 ];
 
-type DriveRowProps = {
-	drive: Drive;
-	labelClassName: string;
-	barClassName: string;
-};
-
-function DriveRow({ drive, labelClassName, barClassName }: DriveRowProps) {
+function DriveRow({ drive }: { drive: Drive }) {
 	return (
 		<div className="flex items-center gap-2">
-			<span className={cn('font-mono text-2xs text-gray-600', labelClassName)}>{drive.label}</span>
+			<span className={'w-10 font-mono text-2xs text-gray-600'}>{drive.label}</span>
 			<Inset tone="track" className="h-4 flex-1 overflow-hidden">
-				<div className={cn('h-full w-full', barClassName)} />
+				<div className={'h-full w-full bg-win-navy'} />
 			</Inset>
 			<span className="w-32 font-mono text-2xs text-gray-700">
 				{drive.size} {drive.type}
@@ -81,7 +74,7 @@ function StackCard({ stack, variant }: { stack: Stack; variant: PanelVariant }) 
 
 export function NodesSection() {
 	return (
-		<SectionWindow label="NODES">
+		<SectionWindow label="Nodes">
 			<DetailsTable columns={nodeColumns} rows={allNodes} />
 		</SectionWindow>
 	);
@@ -89,7 +82,7 @@ export function NodesSection() {
 
 export function NetworkSection() {
 	return (
-		<SectionWindow label="NETWORKING" grows>
+		<SectionWindow label="Networking" grows>
 			<DetailsTable columns={networkColumns} rows={networking} />
 		</SectionWindow>
 	);
@@ -97,36 +90,17 @@ export function NetworkSection() {
 
 export function StorageSection() {
 	return (
-		<SectionWindow label="STORAGE" grows>
-			<div className="flex flex-col gap-2">
-				<TitledPanel title={nasModel} variant="green">
-					<div className="flex flex-col gap-2 p-3">
-						{nasDrives.map((drive) => (
-							<DriveRow
-								key={drive.label}
-								drive={drive}
-								labelClassName="w-10"
-								barClassName="bg-win-navy"
-							/>
-						))}
-						<Text variant="meta" className="border-t border-gray-400 pt-2">
-							{nasNotes}
-						</Text>
-					</div>
-				</TitledPanel>
-				<TitledPanel title="ADDITIONAL DRIVES" variant="blue">
-					<div className="flex flex-col gap-2 p-3">
-						{extraDrives.map((drive) => (
-							<DriveRow
-								key={drive.label}
-								drive={drive}
-								labelClassName="w-4"
-								barClassName="bg-win-forest"
-							/>
-						))}
-					</div>
-				</TitledPanel>
-			</div>
+		<SectionWindow label="Storage" grows>
+			<TitledPanel title={nasModel} variant="green" grows>
+				<div className="flex flex-col gap-2 p-3">
+					{nasDrives.map((drive) => (
+						<DriveRow key={drive.label} drive={drive} />
+					))}
+					<Text variant="meta" className="border-t border-gray-400 pt-2">
+						{nasNotes}
+					</Text>
+				</div>
+			</TitledPanel>
 		</SectionWindow>
 	);
 }
@@ -135,7 +109,7 @@ const stacksByCategory = groupBy(stacks, (stack) => stack.category);
 
 export function HostedStacksSection() {
 	return (
-		<SectionWindow label={`HOSTED STACKS - ${stacks.length} TOTAL`}>
+		<SectionWindow label={`Hosted stacks (${stacks.length})`}>
 			<div className="grid grid-cols-1 items-start gap-3 sm:grid-cols-2 xl:grid-cols-4">
 				{stackCategories.map((category) => (
 					<div key={category} className="flex flex-col gap-1.5">
